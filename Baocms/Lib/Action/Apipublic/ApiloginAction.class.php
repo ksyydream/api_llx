@@ -6,6 +6,7 @@
  * Time: 上午9:55
  */
 class ApiloginAction extends CommonAction{
+
     public function test_token(){
         $dataall = $this->_param();
         $open=fopen('/Users/yangyang/ajk/try/yy.txt',"wb" );
