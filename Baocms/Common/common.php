@@ -8,6 +8,7 @@ function set_token_uid($uid){
     return base64_encode($uid);
 }
 
+
 function get_token_uid($token){
     $token = base64_decode($token);
     import("ORG/Crypt/Base64");
