@@ -1,0 +1,342 @@
+[ 2016-11-02T11:51:28+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshopscate
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000517s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000574s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000461s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000493s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.019586s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_cate` WHERE ( `parent_id` = 0 )  [ RunTime:0.020360s ]
+
+[ 2016-11-02T11:52:26+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshopscate
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000269s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000302s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000184s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000208s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.017086s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_cate` WHERE ( `parent_id` = 1 )  [ RunTime:0.017446s ]
+
+[ 2016-11-02T12:05:31+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshopscate
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000304s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000337s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000180s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000204s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.019237s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `cate_id`,`cate_name`,`parent_id`,`orderby`,`is_hot` FROM `bao_shop_cate` WHERE ( `parent_id` = 1 )  [ RunTime:0.016490s ]
+
+[ 2016-11-02T13:59:37+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000306s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000363s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000201s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000228s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.018562s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_city`  [ RunTime:0.037447s ]
+
+[ 2016-11-02T14:05:03+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000264s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000298s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000190s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000214s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.018817s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `city_id`,`name`,`pinyin`,`orderby`,`first_letter`,`photo` FROM `bao_city` WHERE ( `is_open` = 1 )  [ RunTime:0.025700s ]
+
+[ 2016-11-02T14:21:20+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getarea
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000267s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000300s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000185s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000208s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.017432s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_area` WHERE ( `city_id` = 12 )  [ RunTime:0.018295s ]
+
+[ 2016-11-02T15:35:21+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000464s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000505s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000352s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000379s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.020263s ]
+ERR: Model:_param您所请求的方法不存在！
+
+[ 2016-11-02T15:36:11+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000468s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000504s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000185s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000209s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018017s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+
+[ 2016-11-02T15:37:10+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000269s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000302s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000177s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000201s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.025580s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(31.143237-lat)/360),2)+COS(PI()*121.393251/180)* COS(lat * PI()/180)*POW(SIN(PI()*(121.393251-lng)/360),2)))) as juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) ORDER BY juli desc LIMIT 0,5   [ RunTime:0.017023s ]
+
+[ 2016-11-02T15:37:45+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000282s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000319s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000194s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000217s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017225s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(31.143237-lat)/360),2)+COS(PI()*121.393251/180)* COS(lat * PI()/180)*POW(SIN(PI()*(121.393251-lng)/360),2)))) as juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) ORDER BY juli asc LIMIT 0,5   [ RunTime:0.016258s ]
+
+[ 2016-11-02T15:38:14+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000418s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000475s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000267s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000299s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017882s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(31.143237-lat)/360),2)+COS(PI()*121.393251/180)* COS(lat * PI()/180)*POW(SIN(PI()*(121.393251-lng)/360),2)))) as juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) ORDER BY juli asc LIMIT 0,20   [ RunTime:0.019218s ]
+
+[ 2016-11-02T15:40:33+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000266s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000299s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000177s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000199s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.019723s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(31.143237-lat)/360),2)+COS(PI()*121.393251/180)* COS(lat * PI()/180)*POW(SIN(PI()*(121.393251-lng)/360),2)))) as juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,20   [ RunTime:0.018021s ]
+
+[ 2016-11-02T15:51:11+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000267s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000300s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000180s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000203s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018915s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,ROUND(lat_lng_distance(#{lat},`#{lon}`,`lat`,lon),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,20   [ RunTime:0.016180s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ [ SQL语句 ] : SELECT `shop_id`,ROUND(lat_lng_distance(#{lat},`#{lon}`,`lat`,lon),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,20  
+
+[ 2016-11-02T15:52:22+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000277s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000311s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000187s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000210s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018737s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,ROUND(lat_lng_distance(31.143237,121.393251,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,20   [ RunTime:0.018906s ]
+
+[ 2016-11-02T16:01:48+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000285s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000330s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000245s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000269s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018500s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined variable: lat /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopModel.class.php 第 154 行.
+NOTIC: [8] Undefined variable: lng /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopModel.class.php 第 154 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,ROUND(lat_lng_distance(,``,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,10   [ RunTime:0.017327s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '``,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = ' at line 1
+ [ SQL语句 ] : SELECT `shop_id`,ROUND(lat_lng_distance(,``,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,10  
+
+[ 2016-11-02T16:10:14+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000516s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000558s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000416s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000448s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.033190s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,ROUND(lat_lng_distance(31.143237,121.393251,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,10   [ RunTime:0.026171s ]
+
+[ 2016-11-02T16:20:59+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000473s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000525s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000323s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000348s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.019138s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,ROUND(lat_lng_distance(31.143237,121.393251,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,10   [ RunTime:0.020893s ]
+
+[ 2016-11-02T16:23:16+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getshops
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000273s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000305s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000183s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000206s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.020113s ]
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT `shop_id`,`shop_name`,`logo`,`photo`,`tel`,`addr`,ROUND(lat_lng_distance(31.143237,121.393251,`lat`,lng),2) AS juli FROM `bao_shop` WHERE ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = 12 ) AND ( lat is not null and lng is not null ) ORDER BY juli asc LIMIT 0,10   [ RunTime:0.021839s ]
+

@@ -1,0 +1,3 @@
+<?php if (!defined('THINK_PATH')) exit(); if(empty($MEMBER)): ?>您好，欢迎访问<?php echo ($CONFIG["site"]["sitename"]); ?><a href="<?php echo U('passport/login');?>">登陆</a>|<a href="<?php echo U('passport/register');?>">注册</a>
+    <?php else: ?>
+    欢迎<b style="color: red;"><?php echo ($MEMBER["nickname"]); ?></b>来到<?php echo ($CONFIG["site"]["sitename"]); ?>&nbsp;&nbsp; <a href="<?php echo U('member/index');?>" >个人中心</a>|<a href="<?php echo U('passport/logout');?>" >退出登录</a><?php endif; ?>

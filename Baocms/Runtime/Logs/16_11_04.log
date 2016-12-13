@@ -1,0 +1,65 @@
+[ 2016-11-04T10:35:51+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopdetail
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000528s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000593s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000531s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000585s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.019019s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 12 ) LIMIT 1   [ RunTime:0.041504s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.015936s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_shop_dianping` WHERE ( `closed` = 0 ) AND ( `shop_id` = 12 ) AND ( `show_date` <= '2016-11-04' ) LIMIT 1   [ RunTime:0.014895s ]
+SQL: SHOW COLUMNS FROM `bao_shop_details` [ RunTime:0.015807s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_details` WHERE ( `shop_id` = 12 ) LIMIT 1   [ RunTime:0.016562s ]
+NOTIC: [2048] Declaration of ShopfavoritesModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopfavoritesModel.class.php 第 14 行.
+SQL: SHOW COLUMNS FROM `bao_shop_favorites` [ RunTime:0.015200s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_shop_favorites` WHERE ( `shop_id` = 12 ) LIMIT 1   [ RunTime:0.015303s ]
+SQL: SHOW COLUMNS FROM `bao_work` [ RunTime:0.019807s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_work` WHERE ( `shop_id` = 12 ) AND ( `audit` = 1 ) AND ( `city_id` = 0 ) ORDER BY work_id desc   [ RunTime:0.023256s ]
+SQL: SHOW COLUMNS FROM `bao_weidian_details` [ RunTime:0.021286s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_weidian_details` WHERE ( `audit` = 1 ) AND ( `city_id` = 0 ) AND ( `closed` = 0 ) ORDER BY id desc LIMIT 0,1   [ RunTime:0.043181s ]
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.017888s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_goods` WHERE ( `shop_id` = 12 ) AND ( `audit` = 1 ) AND ( `city_id` = 0 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2016-11-04' ) ORDER BY goods_id desc  [ RunTime:0.017672s ]
+SQL: SHOW COLUMNS FROM `bao_coupon` [ RunTime:0.017523s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_coupon` WHERE ( `shop_id` = 12 ) AND ( `audit` = 1 ) AND ( `city_id` = 0 ) AND ( `closed` = 0 ) AND ( `expire_date` >= '2016-11-04' ) ORDER BY coupon_id desc   [ RunTime:0.015767s ]
+SQL: SHOW COLUMNS FROM `bao_activity` [ RunTime:0.015595s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_activity` WHERE ( `shop_id` = 12 ) AND ( `city_id` = 0 ) AND ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2016-11-04' ) AND ( `bg_date` <= '2016-11-04' ) ORDER BY activity_id desc   [ RunTime:0.015611s ]
+SQL: SHOW COLUMNS FROM `bao_ele_product` [ RunTime:0.015484s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_ele_product` WHERE ( `shop_id` = 12 ) ORDER BY product_id desc   [ RunTime:0.015646s ]
+SQL: SHOW COLUMNS FROM `bao_shop_ding_menu` [ RunTime:0.017575s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_ding_menu` WHERE ( `shop_id` = 12 ) ORDER BY menu_id desc   [ RunTime:0.015668s ]
+SQL:  update bao_shop set view = (view + '1') where shop_id = '12'  [ RunTime:0.015422s ]
+SQL: SHOW COLUMNS FROM `bao_users_look` [ RunTime:0.015875s ]
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_users_look` WHERE ( `user_id` = 63 ) AND ( `shop_id` = 12 ) LIMIT 1   [ RunTime:0.015728s ]
+SQL: INSERT INTO `bao_users_look` (`user_id`,`shop_id`,`last_time`) VALUES (63,12,1478226950) [ RunTime:0.029052s ]
+SQL: SHOW COLUMNS FROM `bao_weidian_details` [ RunTime:0.018240s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_weidian_details` WHERE ( shop_id=12  ) LIMIT 1   [ RunTime:0.019567s ]
+SQL: SHOW COLUMNS FROM `bao_shop_pic` [ RunTime:0.015037s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_shop_pic` WHERE ( `shop_id` = 12 ) ORDER BY `pic_id` desc LIMIT 1   [ RunTime:0.015489s ]
+SQL: SHOW COLUMNS FROM `bao_shop_youhui` [ RunTime:0.016401s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_youhui` WHERE ( `shop_id` = 12 ) AND ( `is_open` = 1 ) LIMIT 1   [ RunTime:0.016344s ]
+

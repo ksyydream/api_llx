@@ -1,0 +1,238 @@
+[ 2016-12-02T10:02:58+08:00 ] 0.0.0.0 /
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000426s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000476s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+ERR: 无法加载模块:Index
+
+[ 2016-12-02T10:04:35+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000960s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001038s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000375s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000429s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:05:44+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000427s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000501s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000250s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000286s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:06:26+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000283s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000321s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000189s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000214s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:08:21+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000438s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000499s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000240s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000271s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:08:57+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000297s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000341s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000182s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000206s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:09:24+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000438s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000494s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000345s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000388s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-02T10:10:37+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000410s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000487s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000243s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000276s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-02T10:10:59+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000612s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000694s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000247s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000302s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-02T10:11:58+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000327s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000367s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000216s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000245s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:13:01+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000269s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000305s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000184s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000207s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
+[ 2016-12-02T10:14:42+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000280s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000320s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000183s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000206s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-02T10:15:22+08:00 ] 0.0.0.0 /Apipublic/Apilogin/login
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000375s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000420s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000257s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000289s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-02T10:15:32+08:00 ] 0.0.0.0 /admin.php
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000316s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000362s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000202s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000226s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: group /Users/yangyang/www/llx_api/Core/Lib/Core/App.class.php 第 102 行.
+ERR: 无法加载模块:Admin.php
+
+[ 2016-12-02T13:23:28+08:00 ] 0.0.0.0 /Apipublic/Apilogin/login
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000278s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000316s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000198s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000221s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Operation timed out /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+

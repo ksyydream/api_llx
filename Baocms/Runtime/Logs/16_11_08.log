@@ -1,0 +1,380 @@
+[ 2016-11-08T11:04:20+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000657s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000739s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000504s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000559s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017470s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.017619s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.016192s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.015857s ]
+ERR: 1146:Table 'baocms.bao_shopdianping' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:06:09+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000301s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000352s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000190s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000217s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017238s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.016783s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.017450s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.016053s ]
+ERR: 1146:Table 'baocms.bao_shopdianping' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.051777s ]
+ERR: 1146:Table 'baocms.bao_shopdianping' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shopdianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 117 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 128 行.
+
+[ 2016-11-08T11:07:09+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000304s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000355s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000193s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000221s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.016357s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.017050s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.015863s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM bao_shopdianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc  [ RunTime:0.015102s ]
+ERR: 1146:Table 'baocms.bao_shopdianping' doesn't exist
+ [ SQL语句 ] : SELECT * FROM bao_shopdianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc 
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:07:19+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000389s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000457s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000246s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000276s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018918s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.018355s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.017029s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM bao_shopdianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc  [ RunTime:0.016879s ]
+ERR: 1146:Table 'baocms.bao_shopdianping' doesn't exist
+ [ SQL语句 ] : SELECT * FROM bao_shopdianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc 
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:07:51+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000314s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000368s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000194s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000222s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017380s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.020271s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.016294s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM bao_shop_dianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc  [ RunTime:0.016326s ]
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:08:01+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000268s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000305s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000179s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000203s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017581s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.019102s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.019013s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM bao_shop_dianping a WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc  [ RunTime:0.016552s ]
+SQL: SHOW COLUMNS FROM `bao_shop_dianping_pics` [ RunTime:0.017235s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_dianping_pics` WHERE ( `dianping_id` IN ('1') )  [ RunTime:0.016605s ]
+
+[ 2016-11-08T11:08:17+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000294s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000345s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000188s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000215s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.016650s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.016740s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.015126s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.015403s ]
+ERR: 1146:Table 'baocms.bao_user' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:08:35+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000332s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000396s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000227s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000255s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017753s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.016532s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.015634s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.015667s ]
+ERR: 1146:Table 'baocms.bao_user' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname,`` FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:08:49+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000261s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000295s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000176s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000199s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017110s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.016439s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.016256s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.015970s ]
+ERR: 1146:Table 'baocms.bao_user' doesn't exist
+ [ SQL语句 ] : SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname FROM bao_shop_dianping a left join bao_user b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5  
+NOTIC: [2] Invalid argument supplied for foreach() /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 101 行.
+NOTIC: [8] Undefined variable: pics /Users/yangyang/www/llx_api/Baocms/Lib/Action/Apipublic/ApiPshopAction.class.php 第 112 行.
+
+[ 2016-11-08T11:09:18+08:00 ] 0.0.0.0 /Apipublic/ApiPshop/shopDianPing
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000276s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000314s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000193s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000219s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.016833s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 11 ) LIMIT 1   [ RunTime:0.017102s ]
+NOTIC: [2048] Declaration of ShopdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') /Users/yangyang/www/llx_api/Baocms/Lib/Model/ShopdianpingModel.class.php 第 72 行.
+SQL: SHOW COLUMNS FROM `bao_shop_dianping` [ RunTime:0.015035s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT a.contents,a.score,a.dianping_id,a.reply,FROM_UNIXTIME(a.create_time) AS dp_create_time,b.face user_face,b.nickname user_nickname FROM bao_shop_dianping a left join bao_users b on a.user_id = b.user_id WHERE ( a.closed = 0 ) AND ( a.shop_id = 11 ) AND ( a.show_date <= '2016-11-08' ) ORDER BY a.dianping_id desc LIMIT 0,5   [ RunTime:0.015049s ]
+SQL: SHOW COLUMNS FROM `bao_shop_dianping_pics` [ RunTime:0.017145s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop_dianping_pics` WHERE ( `dianping_id` IN ('1') )  [ RunTime:0.031508s ]
+
+[ 2016-11-08T13:21:22+08:00 ] 0.0.0.0 /Apiuser/Userinfo/mainpage
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000266s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000297s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000176s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000200s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.017270s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 40 ) LIMIT 1   [ RunTime:0.019208s ]
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.017066s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( user_id=40 )  [ RunTime:0.019399s ]
+
+[ 2016-11-08T13:21:36+08:00 ] 0.0.0.0 /Apiuser/Userinfo/mainpage
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000401s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000448s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000263s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000297s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.018098s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 40 ) LIMIT 1   [ RunTime:0.017154s ]
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.018514s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_shop` WHERE ( user_id=40 )  [ RunTime:0.017793s ]
+
+[ 2016-11-08T13:21:46+08:00 ] 0.0.0.0 /Apiuser/Userinfo/mainpage
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000518s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000580s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000342s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000387s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.016668s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.017343s ]
+
+[ 2016-11-08T13:58:03+08:00 ] 0.0.0.0 /Apiuser/Orderinfo/orderdetail
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000300s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000331s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000176s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000199s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_order` [ RunTime:0.016087s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 267 ) LIMIT 1   [ RunTime:0.015278s ]
+
+[ 2016-11-08T14:06:15+08:00 ] 0.0.0.0 /Apiuser/Orderinfo/orderdetail
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000262s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000294s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000176s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000200s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_order` [ RunTime:0.018183s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 267 ) LIMIT 1   [ RunTime:0.017953s ]
+
+[ 2016-11-08T14:06:38+08:00 ] 0.0.0.0 /Apiuser/Orderinfo/orderdetail
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000263s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000295s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000177s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000199s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_order` [ RunTime:0.016105s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 267 ) LIMIT 1   [ RunTime:0.016439s ]
+SQL: SHOW COLUMNS FROM `bao_order_goods` [ RunTime:0.015531s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_order_goods` WHERE ( `order_id` = 267 )  [ RunTime:0.018640s ]
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.017432s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` IN ('40') )  [ RunTime:0.017100s ]
+SQL: SHOW COLUMNS FROM `bao_user_addr` [ RunTime:0.014742s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Db.class.php 第 605 行.
+SQL: SELECT * FROM `bao_user_addr` WHERE ( `addr_id` = 0 ) LIMIT 1   [ RunTime:0.015479s ]
+

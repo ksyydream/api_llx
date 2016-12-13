@@ -1,0 +1,96 @@
+[ 2016-12-08T12:58:25+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000293s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000331s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000192s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000221s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+
+[ 2016-12-08T13:02:32+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000306s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000354s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000193s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000217s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+
+[ 2016-12-08T13:05:53+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000364s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000411s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000239s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000269s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+
+[ 2016-12-08T13:06:59+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000360s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000410s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000226s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000256s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [2] mysqli::mysqli(): (HY000/1045): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysqli.class.php 第 47 行.
+
+[ 2016-12-08T13:07:01+08:00 ] 0.0.0.0 /Apipublic/ApiPmall/getcity
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000526s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000579s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000273s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000306s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [2] mysql_select_db() expects parameter 2 to be resource, boolean given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 100 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [2] mysqli::mysqli(): (HY000/1045): Access denied for user 'root'@'221.225.95.128' (using password: NO) /Users/yangyang/www/llx_api/Core/Lib/Driver/Db/DbMysqli.class.php 第 47 行.
+
+[ 2016-12-08T14:38:05+08:00 ] 0.0.0.0 /Apipublic/Apilogin/testload
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000554s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000615s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Lib/Core/Dispatcher.class.php 第 132 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /Users/yangyang/www/llx_api/Core/Common/common.php 第 217 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000408s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000443s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 96 行.
+NOTIC: [8] Undefined offset: 1 /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 126 行.
+NOTIC: [2] mysql_query() expects parameter 2 to be resource, null given /Users/yangyang/www/llx_api/Core/Extend/Driver/Session/SessionDb.class.php 第 127 行.
+NOTIC: [8] Undefined variable: char /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str /Users/yangyang/www/llx_api/Core/Extend/Library/ORG/Crypt/Base64.class.php 第 66 行.
+
