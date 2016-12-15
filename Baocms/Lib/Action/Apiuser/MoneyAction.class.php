@@ -41,7 +41,7 @@ class MoneyAction extends CommonAction{
             'data'=>array('bg_data'=>$bg_date,'end_data'=>$end_date) ,
             'list'=>$list,
             'page'=>$page+1,
-            'maxpage'=>$maxpage,
+            'maxpage'=>(int)$maxpage,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
@@ -63,7 +63,7 @@ class MoneyAction extends CommonAction{
             'success'=>true,
             'list'=>$list,
             'page'=>$page+1,
-            'maxpage'=>$maxpage,
+            'maxpage'=>(int)$maxpage,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');

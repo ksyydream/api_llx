@@ -11,9 +11,7 @@ class  UsersexModel extends  CommonModel{
          $data = $this->find($user_id);
          if(empty($data)){
              $data = array(
-                 'user_id'  =>$user_id,
-                 'last_uid' => 0,
-                 'views'    => 0
+                 'user_id'  =>$user_id
              );
              $this->add($data);
          }
