@@ -88,44 +88,6 @@ class ApiloginAction extends CommonAction{
             'sex' => $this->_param('sex')?$this->_param('sex'):null,
         );
         $data['face'] = $this->uploadimg('face');
-        /*if(!$data['face']){
-            $rs = array(
-                'success'=>false,
-                'error_msg'=>'头像上传失败!'
-            );
-            $this->ajaxReturn($rs,'JSON');
-        }*/
-      /*  $upload = new UploadFile(); //
-        $upload->maxSize = 102400; // 设置附件上传大小
-        $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
-        $name = date('Y/m/d', NOW_TIME);
-        $dir = BASE_PATH . '/attachs/' . $name . '/';
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        $upload->savePath = $dir; // 设置附件上传目录
-
-        $base64 = $this->_post('face');
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
-            $name = date('Y/m/d', NOW_TIME);
-            $dir = BASE_PATH . '/attachs/' . $name . '/';
-            $img_name = $this->getRandChar(24).'.jpg';
-            $img = base64_decode(str_replace($result[1], '', $base64));
-            file_put_contents($dir.$img_name, $img);//返回的是字节数
-            $data['face'] = $name.'/'.$img_name;
-
-        }else{
-            if(!$upload->upload()) {// 上传错误提示错误信息
-                $rs = array(
-                    'success' => false,
-                    'error_msg' => '头像上传失败' //头像上传失败
-                );
-                $this->ajaxReturn($rs,'JSON');
-            }else{// 上传成功 获取上传文件信息
-                $info =  $upload->getUploadFileInfo();
-                $data['face'] = $name . '/' . $info[0]['savename'];
-            }
-        }*/
         if($user_id = D('Users')->add($data)){
             $token = set_token_uid($user_id);
             $rs = array(
@@ -147,7 +109,7 @@ class ApiloginAction extends CommonAction{
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
         fclose($open);
-
+        header("Access-Control-Allow-Origin: *");
        if(!trim($this->_post('mobile')) || !trim($this->_post('password'))){
             $rs = array(
                 'success'=>false,
