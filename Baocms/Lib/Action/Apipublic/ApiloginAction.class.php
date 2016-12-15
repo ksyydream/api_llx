@@ -105,8 +105,49 @@ class ApiloginAction extends CommonAction{
         }
     }
     public function login_name_pw(){
-        header("Access-Control-Allow-Origin:*"); //*号表示所有域名都可以访问
-        header("Access-Control-Allow-Method:POST,GET");
+        /*header("Access-Control-Allow-Origin:*"); //*号表示所有域名都可以访问
+        header("Access-Control-Allow-Method:POST,GET");*/
+
+        $origin='*';
+        $request_method = $_SERVER['REQUEST_METHOD'];
+
+        if ($request_method === 'OPTIONS') {
+
+            header('Access-Control-Allow-Origin:'.$origin);
+            header('Access-Control-Allow-Credentials:true');
+            header('Access-Control-Allow-Methods:GET, POST, OPTIONS');
+
+            header('Access-Control-Max-Age:1728000');
+            header('Content-Type:text/plain charset=UTF-8');
+            header('Content-Length: 0',true);
+
+            header('status: 204');
+            header('HTTP/1.0 204 No Content');
+
+        }
+
+        if ($request_method === 'POST') {
+
+            header('Access-Control-Allow-Origin:'.$origin);
+            header('Access-Control-Allow-Credentials:true');
+            header('Access-Control-Allow-Methods:GET, POST, OPTIONS');
+
+        }
+
+        if ($request_method === 'GET') {
+
+            header('Access-Control-Allow-Origin:'.$origin);
+            header('Access-Control-Allow-Credentials:true');
+            header('Access-Control-Allow-Methods:GET, POST, OPTIONS');
+
+        }
+
+
+
+
+
+
+
         $dataall = $this->_post();
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
