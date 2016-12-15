@@ -8,7 +8,11 @@
 class CommonAction extends Action{
     protected $app_uid;
     protected $token;
+    protected $_CONFIG = array();
+    protected $member = array();
+
     protected function _initialize(){
+        $this->_CONFIG = d( "Setting" )->fetchAll( );
         $token= $this->get_token();
         $this->token = $token;
         if($token == -1){
@@ -19,6 +23,7 @@ class CommonAction extends Action{
             die(json_encode($rs));
         }
         $this->app_uid = get_token_uid($token);
+        $this->member = D('Users')->find($this->app_uid);
     }
     protected function get_token(){
         foreach (getallheaders() as $name => $value) {
