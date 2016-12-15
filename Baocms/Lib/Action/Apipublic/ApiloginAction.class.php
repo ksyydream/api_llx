@@ -105,10 +105,10 @@ class ApiloginAction extends CommonAction{
         }
     }
     public function login_name_pw(){
-        /*header("Access-Control-Allow-Origin:*"); //*号表示所有域名都可以访问
-        header("Access-Control-Allow-Method:POST,GET");*/
+        header("Access-Control-Allow-Origin:*"); //*号表示所有域名都可以访问
+        header("Access-Control-Allow-Method:POST,GET");
 
-        $origin='*';
+        /*$origin='*';
         $request_method = $_SERVER['REQUEST_METHOD'];
 
         if ($request_method === 'OPTIONS') {
@@ -140,12 +140,7 @@ class ApiloginAction extends CommonAction{
             header('Access-Control-Allow-Credentials:true');
             header('Access-Control-Allow-Methods:GET, POST, OPTIONS');
 
-        }
-
-
-
-
-
+        }*/
 
 
         $dataall = $this->_post();
