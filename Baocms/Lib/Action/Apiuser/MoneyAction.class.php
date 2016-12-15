@@ -106,15 +106,19 @@ class MoneyAction extends CommonAction{
         $userscash = D('Userscash')->where(array('user_id' => $user_id))->find();;
         $shop = D('Shop')->where(array('user_id' => $user_id))->find();
         if ($shop == '') {
+            $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
             $cash_money_big = $this->_CONFIG['cash']['user_big'];
         } elseif ($shop['is_renzheng'] == 0) {
+            $rlgold=$this->member['gold']-3000000;
             $cash_money = $this->_CONFIG['cash']['shop'];
             $cash_money_big = $this->_CONFIG['cash']['shop_big'];
         } elseif ($shop['is_renzheng'] == 1) {
+            $rlgold=$this->member['gold']-3000000;
             $cash_money = $this->_CONFIG['cash']['renzheng_shop'];
             $cash_money_big = $this->_CONFIG['cash']['renzheng_shop_big'];
         } else {
+            $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
             $cash_money_big = $this->_CONFIG['cash']['user_big'];
         }
@@ -157,9 +161,10 @@ class MoneyAction extends CommonAction{
                 $rs['error_msg']='资金不足，无法提现';
                 $this->ajaxReturn($rs,'JSON');
             }
-            if ($shop['is_renzheng'] == 0 || $shop['is_renzheng'] == 1) {
+            if ($shop['is_renzheng'] === 0 || $shop['is_renzheng'] == 1) {
                 if ($gold >($this->member['gold']-3000000) ||$this->member['gold'] <=3000000){
-                    $rs['error_msg']='资金不足，无法提现';
+                    $rs['test']=$shop['is_renzheng'];
+                    $rs['error_msg']='资金不足，无法提现1';
                     $this->ajaxReturn($rs,'JSON');
                 }
             }
@@ -193,11 +198,6 @@ class MoneyAction extends CommonAction{
             $rs['error_msg']='申请提现成功';
             $this->ajaxReturn($rs,'JSON');
         } else {
-            if ($shop['is_renzheng'] == 0 || $shop['is_renzheng'] == 1){
-                $rlgold=$this->member['gold']-3000000;
-            }else{
-                $rlgold=$this->member['gold'];
-            }
             $rs = array(
                 'success'=>true,
                 'info'=>D('Usersex')->getUserex($user_id),//曾经用过的银行信息
