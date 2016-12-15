@@ -105,7 +105,8 @@ class ApiloginAction extends CommonAction{
         }
     }
     public function login_name_pw(){
-        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Origin:*"); //*号表示所有域名都可以访问
+        header("Access-Control-Allow-Method:POST,GET");
         $dataall = $this->_post();
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
