@@ -50,7 +50,9 @@ class YhkAction extends CommonAction {
         //include '../phpqrcode.php';
         //http://$Think.SERVER.HTTP_HOST}>__ROOT__<{:U('/mobile/shop/detail',array('shop_id'=>$shop_id))}>?uid=<{$uid}>
         $shop_id=$this->_param['shop_id'];
-        QRcode::png(getSiteUrl().U('/Apiuser/Team/index',array('shop_id'=>$shop_id))."?uid=".$this->app_uid);
+        $url=getSiteUrl().U('/Apiuser//mobile/shop/detail',array('shop_id'=>$shop_id))."?uid=".$this->app_uid;
+        $this->ctqrcode($url);
+        echo $url;
     }
 
 }

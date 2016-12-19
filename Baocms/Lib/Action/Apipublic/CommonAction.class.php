@@ -65,7 +65,7 @@ class CommonAction extends Action{
         }
         return $data['face'];
     }
-    public function share($data){
+    public function ctqrcode($data){
         //include '../phpqrcode.php';
         //http://$Think.SERVER.HTTP_HOST}>__ROOT__<{:U('/mobile/shop/detail',array('shop_id'=>$shop_id))}>?uid=<{$uid}>
         QRcode::png($data);
