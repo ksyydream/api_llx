@@ -20,9 +20,18 @@ class CommonAction extends Action{
                 'success' => false,
                 'error_msg'=>'用户未登陆!'
             );
+            header('status: 401');
             die(json_encode($rs));
         }
         $this->app_uid = get_token_uid($token);
+        if($this->app_uid == 0){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'token错误!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
         $this->member = D('Users')->find($this->app_uid);
     }
     protected function get_token(){
