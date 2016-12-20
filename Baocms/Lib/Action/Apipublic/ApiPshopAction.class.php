@@ -208,4 +208,26 @@ class ApiPshopAction extends CommonAction{
         );
         die(json_encode($rs));
     }
+
+    public function hot_goods(){
+        $shop_id = trim($this->_param('shop_id'))?trim($this->_param('shop_id')):0;
+        $shop_id = (int)$shop_id;
+        if (empty($shop_id)) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'商铺不存在!'
+            );
+            die(json_encode($rs));
+        }
+        $recom = D('Goods')->where(array('shop_id' => $shop_id,'audit'=>1,'closed'=>0,'end_date'=> array('egt', TODAY)))
+            ->order('sold_num desc')
+            ->limit(2)
+            ->select();
+        $rs = array(
+            'success' => true,
+            'error_msg'=>'',
+            'goods_list'=> $recom
+        );
+        die(json_encode($rs));
+    }
 }
