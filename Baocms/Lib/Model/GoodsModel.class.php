@@ -26,5 +26,20 @@ class GoodsModel extends CommonModel{
         $data['discount'] = round($data['mall_price'] * 10 / $data['price'],1);
         return $data;
     }
-	
+
+    /*
+    * 新增函数
+    */
+
+    public function goods_list($shop_id,$page){
+        $Model = new Model();
+        $map =array('shop_id' => $shop_id,'audit'=>1,'closed'=>0,'end_date'=> array('egt', TODAY));
+        $items = $Model->table('bao_goods')
+            ->field("*")
+            ->where($map)
+            ->order(array('goods_id' => 'desc'))
+            ->page("{$page},10")
+            ->select();
+        return $items;
+    }
 }

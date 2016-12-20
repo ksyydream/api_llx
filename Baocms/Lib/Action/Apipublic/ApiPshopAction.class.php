@@ -147,7 +147,7 @@ class ApiPshopAction extends CommonAction{
             }
             $shop_id = $detail['shop_id'];
 
-            $recom = D('Goods')->where(array('shop_id' => $shop_id,'audit'=>1,'closed'=>1,'goods_id' => array('neq', $goods_id),'end_date'=> array('egt', TODAY)))->select();
+            $recom = D('Goods')->where(array('shop_id' => $shop_id,'audit'=>1,'closed'=>0,'goods_id' => array('neq', $goods_id),'end_date'=> array('egt', TODAY)))->select();
             $record = D('Usersgoods');
             if ($this->token != -1) {
                 $insert = $record->getRecord($this->app_uid, $goods_id);
@@ -187,5 +187,25 @@ class ApiPshopAction extends CommonAction{
             die(json_encode($rs));
         }
 
+    }
+
+    public function goods_list(){
+        $shop_id = trim($this->_param('shop_id'))?trim($this->_param('shop_id')):0;
+        $shop_id = (int)$shop_id;
+        if (empty($shop_id)) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'商铺不存在!'
+            );
+            die(json_encode($rs));
+        }
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $recom = D('Goods')->goods_list($shop_id,$page);
+        $rs = array(
+            'success' => true,
+            'error_msg'=>'',
+            'goods_list'=> $recom
+        );
+        die(json_encode($rs));
     }
 }
