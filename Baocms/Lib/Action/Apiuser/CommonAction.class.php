@@ -58,4 +58,32 @@ class CommonAction extends Action{
         //http://$Think.SERVER.HTTP_HOST}>__ROOT__<{:U('/mobile/shop/detail',array('shop_id'=>$shop_id))}>?uid=<{$uid}>
         QRcode::png($data);
     }
+    function uploadimg($input_name = 'img_input',$folder = 'face'){
+        import('ORG.Net.UploadFile');
+        $data['face']='';
+        $upload = new UploadFile(); //
+        $upload->maxSize = 102400; // 设置附件上传大小
+        $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
+        $name = date('Y/m/d', NOW_TIME);
+        $dir = BASE_PATH . '/attachs/' . $name . '/';
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        $upload->savePath = $dir; // 设置附件上传目录
+        $base64 = $this->_post($input_name);
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
+            $img_name = $this->getRandChar(24).'jpg';
+            $img = base64_decode(str_replace($result[1], '', $base64));
+            file_put_contents($dir.$img_name, $img);//返回的是字节数
+            $data['face'] = $name.'/'.$img_name;
+        }else{
+            if(!$upload->upload()) {// 上传错误提示错误信息
+
+            }else{// 上传成功 获取上传文件信息
+                $info =  $upload->getUploadFileInfo();
+                $data['face'] = $name . '/' . $info[0]['savename'];
+            }
+        }
+        return $data['face'];
+    }
 }
