@@ -139,7 +139,7 @@ class OrderinfoAction extends CommonAction{
 
     public function dianping(){
 
-        $order_id = (int) $this->_GET('order_id');
+        $order_id = (int) $this->_param('order_id');
         if ( empty( $order_id )|| !( $detail = D("Order")->field('order_id,shop_id,user_id,is_dianping,total_price,use_integral')->where( 'order_id='.$order_id )->find())){
             echo D("Order")->getLastSql();
             $rs = array(
