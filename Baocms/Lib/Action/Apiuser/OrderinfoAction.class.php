@@ -154,7 +154,7 @@ class OrderinfoAction extends CommonAction{
             );
             die(json_encode($rs));
         }
-        if ( $detail['is_dianping'] != 1 ){
+        if ( $detail['is_dianping'] != 0 ){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'您已经点评过了!'
