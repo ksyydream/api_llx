@@ -183,7 +183,6 @@ class OrderinfoAction extends CommonAction{
             if ( empty( $data['contents'] ) ){
                 $rs = array(
                     'success' => false,
-                    'test'=>$data['contents'],
                     'error_msg'=>'不说点什么么'
                 );
                 die(json_encode($rs));
