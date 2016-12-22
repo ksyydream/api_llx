@@ -81,7 +81,9 @@ class CommonAction extends Action{
 
             }else{// 上传成功 获取上传文件信息
                 $info =  $upload->getUploadFileInfo();
-                $data['face'] = $name . '/' . $info[0]['savename'];
+                foreach ($info as $k){
+                $data['face'][] = $name . '/' . $k['savename'];
+                }
             }
         }
         return $data['face'];

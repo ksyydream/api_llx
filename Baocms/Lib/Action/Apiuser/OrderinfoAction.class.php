@@ -136,4 +136,98 @@ class OrderinfoAction extends CommonAction{
         }
 
     }
+
+    public function dianping(){
+
+        $order_id = (int) $this->_GET('order_id');
+        if ( empty( $order_id )|| !( $detail = D("Order")->field('order_id,shop_id,user_id,is_dianping,total_price,use_integral')->where( 'order_id='.$order_id )->find())){
+            echo D("Order")->getLastSql();
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'该订单不存在!'
+            );
+            die(json_encode($rs));
+        }
+        if ($detail['user_id'] != $this->app_uid){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'请不要操作他人的订单!'
+            );
+            die(json_encode($rs));
+        }
+        if ( $detail['is_dianping'] != 0 ){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'您已经点评过了!'
+            );
+            die(json_encode($rs));
+        }
+
+        $goodss = D('Ordergoods')->where('order_id ='.$detail['order_id']) -> find();
+        $goods_id = $goodss['goods_id'];
+        $score=$this->_param('score');
+        if ( isset($score) ){
+            $data['user_id'] = $this->app_uid;
+            $data['order_id'] = $detail['order_id'];
+            $data['shop_id'] = $detail['shop_id'];
+            $data['goods_id'] = $goods_id;
+            $data['score'] = $score;
+            if ( $data['score'] <= 0 || 5 < $data['score'] ){
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'请选择评分!'
+                );
+                die(json_encode($rs));
+            }
+            $data['contents'] = htmlspecialchars( $this->_param('contents') );
+            if ( empty( $data['contents'] ) ){
+                $rs = array(
+                    'success' => false,
+                    'test'=>$data['contents'],
+                    'error_msg'=>'不说点什么么'
+                );
+                die(json_encode($rs));
+            }
+            $data['create_time'] = NOW_TIME;
+            $data_mall_dianping = $this->_CONFIG['mobile']['data_mall_dianping'];
+            $data['show_date'] = date('Y-m-d', NOW_TIME + $data_mall_dianping * 86400); //15天生效
+            $data['create_ip'] = get_client_ip( );
+            $obj = D( "Goodsdianping" );
+            if ($dianping_id = $obj->add( $data ) ){
+                $photos = $this->uploadimg('photos');
+                $local = array();
+                foreach ( $photos as $val ){
+                        $local[] = $val;
+                }
+                if (!empty( $photos ) ){
+                    D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
+                }
+                D( "Order" )->save( array( "order_id" => $order_id,"is_dianping" => 1));
+                D( "Shop" )->updateCount( $detail['shop_id'], "score_num" );
+                D( "Users" )->updateCount( $this->app_uid, "ping_num" );
+                D( "Users" )->prestige( $this->app_uid, "dianping" );
+                $rs = array(
+                    'success' => true,
+                    'error_msg'=>'评价成功'
+                );
+                die(json_encode($rs));
+
+            }
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'操作失败'
+            );
+            die(json_encode($rs));
+        }
+        else{
+            $goods = D('Goods')->field('title,photo')->where('goods_id ='.$goods_id) -> find();
+            $rs = array(
+                'success' => true,
+                'detail'=> $detail,
+                'goods'=> $goods,
+                'error_msg'=>''
+            );
+            die(json_encode($rs));
+        }
+    }
 }
