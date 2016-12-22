@@ -141,7 +141,6 @@ class OrderinfoAction extends CommonAction{
 
         $order_id = (int) $this->_param('order_id');
         if ( empty( $order_id )|| !( $detail = D("Order")->field('order_id,shop_id,user_id,is_dianping,total_price,use_integral')->where( 'order_id='.$order_id )->find())){
-            echo D("Order")->getLastSql();
             $rs = array(
                 'success' => false,
                 'error_msg'=>'该订单不存在!'
@@ -155,7 +154,7 @@ class OrderinfoAction extends CommonAction{
             );
             die(json_encode($rs));
         }
-        if ( $detail['is_dianping'] != 0 ){
+        if ( $detail['is_dianping'] != 1 ){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'您已经点评过了!'
@@ -193,11 +192,7 @@ class OrderinfoAction extends CommonAction{
             $data['create_ip'] = get_client_ip( );
             $obj = D( "Goodsdianping" );
             if ($dianping_id = $obj->add( $data ) ){
-                $photos = $this->uploadimg('photos');
-                $local = array();
-                foreach ( $photos as $val ){
-                        $local[] = $val;
-                }
+                $photos = $this->uploadimg2($_FILES['photos']);
                 if (!empty( $photos ) ){
                     D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
                 }

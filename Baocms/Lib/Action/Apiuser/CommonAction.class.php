@@ -122,15 +122,12 @@ class CommonAction extends Action{
             }
 
         }else{
-            if(!$upload->uploadOne($input_name)) {// 上传错误提示错误信息
-
-            }else{// 上传成功 获取上传文件信息
-                $info =  $upload->getUploadFileInfo();
+                $info =  $upload->uploadOne($input_name);
                 foreach ($info as $k){
                     $data['face'][] = $name . '/' . $k['savename'];
                 }
             }
-        }
+
         return $data['face'];
     }
 }
