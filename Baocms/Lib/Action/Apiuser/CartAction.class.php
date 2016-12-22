@@ -60,18 +60,22 @@ class CartAction extends CommonAction {
     public function cartdel(){
         $cart = D('Usercart');
         $cart_id = $this->_post('cart_id');
+        $row = $cart->find($cart_id);
+        if($row){
+            if($row['user_id'] != $this->app_uid){
+                $rs = array('success' => false, 'error_msg' => '只可操作自己的购物车!');
+                die(json_encode($rs));
+            }
+        }else{
+            $rs = array('success' => false, 'error_msg' => '未找到购物车信息!');
+            die(json_encode($rs));
+        }
         $res = $cart->where("user_id = {$this->app_uid} and cart_id = {$cart_id}")->delete();
         if($res){
-            $rs = array(
-                'success' => true,
-                'error_msg' => ''
-            );
+            $rs = array('success' => true, 'error_msg' => '');
             die(json_encode($rs));
         }else{
-            $rs = array(
-                'success' => false,
-                'error_msg' => '操作失败'
-            );
+            $rs = array('success' => false, 'error_msg' => '操作失败');
             die(json_encode($rs));
         }
     }
