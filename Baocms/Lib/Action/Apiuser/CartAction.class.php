@@ -57,4 +57,23 @@ class CartAction extends CommonAction {
         die(json_encode($rs));
     }
 
+    public function cartdel(){
+        $cart = D('Usercart');
+        $cart_id = $this->_post('cart_id');
+        $res = $cart->where("user_id = {$this->app_uid} and cart_id = {$cart_id}")->delete();
+        if($res){
+            $rs = array(
+                'success' => true,
+                'error_msg' => ''
+            );
+            die(json_encode($rs));
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg' => '操作失败'
+            );
+            die(json_encode($rs));
+        }
+    }
+
 }
