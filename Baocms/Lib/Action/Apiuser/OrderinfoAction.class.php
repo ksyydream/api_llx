@@ -320,7 +320,7 @@ class OrderinfoAction extends CommonAction{
                 }
             }
         }
-        $cart->delete($cart_ids);
+        $cart->where(array($cart->pk=>array('IN',$cart_ids)))->delete();
         if (count($order_ids) > 1) {
             $need_pay = D('Order')->useIntegral($this->app_uid, $order_ids);
             $logs = array(
