@@ -262,7 +262,8 @@ class OrderinfoAction extends CommonAction{
             }
         }
         if (empty($goods)) {
-            $rs = array('success' => false, 'error_msg' => '您提交的产品暂时不能购买!');
+            //$rs = array('success' => false, 'error_msg' => '您提交的产品暂时不能购买!');
+            $rs = array('success' => false, 'error_msg' => $goods);
             die(json_encode($rs));
         }
         $tprice = 0;
