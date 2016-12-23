@@ -229,6 +229,7 @@ class OrderinfoAction extends CommonAction{
         //查询这个用户所有的可用积分数
         $user_integral = D("users")->field('integral')->find($this->app_uid);
         $cart_ids = $this->_post('cart_ids');
+        die(var_dump($this->_post()));
         if(!$cart_ids){
             $rs = array('success' => false, 'error_msg' => '购物车编号不能未空!');
             die(json_encode($rs));
@@ -260,8 +261,8 @@ class OrderinfoAction extends CommonAction{
             }
         }
         if (empty($goods)) {
-            //$rs = array('success' => false, 'error_msg' => '您提交的产品暂时不能购买!');
-            $rs = array('success' => false, 'error_msg' => $goods);
+            $rs = array('success' => false, 'error_msg' => '您提交的产品暂时不能购买!');
+            //$rs = array('success' => false, 'error_msg' => $goods);
             die(json_encode($rs));
         }
         $tprice = 0;
