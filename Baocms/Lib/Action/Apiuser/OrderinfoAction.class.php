@@ -226,7 +226,6 @@ class OrderinfoAction extends CommonAction{
     }
 
     public function order_cart() {
-
         //查询这个用户所有的可用积分数
         $user_integral = D("users")->field('integral')->find($this->app_uid);
         $cart_ids = $this->_post('cart_ids');
@@ -248,10 +247,7 @@ class OrderinfoAction extends CommonAction{
             $cart_good = $cart->find($cart_ids);
             $num[$cart_good['goods_id']]=(int)$cart_good['num'];
             $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
-
         }
-        $rs = array('success' => false, 'cart_ids' => $cart_ids,'goods_ids'=>$goods_ids);
-        die(json_encode($rs));
         if (empty($goods_ids)) {
             $rs = array('success' => false, 'error_msg' => '没有可购买商品!');
             die(json_encode($rs));
