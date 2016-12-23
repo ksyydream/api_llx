@@ -256,6 +256,8 @@ class OrderinfoAction extends CommonAction{
             die(json_encode($rs));
         }
         $goods = D('Goods')->itemsByIds($goods_ids);
+        $rs = array('success' => false, 'goods' => $goods,'goods_ids'=>$goods_ids);
+        die(json_encode($rs));
         foreach ($goods as $key => $val) {
             if ($val['closed'] != 0 || $val['audit'] != 1 || $val['end_date'] < TODAY) {
                 unset($goods[$key]);
