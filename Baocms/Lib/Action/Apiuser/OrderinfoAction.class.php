@@ -224,4 +224,132 @@ class OrderinfoAction extends CommonAction{
             die(json_encode($rs));
         }
     }
+
+    public function order_cart() {
+
+        //查询这个用户所有的可用积分数
+        $user_integral = D("users")->field('integral')->find($this->app_uid);
+        $cart_ids = $this->_post('cart_ids');
+        if(!$cart_ids){
+            $rs = array('success' => false, 'error_msg' => '购物车编号不能未空!');
+            die(json_encode($rs));
+        }
+        //这里的写法参照 原有代码,会比较累赘
+        $goods_ids = array();
+        $num = array();
+        $cart = D('Usercart');
+        if(is_array($cart_ids)){
+            foreach ($cart_ids as $cart_id){
+                $cart_good = $cart->find($cart_id);
+                $num[$cart_good['goods_id']]=(int)$cart_good['num'];
+                $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+            }
+        }else{
+            $cart_good = $cart->find($cart_ids);
+            $num[$cart_good['goods_id']]=(int)$cart_good['num'];
+            $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+
+        }
+
+        if (empty($goods_ids)) {
+            $rs = array('success' => false, 'error_msg' => '没有可购买商品!');
+            die(json_encode($rs));
+        }
+        $goods = D('Goods')->itemsByIds($goods_ids);
+        foreach ($goods as $key => $val) {
+            if ($val['closed'] != 0 || $val['audit'] != 1 || $val['end_date'] < TODAY) {
+                unset($goods[$key]);
+            }
+        }
+        if (empty($goods)) {
+            $rs = array('success' => false, 'error_msg' => '您提交的产品暂时不能购买!');
+            die(json_encode($rs));
+        }
+        $tprice = 0;
+        $all_integral = $total_mobile = 0;
+        $ip = get_client_ip();
+        $total_canuserintegral = $ordergoods = $total_price = array();
+        foreach ($goods as $val) {
+            $price = $val['mall_price'] * $num[$val['goods_id']];
+            $js_price = $val['settlement_price'] * $num[$val['goods_id']];
+            $mobile_fan = $val['mobile_fan'] * $num[$val['goods_id']];
+            //每个商品的手机减少的钱
+            $canuserintegral = $val['use_integral'] * $num[$val['goods_id']];
+            //可使用积分=单个可使用*商品数量 每个产品的
+            $m_price = $price - $mobile_fan;
+            $tprice += $m_price;
+            $total_mobile += $mobile_fan;
+            $all_integral += $canuserintegral;
+            //所有的订单的积分总数 用于后面判断 如果用户的积分超过这个数目 才减少
+            $ordergoods[$val['shop_id']][] = array(
+                'goods_id' => $val['goods_id'],
+                'shop_id' => $val['shop_id'],
+                'num' => $num[$val['goods_id']],
+                'price' => $val['mall_price'],
+                'total_price' => $price,
+                'mobile_fan' => $mobile_fan,
+                'is_mobile' => 1,
+                'js_price' => $js_price,
+                'create_time' => NOW_TIME,
+                'create_ip' => $ip
+            );
+            $total_canuserintegral[$val['shop_id']] += $canuserintegral; //不同商家的每个订单的 总共 可以使用的积分
+            $total_price[$val['shop_id']] += $price; //不同商家的总价格
+            $mm_price[$val['shop_id']] += $mobile_fan;  //不同商家的  总的 手机下单减少 的价格
+
+        }
+        //总订单
+        $order = array('user_id' => $this->app_uid, 'create_time' => NOW_TIME, 'create_ip' => $ip, 'is_mobile' => 1);
+
+        $order_ids = array();
+        foreach ($ordergoods as $k => $val) {
+            $order['shop_id'] = $k;
+            $order['total_price'] = $total_price[$k];
+            $order['mobile_fan'] = $mm_price[$k];
+            //手机下单减少的价钱 不同商家是不同的订单的
+            $order['can_use_integral'] = $total_canuserintegral[$k];
+            //每个订单可以使用的积分的数量
+            $shop = D('Shop')->find($k);
+            $order['is_shop'] = (int) $shop['is_pei'];
+            //是否由商家自己配送
+            if ($order_id = D('Order')->add($order)) {
+                //推广ID 赋值了
+                $order_ids[] = $order_id;
+                foreach ($val as $k1 => $val1) {
+                    $val1['order_id'] = $order_id;
+                    D('Ordergoods')->add($val1);
+                }
+            }
+        }
+        $cart->delete($cart_ids);
+        if (count($order_ids) > 1) {
+            $need_pay = D('Order')->useIntegral($this->app_uid, $order_ids);
+            $logs = array(
+                'type' => 'goods',
+                'user_id' => $this->app_uid,
+                'order_id' => 0,
+                'order_ids' => join(',', $order_ids),
+                'code' => '',
+                'need_pay' => $need_pay,
+                'create_time' => NOW_TIME,
+                'create_ip' => get_client_ip(),
+                'is_paid' => 0
+            );
+            $logs['log_id'] = D('Paymentlogs')->add($logs);
+            $rs = array(
+                'success' => true,
+                'error_msg' => '',
+                'order_id'=>-1
+            );
+            die(json_encode($rs));
+        } else {
+            $rs = array(
+                'success' => true,
+                'error_msg' => '',
+                'order_id'=>$order_id
+            );
+            die(json_encode($rs));
+        }
+        die;
+    }
 }

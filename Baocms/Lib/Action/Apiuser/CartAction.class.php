@@ -80,4 +80,36 @@ class CartAction extends CommonAction {
         }
     }
 
+    public function cartedit(){
+        $cart = D('Usercart');
+        $cart_id = $this->_post('cart_id');
+        $row = $cart->find($cart_id);
+        if($row){
+            if($row['user_id'] != $this->app_uid){
+                $rs = array('success' => false, 'error_msg' => '只可操作自己的购物车!');
+                die(json_encode($rs));
+            }
+        }else{
+            $rs = array('success' => false, 'error_msg' => '未找到购物车信息!');
+            die(json_encode($rs));
+        }
+        $num = (int)$this->_post('num');
+        if (empty($num)) {
+            $rs = array('success' => false, 'error_msg'=>'保存数量不能为空!');
+            die(json_encode($rs));
+        }
+        if ($num <=0 || $num >99) {
+            $rs = array('success' => false, 'error_msg'=>'数量不能小于1 或者 大于99!');
+            die(json_encode($rs));
+        }
+        $res = $cart->where("cart_id = {$cart_id}")->save(array('num'=>$num));
+        if($res){
+            $rs = array('success' => true, 'error_msg' => '');
+            die(json_encode($rs));
+        }else{
+            $rs = array('success' => false, 'error_msg' => '操作失败');
+            die(json_encode($rs));
+        }
+    }
+
 }
