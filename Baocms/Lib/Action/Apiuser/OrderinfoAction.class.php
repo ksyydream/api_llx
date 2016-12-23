@@ -250,14 +250,14 @@ class OrderinfoAction extends CommonAction{
             $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
 
         }
-
+        $rs = array('success' => false, 'cart_ids' => $cart_ids,'goods_ids'=>$goods_ids);
+        die(json_encode($rs));
         if (empty($goods_ids)) {
             $rs = array('success' => false, 'error_msg' => '没有可购买商品!');
             die(json_encode($rs));
         }
         $goods = D('Goods')->itemsByIds($goods_ids);
-        $rs = array('success' => false, 'goods' => $goods,'goods_ids'=>$goods_ids);
-        die(json_encode($rs));
+
         foreach ($goods as $key => $val) {
             if ($val['closed'] != 0 || $val['audit'] != 1 || $val['end_date'] < TODAY) {
                 unset($goods[$key]);
