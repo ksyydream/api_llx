@@ -240,13 +240,17 @@ class OrderinfoAction extends CommonAction{
         if(is_array($cart_ids)){
             foreach ($cart_ids as $cart_id){
                 $cart_good = $cart->find($cart_id);
-                $num[$cart_good['goods_id']]=(int)$cart_good['num'];
-                $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+                if($cart_good && $cart_good['user_id'] == $this->app_uid){
+                    $num[$cart_good['goods_id']]=(int)$cart_good['num'];
+                    $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+                }
             }
         }else{
             $cart_good = $cart->find($cart_ids);
-            $num[$cart_good['goods_id']]=(int)$cart_good['num'];
-            $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+            if($cart_good && $cart_good['user_id'] == $this->app_uid){
+                $num[$cart_good['goods_id']]=(int)$cart_good['num'];
+                $goods_ids[$cart_good['goods_id']] = (int) $cart_good['goods_id'];
+            }
         }
         if (empty($goods_ids)) {
             $rs = array('success' => false, 'error_msg' => '没有可购买商品!');
