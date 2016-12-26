@@ -9,6 +9,7 @@ class CommonAction extends Action{
     protected $app_uid;
     protected $token;
     protected function _initialize(){
+        define('__HOST__', 'http://' . $_SERVER['HTTP_HOST']);
         $token= $this->get_token();
         $this->token = $token;
         if($token == -1){

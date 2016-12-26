@@ -30,7 +30,7 @@ class OrderModel extends CommonModel
         foreach ($orders as $k => $order) {
 
             if ($_POST['integral']) {
-                $this->where(array('order_id', $order['order_id']))->save(array('can_use_integral' => $_POST['integral']));
+                $this->where(array('order_id'=>$order['order_id']))->save(array('can_use_integral' => $_POST['integral']));
                 $order['can_use_integral'] = $_POST['integral'];
             }
             if ($order['use_integral'] > $order['can_use_integral']) { //需要返回积分给客户

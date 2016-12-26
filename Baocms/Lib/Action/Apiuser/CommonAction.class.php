@@ -12,6 +12,7 @@ class CommonAction extends Action{
     protected $member = array();
 
     protected function _initialize(){
+        define('__HOST__', 'http://' . $_SERVER['HTTP_HOST']);
         $this->_CONFIG = d( "Setting" )->fetchAll( );
         $token= $this->get_token();
         $this->token = $token;
