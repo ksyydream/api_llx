@@ -6,9 +6,9 @@
  * Time: 上午11:15
  */
 class ApiPshopAction extends CommonAction{
-    public function shopdetail(){
+    public function shopdetail($shop_id=null){
         try{
-            $shop_id = trim($this->_param('shop_id'))?trim($this->_param('shop_id')):0;
+            $shop_id = $shop_id?$shop_id:$this->_post('shop_id');
             if (!$detail = D('Shop')->find($shop_id)) {
                 $rs = array(
                     'success' => false,
