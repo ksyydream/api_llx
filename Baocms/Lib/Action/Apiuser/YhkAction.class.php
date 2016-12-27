@@ -51,14 +51,15 @@ class YhkAction extends CommonAction {
         //http://$Think.SERVER.HTTP_HOST}>__ROOT__<{:U('/mobile/shop/detail',array('shop_id'=>$shop_id))}>?uid=<{$uid}>
         $shop_id=$this->_param('shop_id');
         $url=getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('shop_id'=>$shop_id))."?uid=".$this->app_uid;
-        $rs = array(
+        //$url=getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('shop_id'=>$shop_id,'uid'=>$this->app_uid));
+       /* $rs = array(
             'success'=>true,
             'url'=>$url,
             'error_msg'=>''
         );
-        $this->ajaxReturn($rs,'JSON');
-        /*$this->ctqrcode($url);
-        echo $url;*/
+        $this->ajaxReturn($rs,'JSON');*/
+        $this->ctqrcode($url);
+        echo $url;
     }
 
 }
