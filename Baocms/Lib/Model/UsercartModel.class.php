@@ -15,7 +15,7 @@ class UsercartModel extends CommonModel {
         $Model = new Model();
         $map = array('b.user_id' => $app_uid);
         $items = $Model->table('bao_goods a')
-            ->field("a.*,b.num cart_num,b.create_time cart_cdate")
+            ->field("a.*,b.cart_id,b.num cart_num,b.create_time cart_cdate")
             ->join('left join bao_user_cart b on a.goods_id = b.goods_id')
             ->where($map)
             ->order(array('b.cart_id' => 'desc'))
