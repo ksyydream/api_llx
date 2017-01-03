@@ -28,7 +28,7 @@ class MoneyAction extends CommonAction{
         $Usermoneylogs = D('Usergoldlogs');
         $count = $Usermoneylogs->where($map)->count();
         $maxpage=ceil($count/16);
-        $page = $this->_param('page', 'htmlspecialchars');
+        $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
        /* if($Page = $this->_param('page', 'htmlspecialchars')){
             $page=$Page-1;
         }else{
@@ -41,7 +41,7 @@ class MoneyAction extends CommonAction{
             'success'=>true,
             'data'=>array('bg_data'=>$bg_date,'end_data'=>$end_date) ,
             'list'=>$list,
-            'page'=>$page+1,
+            'page'=>$page,
             'maxpage'=>(int)$maxpage,
             'error_msg'=>''
         );
