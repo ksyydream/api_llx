@@ -28,11 +28,12 @@ class MoneyAction extends CommonAction{
         $Usermoneylogs = D('Usergoldlogs');
         $count = $Usermoneylogs->where($map)->count();
         $maxpage=ceil($count/16);
-        if($Page = $this->_param('page', 'htmlspecialchars')){
+        $page = $this->_param('page', 'htmlspecialchars');
+       /* if($Page = $this->_param('page', 'htmlspecialchars')){
             $page=$Page-1;
         }else{
             $page=0;
-        }
+        }*/
 
 
         $list = $Usermoneylogs->where($map)->order(array('log_id' => 'desc'))->page($page . ',16')->select();
