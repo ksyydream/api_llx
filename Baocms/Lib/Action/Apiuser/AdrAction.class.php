@@ -33,7 +33,11 @@ class AdrAction extends CommonAction {
 
         $addr_id = I('addr_id','','trim,intval');
         if(!$addr_id){
-            $this->fengmiMsg('错误！');
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'没有此地址'
+            );
+            $this->ajaxReturn($rs,'JSON');
         }else{
 
             $ud = D('UserAddr');
@@ -79,16 +83,16 @@ class AdrAction extends CommonAction {
         public function delete(){
             $addr_id = (int)$this->_param('addr_id');
             if(empty($addr_id)){
-                $this->ajaxReturn(array('status'=>'error','msg'=>'地址不存在'));
+                $this->ajaxReturn(array('status'=>'error','error_msg'=>'地址不存在'));
             }
             if(!$detail = D('Useraddr')->find($addr_id)){
-                $this->ajaxReturn(array('status'=>'error','msg'=>'地址不存在'));
+                $this->ajaxReturn(array('status'=>'error','error_msg'=>'地址不存在'));
             }
             if($detail['user_id'] != $this->app_uid){
-                $this->ajaxReturn(array('status'=>'error','msg'=>'不要操作别人的地址'));
+                $this->ajaxReturn(array('status'=>'error','error_msg'=>'不要操作别人的地址'));
             }
             if(D('Useraddr')->delete($addr_id)){
-                $this->ajaxReturn(array('status'=>'success','msg'=>'恭喜您删除成功'));
+                $this->ajaxReturn(array('status'=>'success','error_msg'=>'恭喜您删除成功'));
             }
         }
 
@@ -104,19 +108,19 @@ class AdrAction extends CommonAction {
                 $addr = I('addr','','trim,htmlspecialchars');
 
                 if(!$name){
-                    $this->ajaxReturn(array('status' => 'error', 'msg' => '联系人没有填写！'));
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                 }
 
                 if(!$city_id || !$area_id || !$business_id){
-                    $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、商圈必须都选择！'));
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '城市、地区、商圈必须都选择！'));
                 }
 
                 if(!isMobile($mobile)){
-                    $this->ajaxReturn(array('status' => 'error', 'msg' => '手机号码不正确！'));
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '手机号码不正确！'));
                 }
 
                 if(!$addr){
-                    $this->ajaxReturn(array('status' => 'error', 'msg' => '收货地址没有填写！'));
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '收货地址没有填写！'));
                 }
 
                 $data = array();
@@ -133,9 +137,9 @@ class AdrAction extends CommonAction {
                 $ud = D('UserAddr');
                 $add = $ud -> add($data);
                 if($add){
-                    $this->ajaxReturn(array('status' => 'success', 'msg' => '添加成功！'));
+                    $this->ajaxReturn(array('status' => 'success', 'error_msg' => '添加成功！'));
                 }else{
-                    $this->ajaxReturn(array('status' => 'error', 'msg' => '添加失败！'));
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '添加失败！'));
                 }
 
             }
@@ -154,32 +158,32 @@ class AdrAction extends CommonAction {
                     $addr = I('addr','','trim,htmlspecialchars');
                     $ud = D('UserAddr');
                     if(!$addr_id){
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '错误！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '错误！'));
                     }else{
                         $f = $ud -> where('addr_id ='.$addr_id)-> find();
                         if(!$f){
-                            $this->ajaxReturn(array('status' => 'error', 'msg' => '错误！'));
+                            $this->ajaxReturn(array('status' => 'error', 'error_msg' => '错误！'));
                         }else{
                             if($f['user_id'] != $this->app_uid){
-                                $this->ajaxReturn(array('status' => 'error', 'msg' => '非法操作！'));
+                                $this->ajaxReturn(array('status' => 'error', 'error_msg' => '非法操作！'));
                             }
                         }
                     }
 
                     if(!$name){
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '联系人没有填写！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                     }
 
                     if(!$city_id || !$area_id || !$business_id){
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、商圈必须都选择！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '城市、地区、商圈必须都选择！'));
                     }
 
                     if(!isMobile($mobile)){
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '手机号码不正确！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '手机号码不正确！'));
                     }
 
                     if(!$addr){
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '收货地址没有填写！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '收货地址没有填写！'));
                     }
 
                     $data = array();
@@ -196,9 +200,9 @@ class AdrAction extends CommonAction {
 
                     $add = $ud -> where('addr_id ='.$addr_id) -> setField($data);
                     if($add){
-                        $this->ajaxReturn(array('status' => 'success', 'msg' => '修改成功！'));
+                        $this->ajaxReturn(array('status' => 'success', 'error_msg' => '修改成功！'));
                     }else{
-                        $this->ajaxReturn(array('status' => 'error', 'msg' => '修改失败！'));
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '修改失败！'));
                     }
 
                 }
