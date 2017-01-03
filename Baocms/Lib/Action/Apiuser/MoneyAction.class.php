@@ -35,7 +35,7 @@ class MoneyAction extends CommonAction{
         }
 
 
-        $list = $Usermoneylogs->where($map)->order(array('log_id' => 'desc'))->limit($page . ',16')->select();
+        $list = $Usermoneylogs->where($map)->order(array('log_id' => 'desc'))->page($page . ',16')->select();
         $rs = array(
             'success'=>true,
             'data'=>array('bg_data'=>$bg_date,'end_data'=>$end_date) ,
