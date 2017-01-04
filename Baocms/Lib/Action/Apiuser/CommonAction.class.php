@@ -17,6 +17,8 @@ class CommonAction extends Action{
         $token= $this->get_token();
         $this->token = $token;
         if($token == -1){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
             $rs = array(
                 'success' => false,
                 'error_msg'=>'用户未登陆!'
@@ -26,6 +28,8 @@ class CommonAction extends Action{
         }
         $this->app_uid = get_token_uid($token);
         if($this->app_uid == 0){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
             $rs = array(
                 'success' => false,
                 'error_msg'=>'token错误!'
