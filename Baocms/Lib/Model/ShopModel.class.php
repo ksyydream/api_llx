@@ -146,11 +146,40 @@ class ShopModel extends CommonModel {
         $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
         $map['bao_shop.city_id'] = $city_id;
         if($area_id != 0){
-            $map['bao_shop.area_id'] = $area_id;
+            //$map['bao_shop.area_id'] = $area_id;
         }
         if($cate_id != 0){
-            $map['bao_shop.cate_id'] = $cate_id;
+            //$map['bao_shop.cate_id'] = $cate_id;
         }
+
+
+        $this->field("bao_shop.shop_id,
+        bao_shop.shop_name,
+        bao_shop.logo,
+        bao_shop.photo,
+        bao_shop.tel,
+        bao_shop.addr,
+        bao_shop.yhk1,
+        ROUND(lat_lng_distance({$lat}, {$lng}, bao_shop.lat, bao_shop.lng), 2) AS juli,
+        IFNULL(sum(bao_goods.sold_num),0) AS allsold_num")
+            ->where($map)
+            ->where('lat is not null and lng is not null')
+            ->join('left join bao_goods on bao_goods.shop_id = bao_shop.shop_id')
+            ->group('bao_shop.shop_id')
+            ->page("{$page},10");
+        if($order == 2){
+            $this->order('allsold_num desc');
+        }else{
+            $this->order('juli asc');
+        }
+        $data=$this->select();
+        return $data;
+        //return $this->getLastSql();
+    }
+
+    public function getshopsAPP2($area_code,$page,$lng,$lat,$order){
+        $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
+        $map['bao_shop.area_code'] = $area_code;
 
 
         $this->field("bao_shop.shop_id,
