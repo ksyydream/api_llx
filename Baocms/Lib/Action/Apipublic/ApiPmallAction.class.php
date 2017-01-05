@@ -111,7 +111,7 @@ class ApiPmallAction extends CommonAction{
         }
         try{
             $City = D('Ncity');
-            $provincecode = $this->_param('provincecode')?$this->_param('provincecode'):12;//如果没有city_id 默认使用上海
+            $provincecode = $this->_param('province_code')?$this->_param('province_code'):12;//如果没有city_id 默认使用上海
             $list = $City
                 ->field('*')
                 ->where(array('provincecode'=>$provincecode))
@@ -143,7 +143,7 @@ class ApiPmallAction extends CommonAction{
         }
         try{
             $City = D('Narea');
-            $citycode = $this->_param('citycode')?$this->_param('citycode'):12;//如果没有city_id 默认使用上海
+            $citycode = $this->_param('city_code')?$this->_param('city_code'):12;//如果没有city_id 默认使用上海
             $list = $City
                 ->field('*')
                 ->where(array('citycode'=>$citycode))
