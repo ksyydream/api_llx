@@ -45,7 +45,7 @@ class OrderinfoAction extends CommonAction{
                         $shop_ids[$val['shop_id']] = $val['shop_id'];
                     }
                     $products = D('Goods')->itemsByIds($goods_ids);
-                    $shop = D('Shop')->field('shop_id,shop_name')->itemsByIds($shop_ids);
+                    $shop = D('Shop')->field('shop_id,shop_name')->itemsByIds_select($shop_ids);
                     foreach ($order_list_goods as $key => $val) {
                         foreach($products as $key1 => $val1){
                             if($val['goods_id']==(int)$key1){

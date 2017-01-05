@@ -30,6 +30,12 @@ class CommonModel extends Model{
         }
         return $return;
     }
+
+    public  function  itemsByIds_select($ids = array()){
+        if(empty($ids)) return array();
+        $data = $this->where(array($this->pk=>array('IN',$ids)))->select();
+        return $data;
+    }
    
     public function fetchAll($field = '*', $where = array()){
         $cache = cache(array('type'=>'File','expire'=>  $this->cacheTime));
