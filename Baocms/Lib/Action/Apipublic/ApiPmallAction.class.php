@@ -102,7 +102,7 @@ class ApiPmallAction extends CommonAction{
     }
 
     public function get_ncity(){
-        if(!$this->_param('provincecode')){
+        if(!$this->_param('province_code')){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'省份编号不能为空!'
@@ -134,7 +134,7 @@ class ApiPmallAction extends CommonAction{
     }
 
     public function get_narea(){
-        if(!$this->_param('citycode')){
+        if(!$this->_param('city_code')){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'城市编号不能为空!'
