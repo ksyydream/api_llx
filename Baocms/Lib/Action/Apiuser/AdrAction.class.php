@@ -8,28 +8,18 @@
 class AdrAction extends CommonAction {
 
     public function index() {
-        $type = (int) $this->_param('type');
-        $order_id = (int) $this->_param('order_id');
         $u = D('Users');
         $ud = D('UserAddr');
         $addr = $ud -> where('user_id='.$this->app_uid) -> select();
         $rs = array(
             'success'=>true,
-            'type'=>$type,
-            'order_id'=>$order_id,
             'addr'=>$addr,
-            'business'=>D('Business')->fetchAll(),
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
     }
 
     public function update_addr(){
-        $type = (int) $this->_param('type');
-        $this->assign('type', $type);
-        $order_id = (int) $this->_param('order_id');
-        $this->assign('order_id', $order_id);
-
 
         $addr_id = I('addr_id','','trim,intval');
         if(!$addr_id){
@@ -43,40 +33,11 @@ class AdrAction extends CommonAction {
             $ud = D('UserAddr');
             $up1 = $ud -> where('user_id ='.$this->app_uid)->setField('is_default',0);
             $up2 = $ud -> where('addr_id ='.$addr_id)->setField('is_default',1);
-
-            if($type == 1){
                 $rs = array(
                     'success'=>true,
-                    'order_id'=>$order_id,
-                    'tp'=>'ele',
                     'error_msg'=>''
                 );
                 $this->ajaxReturn($rs,'JSON');
-            }elseif($type == 2){
-                $rs = array(
-                    'success'=>true,
-                    'order_id'=>$order_id,
-                    'tp'=>'mall',
-                    'error_msg'=>''
-                );
-                $this->ajaxReturn($rs,'JSON');
-            }elseif($type == 3){
-                $rs = array(
-                    'success'=>true,
-                    'order_id'=>$order_id,
-                    'tp'=>'mart',
-                    'error_msg'=>''
-                );
-                $this->ajaxReturn($rs,'JSON');
-            }else{
-                $rs = array(
-                    'success'=>true,
-                    'order_id'=>$order_id,
-                    'tp'=>'addrs',
-                    'error_msg'=>''
-                );
-                $this->ajaxReturn($rs,'JSON');
-            }
         }
     }
 
@@ -101,9 +62,9 @@ class AdrAction extends CommonAction {
 
 
                 $name = I('name','','trim,htmlspecialchars');
-                $area_id = I('area_id','','intval,trim');
-                $city_id = I('city_id','','intval,trim');
-                $business_id = I('business_id','','intval,trim');
+                $area_code = I('area_code','','intval,trim');
+                $city_code = I('city_code','','intval,trim');
+                $province_code = I('province_code','','intval,trim');
                 $mobile = I('mobile','','trim');
                 $addr = I('addr','','trim,htmlspecialchars');
 
@@ -111,8 +72,8 @@ class AdrAction extends CommonAction {
                     $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                 }
 
-                if(!$city_id || !$area_id || !$business_id){
-                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '城市、地区、商圈必须都选择！'));
+                if(!$city_code || !$area_code || !$province_code){
+                    $this->ajaxReturn(array('status' => 'error', 'error_msg' => '省区、城市、地区必须都选择！'));
                 }
 
                 if(!isMobile($mobile)){
@@ -125,9 +86,9 @@ class AdrAction extends CommonAction {
 
                 $data = array();
                 $data['name'] = $name;
-                $data['city_id'] = $city_id;
-                $data['area_id'] = $area_id;
-                $data['business_id'] = $business_id;
+                $data['city_code'] = $city_code;
+                $data['area_code'] = $area_code;
+                $data['province_code'] = $province_code;
                 $data['mobile'] = $mobile;
                 $data['addr'] = $addr;
                 $data['user_id'] = $this->app_uid;
@@ -151,9 +112,9 @@ class AdrAction extends CommonAction {
 
                     $addr_id = I('addr_id','','trim,intval');
                     $name = I('name','','trim,htmlspecialchars');
-                    $area_id = I('area_id','','intval,trim');
-                    $city_id = I('city_id','','intval,trim');
-                    $business_id = I('business_id','','intval,trim');
+                    $area_code = I('area_code','','intval,trim');
+                    $city_code = I('city_code','','intval,trim');
+                    $province_code = I('province_code','','intval,trim');
                     $mobile = I('mobile','','trim');
                     $addr = I('addr','','trim,htmlspecialchars');
                     $ud = D('UserAddr');
@@ -174,8 +135,8 @@ class AdrAction extends CommonAction {
                         $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                     }
 
-                    if(!$city_id || !$area_id || !$business_id){
-                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '城市、地区、商圈必须都选择！'));
+                    if(!$city_code || !$area_code || !$province_code){
+                        $this->ajaxReturn(array('status' => 'error', 'error_msg' => '省区、城市、地区必须都选择！'));
                     }
 
                     if(!isMobile($mobile)){
@@ -188,9 +149,9 @@ class AdrAction extends CommonAction {
 
                     $data = array();
                     $data['name'] = $name;
-                    $data['city_id'] = $city_id;
-                    $data['area_id'] = $area_id;
-                    $data['business_id'] = $business_id;
+                    $data['city_code'] = $city_code;
+                    $data['area_code'] = $area_code;
+                    $data['province_code'] = $province_code;
                     $data['mobile'] = $mobile;
                     $data['addr'] = $addr;
                     $data['user_id'] = $this->app_uid;
