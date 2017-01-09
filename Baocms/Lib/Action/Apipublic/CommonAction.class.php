@@ -72,4 +72,41 @@ class CommonAction extends Action{
         //http://$Think.SERVER.HTTP_HOST}>__ROOT__<{:U('/mobile/shop/detail',array('shop_id'=>$shop_id))}>?uid=<{$uid}>
         QRcode::png($data);
     }
+
+    public function access_openid($shop_id = '', $force = false,$uid=''){
+        static $openid = null;
+        $appid = $this -> _CONFIG['weixin']["appid"];
+        $appsecret = $this -> _CONFIG['weixin']["appsecret"];
+        if ($force || $openid === null) {
+            if ($code = $_REQUEST['code']) {
+                $client = D('Weixin')->admin_wechat_client($shop_id,$appid,$appsecret);
+                $ret = $client->getAccessTokenByCode($code);
+                $openid = $ret['openid'];
+                cookie('openid', $openid);
+            } else {
+                if (!($openid = $_COOKIE['openid'])) {
+                    $client = D('Weixin')->admin_wechat_client($shop_id,$appid,$appsecret);
+                    $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PATH_INFO'];
+                    if($uid){
+                        $url = $url.'?uid='.$uid;
+                    }
+                    $state = md5(uniqid(rand(), TRUE));
+                    $authurl = $client->getOAuthConnectUri($url, $state, 'snsapi_base');
+                    header('Location:' . $authurl);
+                    die();
+                }
+                $unionid = $_COOKIE['unionid'];
+            }
+            if (!defined('WX_OPENID')) {
+                define('WX_OPENID', $openid);
+            }
+            if (!defined('WX_UNIONID')) {
+                define('WX_UNIONID', $unionid);
+            }
+        }
+        if (empty($openid)) {
+            die('获取授权失败');
+        }
+        return $openid;
+    }
 }

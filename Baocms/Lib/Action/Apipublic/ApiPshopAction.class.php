@@ -33,6 +33,54 @@ class ApiPshopAction extends CommonAction{
             if ($this->token != -1) {
                 D('Userslook')->look($this->app_uid, $shop_id);
             }
+            if($_GET['uid']){
+                if(IS_WEIXIN){
+                    if(!$_COOKIE['openid']){
+                        $this->access_openid('',false,$_GET['uid']);
+                    }
+
+                    $openid = $_COOKIE['openid'];
+                    $Userparent = D('Userparent');
+                    $parent = array();
+                    $appid = $this -> _CONFIG['weixin']["appid"];
+                    $appsecret = $this -> _CONFIG['weixin']["appsecret"];
+
+                    $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
+                    $rs = json_decode($rs,true);
+                    $access_token = $rs['access_token'];
+                    $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
+                    $rs = json_decode($rs,true);
+                    if($rs['subscribe'] != 1){
+                        redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
+                        exit();
+                    }
+
+                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+
+                    if($uid['uid'] != $_GET['uid']){//不是自己分享给自己的
+                        $rs = $Userparent->where(array('openid'=>$openid))->find();
+                        if($rs){
+                            $parent_old = json_decode($rs['parent']);
+                            foreach ($parent_old as $k=>$v){
+                                $parent[$k] = $v;
+                            }
+                            if(!isset($parent[$shop_id])){
+                                $parent[$shop_id] = $_GET['uid'];
+                            }
+                            $parent = json_encode($parent);
+                            $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent));
+                        }else{
+                            $parent[$shop_id] = $_GET['uid'];
+                            $parent = json_encode($parent);
+                            $data = array(
+                                'openid'=>$openid,
+                                'parent'=>$parent
+                            );
+                            $Userparent->add($data);
+                        }
+                    }
+                }
+            }
            /*
             //招聘
             $work = D('work')->order('work_id desc ')->where(array('shop_id' => $shop_id, 'audit' => 1,'city_id'=>$this->city_id, 'closed' => 0, 'expire_date' => array('EGT', TODAY)))->select();
