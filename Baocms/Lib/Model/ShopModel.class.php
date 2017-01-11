@@ -189,6 +189,7 @@ class ShopModel extends CommonModel {
         bao_shop.tel,
         bao_shop.addr,
         bao_shop.yhk1,
+        bao_shop.score,
         ROUND(lat_lng_distance({$lat}, {$lng}, bao_shop.lat, bao_shop.lng), 2) AS juli,
         IFNULL(sum(bao_goods.sold_num),0) AS allsold_num")
             ->where($map)
@@ -196,10 +197,19 @@ class ShopModel extends CommonModel {
             ->join('left join bao_goods on bao_goods.shop_id = bao_shop.shop_id')
             ->group('bao_shop.shop_id')
             ->page("{$page},10");
-        if($order == 2){
-            $this->order('allsold_num desc');
-        }else{
-            $this->order('juli asc');
+        switch($order){
+            case 1:
+                $this->order('juli asc');
+                break;
+            case 2:
+                $this->order('allsold_num desc');
+                break;
+            case 3:
+                $this->order('score desc');
+                break;
+            default:
+                $this->order('juli asc');
+                break;
         }
         $data=$this->select();
         return $data;
