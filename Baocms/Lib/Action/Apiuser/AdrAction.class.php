@@ -75,7 +75,7 @@ class AdrAction extends CommonAction {
                 $province_code = I('province_code','','intval,trim');
                 $mobile = I('mobile','','trim');
                 $addr = I('addr','','trim,htmlspecialchars');
-
+                $default_add = $this->_post('default');
                 if(!$name){
                     $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                 }
@@ -91,7 +91,7 @@ class AdrAction extends CommonAction {
                 if(!$addr){
                     $this->ajaxReturn(array('status' => 'error', 'error_msg' => '收货地址没有填写！'));
                 }
-
+                $ud = D('UserAddr');
                 $data = array();
                 $data['name'] = $name;
                 $data['city_code'] = $city_code;
@@ -100,10 +100,16 @@ class AdrAction extends CommonAction {
                 $data['mobile'] = $mobile;
                 $data['addr'] = $addr;
                 $data['user_id'] = $this->app_uid;
-                $data['is_default'] = 0;
+                if($default_add){
+                    $data['is_default'] = 1;
+                    $up1 = $ud -> where('user_id ='.$this->app_uid)->setField('is_default',0);
+                }else{
+                    $data['is_default'] = 0;
+                }
+
                 $data['closed'] = 0;
 
-                $ud = D('UserAddr');
+
                 $add = $ud -> add($data);
                 if($add){
                     $this->ajaxReturn(array('status' => 'success', 'error_msg' => '添加成功！'));
@@ -126,6 +132,7 @@ class AdrAction extends CommonAction {
                     $mobile = I('mobile','','trim');
                     $addr = I('addr','','trim,htmlspecialchars');
                     $ud = D('UserAddr');
+                    $default_add = $this->_post('default');
                     if(!$addr_id){
                         $this->ajaxReturn(array('status' => 'error', 'error_msg' => '错误！'));
                     }else{
@@ -163,7 +170,12 @@ class AdrAction extends CommonAction {
                     $data['mobile'] = $mobile;
                     $data['addr'] = $addr;
                     $data['user_id'] = $this->app_uid;
-                    $data['is_default'] = $f['is_default'];
+                    if($default_add){
+                        $data['is_default'] = 1;
+                        $up1 = $ud -> where('user_id ='.$this->app_uid)->setField('is_default',0);
+                    }else {
+                        $data['is_default'] = 0;
+                    }
                     $data['closed'] = 0;
 
 
