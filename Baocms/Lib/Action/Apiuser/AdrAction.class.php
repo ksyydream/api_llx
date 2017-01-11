@@ -10,7 +10,11 @@ class AdrAction extends CommonAction {
     public function index() {
         $u = D('Users');
         $ud = D('UserAddr');
-        $addr = $ud -> where('user_id='.$this->app_uid) -> select();
+        $addr = $ud->alias('a')->field('a.*,b.name province_name,c.name city_name,d.name area_name')
+            ->join('bao_nprovince b on a.province_code = b.code')
+            ->join('bao_ncity c on a.city_code = c.code')
+            ->join('bao_narea d on a.area_code = d.code')
+            ->where('a.user_id='.$this->app_uid) -> select();
         $rs = array(
             'success'=>true,
             'addr'=>$addr,
