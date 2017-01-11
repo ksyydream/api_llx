@@ -23,7 +23,7 @@ class PayAction extends CommonAction
         //$list = $Pay->query("select a.*,shop_name from `bao_pay` AS a left join `bao_shop` AS b on a.shop_id = b.shop_id where a.mobile = ".$member['account']." order by a.id desc limit ".$page.",25");
         $list = $Pay->alias('a')->field('a.*,b.shop_name')
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
-            ->where('a.mobile',$member['account'])
+            ->where('a.mobile=',$member['account'])
             ->order('a.id desc')
             ->page($page . ',20')
             ->select();
