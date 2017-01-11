@@ -75,7 +75,7 @@ class AdrAction extends CommonAction {
                 $province_code = I('province_code','','intval,trim');
                 $mobile = I('mobile','','trim');
                 $addr = I('addr','','trim,htmlspecialchars');
-                $default_add = $this->_post('default');
+                $default_add = $this->_post('default')?$this->_post('default'):0;
                 if(!$name){
                     $this->ajaxReturn(array('status' => 'error', 'error_msg' => '联系人没有填写！'));
                 }
@@ -100,7 +100,7 @@ class AdrAction extends CommonAction {
                 $data['mobile'] = $mobile;
                 $data['addr'] = $addr;
                 $data['user_id'] = $this->app_uid;
-                if($default_add){
+                if($default_add==1){
                     $data['is_default'] = 1;
                     $up1 = $ud -> where('user_id ='.$this->app_uid)->setField('is_default',0);
                 }else{
@@ -132,7 +132,7 @@ class AdrAction extends CommonAction {
                     $mobile = I('mobile','','trim');
                     $addr = I('addr','','trim,htmlspecialchars');
                     $ud = D('UserAddr');
-                    $default_add = $this->_post('default');
+                    $default_add = $this->_post('default')?$this->_post('default'):0;
                     if(!$addr_id){
                         $this->ajaxReturn(array('status' => 'error', 'error_msg' => '错误！'));
                     }else{
@@ -170,7 +170,7 @@ class AdrAction extends CommonAction {
                     $data['mobile'] = $mobile;
                     $data['addr'] = $addr;
                     $data['user_id'] = $this->app_uid;
-                    if($default_add){
+                    if($default_add==1){
                         $data['is_default'] = 1;
                         $up1 = $ud -> where('user_id ='.$this->app_uid)->setField('is_default',0);
                     }else {
