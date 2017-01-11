@@ -13,9 +13,9 @@ class AdrAction extends CommonAction {
         $u = D('Users');
         $ud = D('UserAddr');
         $addr = $ud->alias('a')->field('a.*,b.name province_name,c.name city_name,d.name area_name')
-            ->join('bao_nprovince b on a.province_code = b.code')
-            ->join('bao_ncity c on a.city_code = c.code')
-            ->join('bao_narea d on a.area_code = d.code')
+            ->join('bao_nprovince b on a.province_code = b.code','LEFT')
+            ->join('bao_ncity c on a.city_code = c.code','LEFT')
+            ->join('bao_narea d on a.area_code = d.code','LEFT')
             ->where('a.user_id='.$this->app_uid)
             ->page($page . ',20')
             ->select();

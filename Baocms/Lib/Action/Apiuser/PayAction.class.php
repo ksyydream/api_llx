@@ -19,18 +19,20 @@ class PayAction extends CommonAction
         $map = array('mobile' => $member['mobile']);
         $count = $Pay->where($map)->count();
         $maxpage=ceil($count/25);
-        if($Page = $this->_param('page', 'htmlspecialchars')){
-            $page=$Page-1;
-        }else{
-            $page=0;
-        }
-        $list = $Pay->query("select a.*,shop_name from `bao_pay` AS a left join `bao_shop` AS b on a.shop_id = b.shop_id where a.mobile = ".$member['account']." order by a.id desc limit ".$page.",25");
+        $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
+        //$list = $Pay->query("select a.*,shop_name from `bao_pay` AS a left join `bao_shop` AS b on a.shop_id = b.shop_id where a.mobile = ".$member['account']." order by a.id desc limit ".$page.",25");
+        $list = $Pay->alias('a')->field('a.*,b.shop_name')
+            ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
+            ->where('a.mobile',$member['account'])
+            ->order('a.id desc')
+            ->page($page . ',20')
+            ->select();
         foreach ($list as $k => $v) {
             $list[$k]['zp'] = (array)json_decode($v['zp']);
         }
         $rs=array('success'=>true,
             'list'=>$list,
-            'page'=>$page+1,
+            'page'=>$page,
             'maxpage'=>(int)$maxpage,
             'error_msg'=>''
         );
