@@ -169,8 +169,8 @@ class ApiPmallAction extends CommonAction{
 
         try{
             $Shop = D('Shop');
-            $lng = $this->_param('lng');
-            $lat = $this->_param('lat');
+            $lng = (float)$this->_param('lng');
+            $lat = (float)$this->_param('lat');
             //$city_id = $this->_param('city_id')?$this->_param('city_id'):12;//如果没有city_id 默认使用上海
             //$cate_id = $this->_param('cate_id')?$this->_param('cate_id'):0;
             //$area_id = $this->_param('area_id')?$this->_param('area_id'):0;

@@ -49,7 +49,7 @@ $configs =  array(
     
 
 );
-
+require  BASE_PATH.'/'.APP_NAME.'/Conf/pay_wx.php';
 return array_merge($configs,$dbconfigs);
 
 ?>

@@ -177,11 +177,9 @@ class ShopModel extends CommonModel {
         //return $this->getLastSql();
     }
 
-    public function getshopsAPP2($area_code,$page,$lng,$lat,$order){
+    public function getshopsAPP2($area_code,$page,$lng=0,$lat=0,$order){
         $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
         $map['bao_shop.area_code'] = $area_code;
-
-
         $this->field("bao_shop.shop_id,
         bao_shop.shop_name,
         bao_shop.logo,
@@ -190,11 +188,11 @@ class ShopModel extends CommonModel {
         bao_shop.addr,
         bao_shop.yhk1,
         bao_shop.score,
-        ROUND(lat_lng_distance({$lat}, {$lng}, bao_shop.lat, bao_shop.lng), 2) AS juli,
+        ROUND(lat_lng_distance('{$lat}', '{$lng}', bao_shop.lat, bao_shop.lng), 2) AS juli,
         IFNULL(sum(bao_goods.sold_num),0) AS allsold_num")
             ->where($map)
             ->where('lat is not null and lng is not null')
-            ->join('left join bao_goods on bao_goods.shop_id = bao_shop.shop_id')
+            ->join('bao_goods on bao_goods.shop_id = bao_shop.shop_id','LEFT')
             ->group('bao_shop.shop_id')
             ->page("{$page},10");
         switch($order){
@@ -212,6 +210,7 @@ class ShopModel extends CommonModel {
                 break;
         }
         $data=$this->select();
+       /* var_dump($this->getLastSql());*/
         return $data;
         //return $this->getLastSql();
     }
