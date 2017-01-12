@@ -137,6 +137,23 @@ class OrderinfoAction extends CommonAction{
 
     }
 
+    public function save_dp_pic(){
+        $img = $this->uploadimg('dp_pic');
+        if($img){
+            $rs = array(
+                'success' => true,
+                'error_msg' =>'',
+                'pic_path'=>$img//头像上传失败
+            );
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg' =>''
+            );
+        }
+        $this->ajaxReturn($rs,'JSON');
+    }
+
     public function dianping(){
 
         $order_id = (int) $this->_param('order_id');
@@ -192,7 +209,8 @@ class OrderinfoAction extends CommonAction{
             $data['create_ip'] = get_client_ip( );
             $obj = D( "Goodsdianping" );
             if ($dianping_id = $obj->add( $data ) ){
-                $photos = $this->uploadimg2($_FILES['photos']);
+                //$photos = $this->uploadimg2($_FILES['photos']);
+                $photos = $this->_post('photos_path');
                 if (!empty( $photos ) ){
                     D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
                 }
