@@ -179,6 +179,16 @@ class OrderinfoAction extends CommonAction{
             die(json_encode($rs));
         }
 
+        $photos = $this->_post('photos_path');
+        if($photos){
+            if (!is_array($photos)){
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'图片地址必须是数组!'
+                );
+                die(json_encode($rs));
+            }
+        }
         $goodss = D('Ordergoods')->where('order_id ='.$detail['order_id']) -> find();
         $goods_id = $goodss['goods_id'];
         $score=$this->_param('score');
@@ -210,10 +220,8 @@ class OrderinfoAction extends CommonAction{
             $obj = D( "Goodsdianping" );
             if ($dianping_id = $obj->add( $data ) ){
                 //$photos = $this->uploadimg2($_FILES['photos']);
-                $photos = $this->_post('photos_path');
-                if (!empty( $photos ) ){
-                    D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
-                }
+                $photos = $this->_post('photos_path')?$this->_post('photos_path'):array();
+                D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
                 D( "Order" )->save( array( "order_id" => $order_id,"is_dianping" => 1));
                 D( "Shop" )->updateCount( $detail['shop_id'], "score_num" );
                 D( "Users" )->updateCount( $this->app_uid, "ping_num" );
