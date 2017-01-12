@@ -297,7 +297,7 @@ class OrderinfoAction extends CommonAction{
         $tprice = 0;
         $all_integral = $total_mobile = 0;
         $ip = get_client_ip();
-        $total_canuserintegral = $ordergoods = $total_price = array();
+        $total_canuserintegral = $ordergoods = $total_price = $mm_price = array();
         foreach ($goods as $val) {
             $price = $val['mall_price'] * $num[$val['goods_id']];
             $js_price = $val['settlement_price'] * $num[$val['goods_id']];
@@ -381,4 +381,77 @@ class OrderinfoAction extends CommonAction{
         }
         die;
     }
+
+    public function check_order(){
+        $order_id = (int) $this->_post('order_id');
+        $order = D('Order')->find($order_id);
+        if (empty($order) || $order['status'] != 0 || $order['user_id'] != $this->uid) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'订单不存在!'
+            );
+            die(json_encode($rs));
+        }
+        $this->goods_mum($order_id);//检测库存
+        $logs = D('Paymentlogs')->getLogsByOrderId('goods', $order_id);
+        //写入支付记录
+        $need_pay = D('Order')->useIntegral($this->uid, array($order_id));
+        //更新支付结果
+        if (empty($logs)) {
+            $logs = array(
+                'type' => 'goods',
+                'user_id' => $this->uid,
+                'order_id' => $order_id,
+                'code' => '',
+                'need_pay' => $need_pay,
+                'create_time' => NOW_TIME,
+                'create_ip' => get_client_ip(),
+                'is_paid' => 0
+            );
+            //单个付款走的这里，为什么没写入数据库$need_pay
+            $logs['log_id'] = D('Paymentlogs')->add($logs);
+        } else {
+            $logs['need_pay'] = $need_pay;
+            $logs['code'] = '';
+            D('Paymentlogs')->save($logs);
+        }
+        D('Order')->where("order_id={$order_id}")->save(array('need_pay' => $need_pay));
+        $order_new = D('Order')->find($order_id);
+        if($order_new['need_pay'] == 0){
+            if(D('Payment')->logsPaid($logs['log_id'])){
+                // 这里返回支付成功 全秀币支付
+                $rs = array(
+                    'success' => true,
+                    'error_msg' => '',
+                    'flag'=>1,//代表支付成功
+                );
+                die(json_encode($rs));
+            }
+        }
+
+        $rs = array(
+            'success' => true,
+            'error_msg' => '',
+            'flag'=>2,//代表还需要第三方支付
+            'logs'=>$logs
+        );
+        die(json_encode($rs));
+    }
+
+    public function goods_mum($order_id){
+        $order_id = (int) $order_id;
+        $ordergoods_ids = D('Ordergoods')->where(array('order_id' => $order_id))->select();
+        foreach ($ordergoods_ids as $k => $v) {
+            $goods_num = D('Goods')->where(array('goods_id' => $v['goods_id']))->find();
+            if ($goods_num['num'] < $v['num']) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'商品ID' . $v['goods_id'] . '库存不足无法付款'
+                );
+                die(json_encode($rs));
+            }
+        }
+        return 1;
+    }
+
 }
