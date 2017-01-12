@@ -171,6 +171,13 @@ class ApiPmallAction extends CommonAction{
             $Shop = D('Shop');
             $lng = (float)$this->_param('lng');
             $lat = (float)$this->_param('lat');
+            if(!$lng || !$lat){
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'经纬度不能为空!'
+                );
+                die(json_encode($rs));
+            }
             //$city_id = $this->_param('city_id')?$this->_param('city_id'):12;//如果没有city_id 默认使用上海
             //$cate_id = $this->_param('cate_id')?$this->_param('cate_id'):0;
             //$area_id = $this->_param('area_id')?$this->_param('area_id'):0;
