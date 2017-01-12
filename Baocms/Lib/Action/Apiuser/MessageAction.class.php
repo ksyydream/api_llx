@@ -12,17 +12,13 @@ class MessageAction extends CommonAction {
         $map = array('is_fenzhan'=>0,'user_id'=> 0);
         $count = $Msg->where($map)->count();
         $maxpage=ceil($count/6);
-        if($Page = $this->_param('page', 'htmlspecialchars')){
-            $page=$Page-1;
-        }else{
-            $page=0;
-        }
-        $msgs = $Msg->where($map)->order(array('msg_id' => 'desc'))->limit($page.',6')->select();
+        $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
+        $msgs = $Msg->where($map)->order(array('msg_id' => 'desc'))->page($page.',6')->select();
         $rs=array(
             'success'=>true,
             'msg'=>$msgs,
             'type'=>$Msg->getType(),
-            'page'=>$page+1,
+            'page'=>$page,
             'maxpage'=>(int)$maxpage,
             'error_msg'=>''
         );

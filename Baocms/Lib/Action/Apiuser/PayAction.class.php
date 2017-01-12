@@ -18,7 +18,7 @@ class PayAction extends CommonAction
         $member = $this->member;
         $map = array('mobile' => $member['mobile']);
         $count = $Pay->where($map)->count();
-        $maxpage=ceil($count/25);
+        $maxpage=ceil($count/20);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         //$list = $Pay->query("select a.*,shop_name from `bao_pay` AS a left join `bao_shop` AS b on a.shop_id = b.shop_id where a.mobile = ".$member['account']." order by a.id desc limit ".$page.",25");
         $list = $Pay->alias('a')->field('a.*,b.shop_name')
