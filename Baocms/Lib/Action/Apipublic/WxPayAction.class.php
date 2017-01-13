@@ -11,10 +11,10 @@ class WxpayAction extends CommonAction{
     public function app_pay(){
 
         $pay_sys=$this->_post('pay_sys');
-        if($pay_sys!='Android' || $pay_sys!='IOS'){
+        if($pay_sys!='Android' && $pay_sys!='IOS'){
             $rs = array(
                 'success' => false,
-                'error_msg'=>'移动端选择错误!'
+                'error_msg'=>'1移动端选择错误!'
             );
             die(json_encode($rs));
         }
@@ -30,16 +30,17 @@ class WxpayAction extends CommonAction{
 
         $logs = D('Paymentlogs') -> find($log_id);
 
-        if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
+        /*if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
-                'error_msg'=>'没有有效的支付记录!'
+                'error_msg'=>'2没有有效的支付记录!'
             );
             die(json_encode($rs));
-        }
+        }*/
         require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             'appid'=> $this->wx_appid,
+            //'appid'=> C('wx_appid'),
             'mch_id'=> C('mch_id'),
             'apikey'=> C('apikey'),
             'appsecret'=> $this->wx_appsecret,
@@ -56,11 +57,15 @@ class WxpayAction extends CommonAction{
         $param["time_start"] = date("YmdHis");
         $param["time_expire"] = date("YmdHis", time() + 600);
         $param["goods_tag"] = "拉拉秀线上商城";
-        $param["notify_url"] = base_url()."/Apiwxpay/notify";
+        $param["notify_url"] = U('notify');
         $param["trade_type"] = "APP";
         //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
         $result = $weixin_pay->unifiedOrder($param);
         var_dump($result);
         die;
+
+
+        //先测试能不能使用APP 支付申请到预支付编号
+        //然后 设计回调函数,
     }
 }
