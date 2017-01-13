@@ -5,7 +5,7 @@
  * Date: 17/1/12
  * Time: 下午1:40
  */
-class WxpayAction extends CommonAction{
+class WxPayAction extends CommonAction{
     protected $wx_appid;
     protected $wx_appsecret;
     public function app_pay(){
