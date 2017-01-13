@@ -30,13 +30,13 @@ class WxPayAction extends CommonAction{
 
         $logs = D('Paymentlogs') -> find($log_id);
 
-        /*if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
+        if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
                 'error_msg'=>'2没有有效的支付记录!'
             );
             die(json_encode($rs));
-        }*/
+        }
         require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             'appid'=> $this->wx_appid,
@@ -57,15 +57,49 @@ class WxPayAction extends CommonAction{
         $param["time_start"] = date("YmdHis");
         $param["time_expire"] = date("YmdHis", time() + 600);
         $param["goods_tag"] = "拉拉秀线上商城";
-        $param["notify_url"] = U('notify');
+        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/notify';
         $param["trade_type"] = "APP";
         //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
         $result = $weixin_pay->unifiedOrder($param);
-        var_dump($result);
-        die;
+        if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
+            $rs = array(
+                'success' => true,
+                'error_msg'=>'',
+                'result'=>$result
+            );
+            die(json_encode($rs));
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'3微信预支付ID 获取失败!',
+                'result'=>$result
+            );
+            die(json_encode($rs));
+        }
 
 
         //先测试能不能使用APP 支付申请到预支付编号
         //然后 设计回调函数,
+    }
+
+    public function notify(){
+        $wxconfig=array(
+            'appid'=> $this->wx_appid?$this->wx_appid:'',
+            'mch_id'=> C('mch_id'),
+            'apikey'=> C('apikey'),
+            'appsecret'=> $this->wx_appsecret?$this->wx_appsecret:'',
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $data_array = $weixin_pay->get_back_data();
+        if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
+            //$data_array['out_trade_no'] 就是传送的 商家订单
+            if(D('Payment')->logsPaid($data_array['out_trade_no'])){
+                return 'SUCCESS';
+            }else{
+                return 'FAIL';
+            }
+        }
     }
 }
