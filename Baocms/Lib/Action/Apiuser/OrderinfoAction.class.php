@@ -424,6 +424,8 @@ class OrderinfoAction extends CommonAction{
                     'success' => true,
                     'error_msg' => '',
                     'flag'=>1,//代表支付成功
+                    'logs'=>$logs
+
                 );
                 die(json_encode($rs));
             }

@@ -52,7 +52,7 @@ class WxPayAction extends CommonAction{
         $param['attach'] = 'attach';
         $param['detail'] = "拉拉秀线上商城——微信支付";
         $param['out_trade_no'] = $logs['log_id'];
-        $param['total_fee'] = 1;
+        $param['total_fee'] = $logs['need_pay'];
         $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
         $param["time_start"] = date("YmdHis");
         $param["time_expire"] = date("YmdHis", time() + 600);
