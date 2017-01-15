@@ -14,7 +14,7 @@ class WxPayAction extends CommonAction{
         if($pay_sys!='Android' && $pay_sys!='IOS'){
             $rs = array(
                 'success' => false,
-                'error_msg'=>'1移动端选择错误!'
+                'error_msg'=>'移动端选择错误!'
             );
             die(json_encode($rs));
         }
@@ -33,7 +33,7 @@ class WxPayAction extends CommonAction{
         if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
-                'error_msg'=>'2没有有效的支付记录!',
+                'error_msg'=>'没有有效的支付记录!',
                 'log'=>$logs,
                 'app_uid'=>$this->app_uid
             );
@@ -73,7 +73,7 @@ class WxPayAction extends CommonAction{
         }else{
             $rs = array(
                 'success' => false,
-                'error_msg'=>'3微信预支付ID 获取失败!',
+                'error_msg'=>'微信预支付ID 获取失败!',
                 'result'=>$result
             );
             die(json_encode($rs));
