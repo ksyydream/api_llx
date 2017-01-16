@@ -105,6 +105,20 @@ class OrderinfoAction extends CommonAction{
                 die(json_encode($rs));
             }
             $order_goods_info = D('Ordergoods')->getOrderGoodsinfo($order_id);
+            $order_title = '';
+            $order_num = 0;
+            $order_flag=1;
+            foreach($order_goods_info as $k=>$val){
+                $order_num +=(int)$val['num'];
+                if($order_title == ""){
+                    $order_title = $val['title'];
+                }else{
+                    $order_flag=2;
+                }
+            }
+            if($order_flag==2){
+                $order_title.=" 等{$order_num}个商品";
+            }
             //$err =    D('Ordergoods')->getLastSql();
             $order_goods = D('Ordergoods')->where(array('order_id'=>$order_id))->select();
             $goods_ids = array();
@@ -115,10 +129,12 @@ class OrderinfoAction extends CommonAction{
                 $json_goods = D('Goods')->itemsByIds($goods_ids);
             }
             $json_addr = D('Useraddr')->find($detail['addr_id']);
+            $shop_info = D('Shop')->find($detail['shop_id']);
             $json_types = D('Order')->getType();
             $rs = array(
                 'success' => true,
-                //'ordergoods'=>$order_goods,
+                'order_title'=>$order_title,
+                'shop_name'=>$shop_info['shop_name'],
                 'addr'=>$json_addr,
                 'types'=>$json_types,
                 'detail'=>$detail,
