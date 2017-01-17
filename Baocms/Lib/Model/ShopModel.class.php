@@ -178,8 +178,14 @@ class ShopModel extends CommonModel {
     }
 
     public function getshopsAPP2($area_code,$page,$lng=0,$lat=0,$order){
+        $cate_id = $this->_post('cate_id')?$this->_post('cate_id'):0;
         $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
+        if($cate_id!=0){
+            $map['bao_shop.cate_id'] = $cate_id;
+        }
         $map['bao_shop.area_code'] = $area_code;
+        $shop_name = $this->_post('shop_name','trim')?$this->_post('shop_name','trim'):'';
+        $map['bao_shop.shop_name'] = array('like',"%{$shop_name}%");
         $this->field("bao_shop.shop_id,
         bao_shop.shop_name,
         bao_shop.logo,
