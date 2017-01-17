@@ -411,12 +411,12 @@ class OrderinfoAction extends CommonAction{
         $this->goods_mum($order_id);//检测库存
         $logs = D('Paymentlogs')->getLogsByOrderId('goods', $order_id);
         //写入支付记录
-        $need_pay = D('Order')->useIntegral($this->uid, array($order_id));
+        $need_pay = D('Order')->useIntegral($this->app_uid, array($order_id));
         //更新支付结果
         if (empty($logs)) {
             $logs = array(
                 'type' => 'goods',
-                'user_id' => $this->uid,
+                'user_id' => $this->app_uid,
                 'order_id' => $order_id,
                 'code' => '',
                 'need_pay' => $need_pay,
