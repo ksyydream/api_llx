@@ -51,7 +51,7 @@ class CommonAction extends Action{
         $this->shop_id = $this->shop['shop_id']; //为了程序调用的时候方便
         $this->yhk1 = $this->shop['yhk1']; //为了程序调用的时候方便
         $this->yhk2 = $this->shop['yhk2']; //为了程序调用的时候方便
-        $this->shopcates = D('Shopcate')->where("cate_id = {$this->shop['cate_id']}")->select();
+        $this->shopcates = D('Shopcate')->where("cate_id = {$this->shop['cate_id']}")->find();
     }
     protected function get_token(){
         foreach (getallheaders() as $name => $value) {
