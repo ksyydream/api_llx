@@ -401,7 +401,7 @@ class OrderinfoAction extends CommonAction{
     public function check_order(){
         $order_id = (int) $this->_post('order_id');
         $order = D('Order')->find($order_id);
-        if (empty($order) || $order['status'] != 0 || $order['user_id'] != $this->uid) {
+        if (empty($order) || $order['status'] != 0 || $order['user_id'] != $this->app_uid) {
             $rs = array(
                 'success' => false,
                 'error_msg'=>'订单不存在!'

@@ -33,9 +33,9 @@ class WxPayAction extends CommonAction{
         if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
-                'error_msg'=>'没有有效的支付记录!',
-                'log'=>$logs,
-                'app_uid'=>$this->app_uid
+                'error_msg'=>'没有有效的支付记录!'
+              /*  'log'=>$logs,
+                'app_uid'=>$this->app_uid*/
             );
             die(json_encode($rs));
         }
