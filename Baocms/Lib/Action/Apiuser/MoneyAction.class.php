@@ -106,16 +106,19 @@ class MoneyAction extends CommonAction{
         $user_id = $this->app_uid;
         $userscash = D('Userscash')->where(array('user_id' => $user_id))->find();;
         $shop = D('Shop')->where(array('user_id' => $user_id))->find();
+        $forzengold = 0;
         if ($shop == '') {
             $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
             $cash_money_big = $this->_CONFIG['cash']['user_big'];
         } elseif ($shop['is_renzheng'] == 0) {
-            $rlgold=$this->member['gold']-3000000;
+            $rlgold=$this->member['gold']-3000000 >= 0?$this->member['gold']-3000000:0;
+            $forzengold=$rlgold > 0 ? 3000000 : $this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['shop'];
             $cash_money_big = $this->_CONFIG['cash']['shop_big'];
         } elseif ($shop['is_renzheng'] == 1) {
-            $rlgold=$this->member['gold']-3000000;
+            $rlgold=$this->member['gold']-3000000 >= 0?$this->member['gold']-3000000:0;
+            $forzengold=$rlgold > 0 ? 3000000 : $this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['renzheng_shop'];
             $cash_money_big = $this->_CONFIG['cash']['renzheng_shop_big'];
         } else {
@@ -204,7 +207,7 @@ class MoneyAction extends CommonAction{
                 'info'=>D('Usersex')->getUserex($user_id),//曾经用过的银行信息
                 'nickname'=>$this->member['nickname'],
                 'gold'=>$rlgold,//余额
-                'forzengold'=>$this->member['frozen'],//冻结金
+                'forzengold'=>$forzengold,//冻结金
                 'cash_money'=>$cash_money,//可提取金额最小值
                 'cash_money_big'=>$cash_money_big,//最大值
                 'error_msg'=>''
