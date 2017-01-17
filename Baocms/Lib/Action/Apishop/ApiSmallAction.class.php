@@ -116,6 +116,27 @@ class ApiSmallAction extends CommonAction{
             );
             $this->ajaxReturn($rs,'JSON');
         }
+        if(!$this->_post('addr','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺地址不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('contact','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺联系人不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('business_time','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺营业时间不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
         $data = array(
             'addr'=>$this->_post('addr','trim,htmlspecialchars',''),
             'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
