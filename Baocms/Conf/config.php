@@ -4,7 +4,7 @@ $dbconfigs = require  BASE_PATH.'/'.APP_NAME.'/Conf/db.php';
 $configs =  array(
 
     //'配置项'=>'配置值'
-    'APP_GROUP_LIST' => 'Apipublic,Apiuser,Admin,Shangjia,Mobile,Delivery,Store,App,Wuye,Mcenter,Member,Pchome,Fenzhan,Weixin,Worker,Community', //项目分组设定
+    'APP_GROUP_LIST' => 'Apishop,Apipublic,Apiuser,Admin,Shangjia,Mobile,Delivery,Store,App,Wuye,Mcenter,Member,Pchome,Fenzhan,Weixin,Worker,Community', //项目分组设定
     'DEFAULT_GROUP'  => 'Pchome', //默认分组
 
     //SESSION 的设置
