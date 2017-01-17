@@ -12,7 +12,7 @@ class CommonAction extends Action{
     protected $member = array();
     protected $shop_id = 0;
     protected $shop = array();
-
+    protected $shopcates = array();
     protected function _initialize(){
         define('__HOST__', 'http://' . $_SERVER['HTTP_HOST']);
         $this->_CONFIG = d( "Setting" )->fetchAll( );
@@ -51,6 +51,7 @@ class CommonAction extends Action{
         $this->shop_id = $this->shop['shop_id']; //为了程序调用的时候方便
         $this->yhk1 = $this->shop['yhk1']; //为了程序调用的时候方便
         $this->yhk2 = $this->shop['yhk2']; //为了程序调用的时候方便
+        $this->shopcates = D('Shopcate')->where("cate_id = {$this->shop['cate_id']}")->select();
     }
     protected function get_token(){
         foreach (getallheaders() as $name => $value) {

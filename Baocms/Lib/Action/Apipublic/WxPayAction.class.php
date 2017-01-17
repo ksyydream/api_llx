@@ -67,7 +67,8 @@ class WxPayAction extends CommonAction{
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',
-                'result'=>$result
+                'result'=>$result,
+                'time'=>time()
             );
             die(json_encode($rs));
         }else{
