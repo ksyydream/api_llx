@@ -107,4 +107,39 @@ class ApiSmallAction extends CommonAction{
         $this->ajaxReturn($rs,'JSON');
 
     }
+
+    public function save_about(){
+        if(!$this->_post('shop_id')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺编号不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $data = array(
+            'addr'=>$this->_post('addr','trim,htmlspecialchars',''),
+            'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
+            'business_time'=>$this->_post('business_time','trim,htmlspecialchars',''),
+            'shop_id'=>$this->_post('shop_id'),
+        );
+        $ex = array(
+            'business_time'  => $data['business_time'],
+        );
+        if(D('Shop')->save($data)){
+            D('Shopdetails')->upDetails($this->shop_id,$ex);
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'保存失败!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+
+    }
+
 }
