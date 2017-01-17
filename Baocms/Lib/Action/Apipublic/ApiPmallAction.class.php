@@ -184,16 +184,9 @@ class ApiPmallAction extends CommonAction{
             $area_code = $this->_param('area_code')?$this->_param('area_code'):310101;
             $page = $this->_param('page')?$this->_param('page'):1;
             $order = $this->_param('order')?$this->_param('order'):1;
-            $map = array('closed'=>0,'audit'=>1);
-            /*$map['city_id'] = $city_id;
-            if($area_id != 0){
-                $map['area_id'] = $area_id;
-            }
-            if($cate_id != 0){
-                $map['cate_id'] = $cate_id;
-            }*/
+            $shop_name = $this->_post('shop_name','trim')?$this->_post('shop_name','trim'):'';
             //$list = $Shop->getshopsAPP($city_id,$cate_id,$area_id,$page,$lng,$lat,$order);
-            $list = $Shop->getshopsAPP2($area_code,$page,$lng,$lat,$order);
+            $list = $Shop->getshopsAPP2($area_code,$page,$lng,$lat,$order,$shop_name);
             //$list = $Shop->getshopsJL();(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*({$lat}-lat)/360),2)+COS(PI()*{$lng}/180)* COS(lat * PI()/180)*POW(SIN(PI()*({$lng}-lng)/360),2)))) as juli
             $rs = array(
                 'success' => true,
