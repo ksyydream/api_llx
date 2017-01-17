@@ -5,7 +5,7 @@
  * Date: 17/1/17
  * Time: 上午10:58
  */
-class ApiPmallAction extends CommonAction{
+class ApiSmallAction extends CommonAction{
     public function index() {
         /*$this->assign('homepage','商户中心首页');
 
