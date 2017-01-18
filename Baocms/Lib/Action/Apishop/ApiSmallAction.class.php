@@ -165,4 +165,21 @@ class ApiSmallAction extends CommonAction{
 
     }
 
+    //图片列表
+    public function photo(){
+        $Shoppic = D('Shoppic');
+        $map = array('shop_id' =>  $this->shop_id);
+        $list = $Shoppic->where($map)->order(array('orderby'=>'desc'))->select();
+        $rs = array(
+            'success'=>true,
+            'shop_pics'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function add_shop_pic(){
+
+    }
+
 }
