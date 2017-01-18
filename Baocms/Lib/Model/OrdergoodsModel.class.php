@@ -26,7 +26,7 @@ class OrdergoodsModel extends CommonModel {
         bao_order_goods.num,
         bao_order_goods.total_price")
             ->join('left join bao_goods on bao_goods.goods_id = bao_order_goods.goods_id')
-            ->where(array('bao_order_goods.id'=>$order_id));
+            ->where(array('bao_order_goods.order_id'=>$order_id));
         $data=$this->select();
         return $data;
     }

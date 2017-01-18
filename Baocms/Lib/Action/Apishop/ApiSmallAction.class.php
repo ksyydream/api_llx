@@ -110,13 +110,6 @@ class ApiSmallAction extends CommonAction{
     }
 
     public function save_about(){
-        if(!$this->_post('shop_id')){
-            $rs=array(
-                'success'=>false,
-                'error_msg'=>'商铺编号不能为空'
-            );
-            $this->ajaxReturn($rs,'JSON');
-        }
         if(!$this->_post('addr','trim')){
             $rs=array(
                 'success'=>false,
@@ -142,7 +135,7 @@ class ApiSmallAction extends CommonAction{
             'addr'=>$this->_post('addr','trim,htmlspecialchars',''),
             'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
             'business_time'=>$this->_post('business_time','trim,htmlspecialchars',''),
-            'shop_id'=>$this->_post('shop_id'),
+            'shop_id'=>$this->shop_id,
         );
         $ex = array(
             'business_time'  => $data['business_time'],
@@ -169,7 +162,7 @@ class ApiSmallAction extends CommonAction{
     public function photo(){
         $Shoppic = D('Shoppic');
         $map = array('shop_id' =>  $this->shop_id);
-        $list = $Shoppic->where($map)->order(array('orderby'=>'desc'))->select();
+        $list = $Shoppic->field('*,DATE_FORMAT(FROM_UNIXTIME(create_time),’yyyy-mm-dd hh:mm:ss’) cdate')->where($map)->order(array('orderby'=>'desc'))->select();
         $rs = array(
             'success'=>true,
             'shop_pics'=>$list,
@@ -179,7 +172,79 @@ class ApiSmallAction extends CommonAction{
     }
 
     public function add_shop_pic(){
-
+        if(!$this->_post('title','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'标题不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('photo','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'图片地址不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!(int)$this->_post('orderby')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'顺序不能为空,且需要正整数!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $obj = D('Shoppic');
+        $data = array(
+            'shop_id'=>$this->shop_id,
+            'title'=>htmlspecialchars($this->_post('title','trim'))
+        );
+        $data['photo'] = $this->_post('photo');
+        $data['orderby'] = (int)$this->_post('orderby');
+        $data['create_time'] = NOW_TIME;
+        $data['create_ip']  = get_client_ip();
+        if ($obj->add($data)) {
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'保存失败!'
+            );
+        }
+        $this->ajaxReturn($rs,'JSON');
     }
 
+    public function upload(){
+        $img = $this->uploadimg('shop_pic');
+        if($img){
+            $rs = array(
+                'success' => true,
+                'error_msg' =>'',
+                'path'=>$img
+            );
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg' =>'上传失败'
+            );
+        }
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function photo_delete(){
+        $pic_id = (int)$this->_post('pic_id');
+        $obj = D('Shoppic');
+        $detail = $obj->find($pic_id);
+        if($detail['shop_id'] == $this->shop_id){
+            $obj->delete($pic_id);
+            $rs = array(
+                'success' => true,
+                'error_msg' =>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $this->ajaxReturn(array('success'=>false,'error_msg'=>'删除失败！'));
+    }
 }
