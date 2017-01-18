@@ -6,13 +6,13 @@ class Wxjssdk {
     private $wxjssdk_config_file_path;
 
     public function __construct(){
-        $this->appId = 'wxa6a2f25241f8bc87';
-        $this->appSecret = '3cbf8a0ea011dd71a2fbc95124858804';
-        $this->wxjssdk_config_file_path = '/var/www/html/hxq';
+        $this->appId = 'wx1a060a56132dfff4';
+        $this->appSecret = '38eefbff5e21a833292d49c18ee68935';
+        $this->wxjssdk_config_file_path = '/var/www/html/api_llx';
     }
 
 
-    public function wxgetSignPackage($appid='wxa6a2f25241f8bc87',$appsecret='3cbf8a0ea011dd71a2fbc95124858804',$path='/var/www/html/hxq') {
+    public function wxgetSignPackage($appid='wx1a060a56132dfff4',$appsecret='38eefbff5e21a833292d49c18ee68935',$path='/var/www/html/api_llx') {
         $this->appId = $appid;
         $this->appSecret = $appsecret;
         $this->wxjssdk_config_file_path = $path;
