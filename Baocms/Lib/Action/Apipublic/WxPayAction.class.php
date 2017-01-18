@@ -68,7 +68,7 @@ class WxPayAction extends CommonAction{
                 'success' => true,
                 'error_msg'=>'',
                 'result'=>$result,
-                'time'=>time()
+                'app_need'=>$this->getOrder($result["prepay_id"])
             );
             die(json_encode($rs));
         }else{
@@ -147,6 +147,46 @@ class WxPayAction extends CommonAction{
             );
             die(json_encode($rs));
         }
+    }
+
+    public function getOrder($prepayId){
+        $data["appid"] = $this->wx_appid;
+        $data["noncestr"] = $this->getRandChar(32);;
+        $data["package"] = "Sign=WXPay";
+        $data["partnerid"] = C('mch_id');
+        $data["prepayid"] = $prepayId;
+        $data["timestamp"] = time();
+        $s = $this->getSign($data, false);
+        $data["sign"] = $s;
+
+        return $data;
+    }
+
+    function getSign($data)
+    {
+        /*foreach ($Obj as $k => $v)
+        {
+            $Parameters[strtolower($k)] = $v;
+        }
+        //签名步骤一：按字典序排序参数
+        ksort($Parameters);
+        $String = $this->formatBizQueryParaMap($Parameters, false);
+        //echo "【string】 =".$String."</br>";
+        //签名步骤二：在string后加入KEY
+        $String = $String."&key=".$this->config['api_key'];
+        //签名步骤三：MD5加密
+        $result_ = strtoupper(md5($String));
+        return $result_;*/
+        ksort($data);
+        $string1 = "";
+        foreach ($data as $k => $v) {
+            if ($v && trim($v)!='') {
+                $string1 .= "$k=$v&";
+            }
+        }
+        $stringSignTemp = $string1 . "key=" . C('apikey');
+        $sign = strtoupper(md5($stringSignTemp));
+        return $sign;
     }
 
     public function notify(){
