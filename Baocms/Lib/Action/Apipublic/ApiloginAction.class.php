@@ -311,7 +311,8 @@ class ApiloginAction extends CommonAction{
             if($data){
                 $rs = array(
                     'success' => true,
-                    'error_msg' =>json_encode($data) //头像上传失败
+                    'map' =>json_encode($data), //头像上传失败
+                    'error_msg'=>''
                 );
                 $this->ajaxReturn($rs,'JSON');
             }else{
