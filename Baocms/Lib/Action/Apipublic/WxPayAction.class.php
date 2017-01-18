@@ -96,7 +96,14 @@ class WxPayAction extends CommonAction{
         $log_id = (int)$this->_post('log_id');
 
         $logs = D('Paymentlogs') -> find($log_id);
-
+        $openid = $this->get_openid();
+        if($openid==''){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'openid 获取失败!'
+            );
+            die(json_encode($rs));
+        }
         if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
@@ -126,7 +133,7 @@ class WxPayAction extends CommonAction{
         $param["goods_tag"] = "拉拉秀线上商城";
         $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/notify';
         $param["trade_type"] = "JSAPI";
-        $param["openid"] = $this->session->userdata('openid');
+        $param["openid"] = $openid;
         $result = $weixin_pay->unifiedOrder($param);
         if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
             //调用支付类里的get_package方法，得到构造的参数
@@ -234,5 +241,35 @@ class WxPayAction extends CommonAction{
             );
             die(json_encode($rs));
         }
+    }
+
+    public function get_openid(){
+        $appid=C('wx_appid');
+        $secret= C('wx_appsecret');
+        $openid='';
+        if(empty($_GET['code'])){
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+            $url = urlencode($url);
+            redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        }else{
+            $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
+            $a_access_token=json_decode($j_access_token,true);
+            $access_token=$a_access_token["access_token"];
+            $openid=$a_access_token["openid"];
+        }
+        return $openid;
+       /* if($openid){
+            $rs = array(
+                'success' => true,
+                'error_msg'=>'',
+                'openid'=>$openid
+            );
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'',
+                'openid'=>$openid
+            );
+        }*/
     }
 }
