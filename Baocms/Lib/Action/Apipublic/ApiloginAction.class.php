@@ -309,12 +309,24 @@ class ApiloginAction extends CommonAction{
             //$data = (int)$obj->result->ad_info->adcode;
             $data = $obj->result->ad_info;
             if($data){
-                echo json_encode($data);
+                $rs = array(
+                    'success' => true,
+                    'error_msg' =>json_encode($data) //头像上传失败
+                );
+                $this->ajaxReturn($rs,'JSON');
             }else{
-                echo json_encode(-1);
+                $rs = array(
+                    'success' => false,
+                    'error_msg' =>'获取失败!'
+                );
+                $this->ajaxReturn($rs,'JSON');
             }
         }else{
-            echo json_encode(-1);
+            $rs = array(
+                'success' => false,
+                'error_msg' =>'获取失败!'
+            );
+            $this->ajaxReturn($rs,'JSON');
         }
     }
 
