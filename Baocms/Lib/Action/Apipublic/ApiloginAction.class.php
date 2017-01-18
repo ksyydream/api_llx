@@ -290,7 +290,7 @@ class ApiloginAction extends CommonAction{
         $Wxjssdk = new Wxjssdk();
         $signPackage = @$Wxjssdk->wxgetSignPackage(C('wx_appid'),C('wx_appsecret'),C('sys_path'));
         $rs = array(
-            'success' => false,
+            'success' => true,
             'error_msg' => '',
             'wxappId' => $signPackage["appId"],
             'wxtimestamp' => $signPackage["timestamp"],
