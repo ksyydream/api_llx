@@ -85,6 +85,70 @@ class WxPayAction extends CommonAction{
         //然后 设计回调函数,
     }
 
+    public function aj_pay(){
+        if(!IS_WEIXIN){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'必须微信端登陆!'
+            );
+            die(json_encode($rs));
+        }
+        $log_id = (int)$this->_post('log_id');
+
+        $logs = D('Paymentlogs') -> find($log_id);
+
+        if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有有效的支付记录!'
+            );
+            die(json_encode($rs));
+        }
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
+        $wxconfig=array(
+            //'appid'=> $this->wx_appid,
+            'appid'=> C('wx_appid'),
+            'mch_id'=> C('mch_id'),
+            'apikey'=> C('apikey'),
+            'appsecret'=> C('wx_appsecret'),
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $param['body'] = '拉拉秀';
+        $param['attach'] = 'attach';
+        $param['detail'] = "拉拉秀线上商城——微信支付";
+        $param['out_trade_no'] = $logs['log_id'];
+        $param['total_fee'] = $logs['need_pay'];
+        $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
+        $param["time_start"] = date("YmdHis");
+        $param["time_expire"] = date("YmdHis", time() + 600);
+        $param["goods_tag"] = "拉拉秀线上商城";
+        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/notify';
+        $param["trade_type"] = "JSAPI";
+        $param["openid"] = $this->session->userdata('openid');
+        $result = $weixin_pay->unifiedOrder($param);
+        if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
+            //调用支付类里的get_package方法，得到构造的参数
+            $data['parameters'] = json_encode($weixin_pay->get_package($result['prepay_id']));
+            $data['fee'] = $logs['need_pay'];
+            $data['pubid'] = $logs['log_id'];
+            $rs = array(
+                'success' => true,
+                'error_msg'=>'',
+                'result'=>$data
+            );
+            die(json_encode($rs));
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'微信预支付ID 获取失败!',
+                'result'=>$result
+            );
+            die(json_encode($rs));
+        }
+    }
+
     public function notify(){
         $wxconfig=array(
             'appid'=> $this->wx_appid?$this->wx_appid:'',
@@ -103,6 +167,32 @@ class WxPayAction extends CommonAction{
             }else{
                 return 'FAIL';
             }
+        }
+    }
+
+    public function notify_tb(){
+        $log_id = (int)$this->_post('log_id');
+        $logs = D('Paymentlogs') -> find($log_id);
+
+        if (empty($logs) || $logs['user_id'] != $this -> app_uid) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有有效的支付记录!'
+            );
+            die(json_encode($rs));
+        }
+        if(D('Payment')->logsPaid($log_id)){
+            $rs = array(
+                'success' => true,
+                'error_msg'=>''
+            );
+            die(json_encode($rs));
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'支付失败!'
+            );
+            die(json_encode($rs));
         }
     }
 }
