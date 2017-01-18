@@ -285,5 +285,19 @@ class ApiloginAction extends CommonAction{
         );
         $this->ajaxReturn($rs,'JSON');
     }
+    public function get_wxconfig(){
+        require_cache( APP_PATH . 'Lib/Net/Wxjssdk.php' );//
+        $Wxjssdk = new Wxjssdk();
+        $signPackage = @$Wxjssdk->wxgetSignPackage(C('wx_appid'),C('wx_appsecret'),C('sys_path'));
+        $rs = array(
+            'success' => false,
+            'error_msg' => '',
+            'wxappId' => $signPackage["appId"],
+            'wxtimestamp' => $signPackage["timestamp"],
+            'wxnonceStr' => $signPackage["nonceStr"],
+            'wxsignature' => $signPackage["signature"]
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
 
 }

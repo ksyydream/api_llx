@@ -98,6 +98,7 @@ class ApiSmallAction extends CommonAction{
             'success'=>true,
             'shop_info'=>$this->shop,
             'user_info'=>$this->member,
+            'shop_detail'=>D('Shopdetails')->find($this->shop_id),
             'shop_cate_name'=>'',
             'error_msg'=>''
         );
@@ -146,6 +147,7 @@ class ApiSmallAction extends CommonAction{
         $ex = array(
             'business_time'  => $data['business_time'],
         );
+        unset($data['business_time']);
         if(D('Shop')->save($data)){
             D('Shopdetails')->upDetails($this->shop_id,$ex);
             $rs = array(
