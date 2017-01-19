@@ -97,13 +97,13 @@ class WxPayAction extends CommonAction{
 
         $logs = D('Paymentlogs') -> find($log_id);
         $openid = $this->_post('openid');
-        if($openid==''){
+        /*if($openid==''){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'openid 获取失败!'
             );
             die(json_encode($rs));
-        }
+        }*/
         if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
