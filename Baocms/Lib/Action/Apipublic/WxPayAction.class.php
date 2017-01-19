@@ -265,6 +265,7 @@ class WxPayAction extends CommonAction{
         $openid='';
         if(empty($_GET['code'])){
             $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+            die(var_dump($url));
             //$url = 'http://be.51loveshow.com/Apipublic/WxPay/aj_openid';
             $url = urlencode($url);
             redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
