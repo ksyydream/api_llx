@@ -245,19 +245,6 @@ class WxPayAction extends CommonAction{
             $openid=$a_access_token["openid"];
         }
         return $openid;
-       /* if($openid){
-            $rs = array(
-                'success' => true,
-                'error_msg'=>'',
-                'openid'=>$openid
-            );
-        }else{
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'',
-                'openid'=>$openid
-            );
-        }*/
     }
     public function aj_openid(){
         $appid=C('wx_appid');
@@ -287,6 +274,28 @@ class WxPayAction extends CommonAction{
                  'openid'=>$openid
              );
          }
+        die(json_encode($rs));
+    }
+
+    public function get_openidbycode(){
+        $code = $this->input->post('code');
+        $appid=C('wx_appid');
+        $secret= C('wx_appsecret');
+        $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
+        $a_access_token=json_decode($j_access_token,true);
+        if($openid = $a_access_token['openid']){
+            $rs = array(
+                'success' => true,
+                'error_msg'=>'',
+                'openid'=>$openid
+            );
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'获取失败!'
+            );
+        }
+
         die(json_encode($rs));
     }
 }
