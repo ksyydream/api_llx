@@ -96,7 +96,7 @@ class WxPayAction extends CommonAction{
         $log_id = (int)$this->_post('log_id');
 
         $logs = D('Paymentlogs') -> find($log_id);
-        $openid = $this->get_openid();
+        $openid = $this->_post('openid');
         if($openid==''){
             $rs = array(
                 'success' => false,
