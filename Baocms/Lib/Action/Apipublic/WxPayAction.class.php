@@ -297,7 +297,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function get_openidbycode(){
-        $code = $this->input->post('code');
+        $code = $this->_post('code');
         $appid=C('wx_appid');
         $secret= C('wx_appsecret');
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
