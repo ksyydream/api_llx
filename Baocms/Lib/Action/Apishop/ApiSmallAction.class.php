@@ -131,10 +131,18 @@ class ApiSmallAction extends CommonAction{
             );
             $this->ajaxReturn($rs,'JSON');
         }
+        if(!$this->_post('tel','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'联系电话不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
         $data = array(
             'addr'=>$this->_post('addr','trim,htmlspecialchars',''),
             'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
             'business_time'=>$this->_post('business_time','trim,htmlspecialchars',''),
+            'tel'=>$this->_post('tel','trim,htmlspecialchars',''),
             'shop_id'=>$this->shop_id,
         );
         $ex = array(
