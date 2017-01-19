@@ -163,11 +163,13 @@ class ApiSmallAction extends CommonAction{
         $Shoppic = D('Shoppic');
         $map = array('shop_id' =>  $this->shop_id);
         $list = $Shoppic->field('*,DATE_FORMAT(FROM_UNIXTIME(create_time),’yyyy-mm-dd hh:mm:ss’) cdate')->where($map)->order(array('orderby'=>'desc'))->select();
+        die(var_dump($Shoppic->getLastSql()));
         $rs = array(
             'success'=>true,
             'shop_pics'=>$list,
             'error_msg'=>''
         );
+
         $this->ajaxReturn($rs,'JSON');
     }
 
