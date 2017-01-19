@@ -97,13 +97,13 @@ class WxPayAction extends CommonAction{
 
         $logs = D('Paymentlogs') -> find($log_id);
         $openid = $this->_post('openid');
-        /*if($openid==''){
+        if($openid==''){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'openid 获取失败!'
             );
             die(json_encode($rs));
-        }*/
+        }
         if (empty($logs) || $logs['user_id'] != $this -> app_uid || $logs['is_paid'] == 1) {
             $rs = array(
                 'success' => false,
@@ -171,19 +171,6 @@ class WxPayAction extends CommonAction{
 
     function getSign($data)
     {
-        /*foreach ($Obj as $k => $v)
-        {
-            $Parameters[strtolower($k)] = $v;
-        }
-        //签名步骤一：按字典序排序参数
-        ksort($Parameters);
-        $String = $this->formatBizQueryParaMap($Parameters, false);
-        //echo "【string】 =".$String."</br>";
-        //签名步骤二：在string后加入KEY
-        $String = $String."&key=".$this->config['api_key'];
-        //签名步骤三：MD5加密
-        $result_ = strtoupper(md5($String));
-        return $result_;*/
         ksort($data);
         $string1 = "";
         foreach ($data as $k => $v) {
@@ -271,5 +258,34 @@ class WxPayAction extends CommonAction{
                 'openid'=>$openid
             );
         }*/
+    }
+    public function aj_openid(){
+        $appid=C('wx_appid');
+        $secret= C('wx_appsecret');
+        $openid='';
+        if(empty($_GET['code'])){
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+            $url = urlencode($url);
+            redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        }else{
+            $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
+            $a_access_token=json_decode($j_access_token,true);
+            $access_token=$a_access_token["access_token"];
+            $openid=$a_access_token["openid"];
+        }
+        if($openid){
+             $rs = array(
+                 'success' => true,
+                 'error_msg'=>'',
+                 'openid'=>$openid
+             );
+         }else{
+             $rs = array(
+                 'success' => false,
+                 'error_msg'=>'',
+                 'openid'=>$openid
+             );
+         }
+        die(json_encode($rs));
     }
 }
