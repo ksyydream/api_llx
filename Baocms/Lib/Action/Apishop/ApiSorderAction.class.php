@@ -18,6 +18,19 @@ class ApiSorderAction extends CommonAction{
             ->where($map)->order(array('id' => 'desc'))->page($page . ',20')->select();
         foreach ($list as $k => $v) {
             $list[$k]['zp'] = (array)json_decode($v['zp']);
+            $arr = (array)json_decode($v['zp']);
+            $zp_list = array();
+            if($arr){
+                foreach ($arr as $k1 => $v1){
+                    $zp_arr=array(
+                        'zp_name'=>$k1,
+                        'zp_num'=>$v1
+                    );
+                    $zp_list[]= $zp_arr;
+                }
+            }
+            $list[$k]['zp_list']=$zp_list;
+
         }
         $rs = array(
             'success'=>true,
