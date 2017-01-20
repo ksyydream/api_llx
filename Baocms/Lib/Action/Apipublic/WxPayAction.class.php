@@ -86,7 +86,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function aj_pay(){
-        if(!IS_WEIXIN){
+        if(!is_weixin()){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'必须微信端登陆!'
@@ -245,55 +245,6 @@ class WxPayAction extends CommonAction{
             $openid=$a_access_token["openid"];
         }
         return $openid;
-    }
-    public function aj_openid(){
-        $code = $this->input->post('code');
-        $appid=C('wx_appid');
-        $secret= C('wx_appsecret');
-        $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
-        $a_access_token=json_decode($j_access_token,true);
-        if($openid = $a_access_token['openid']){
-            $rs = array(
-                'success' => true,
-                'error_msg'=>'',
-                'openid'=>$openid
-            );
-        }else{
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'获取失败!'
-            );
-        }
-
-        die(json_encode($rs));
-        /*$appid=C('wx_appid');
-        $secret= C('wx_appsecret');
-        $openid='';
-        if(empty($_GET['code'])){
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-            //$url = 'http://be.51loveshow.com/Apipublic/WxPay/aj_openid';
-            $url = urlencode($url);
-            redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
-        }else{
-            $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
-            $a_access_token=json_decode($j_access_token,true);
-            $access_token=$a_access_token["access_token"];
-            $openid=$a_access_token["openid"];
-        }
-        if($openid){
-             $rs = array(
-                 'success' => true,
-                 'error_msg'=>'',
-                 'openid'=>$openid
-             );
-         }else{
-             $rs = array(
-                 'success' => false,
-                 'error_msg'=>'',
-                 'openid'=>$openid
-             );
-         }
-        die(json_encode($rs));*/
     }
 
     public function get_openidbycode(){
