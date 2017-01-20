@@ -14,7 +14,8 @@ class ApiSorderAction extends CommonAction{
             $map['mobile'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        $list = $Pay->where($map)->order(array('id' => 'desc'))->page($page . ',20')->select();
+        $list = $Pay->field('*,DATE_FORMAT(FROM_UNIXTIME(create_time),\'%Y-%m-%d %H:%i:%s\') cdate,DATE_FORMAT(FROM_UNIXTIME(pay_time),\'%Y-%m-%d %H:%i:%s\') pdate')
+            ->where($map)->order(array('id' => 'desc'))->page($page . ',20')->select();
         foreach ($list as $k => $v) {
             $list[$k]['zp'] = (array)json_decode($v['zp']);
         }
