@@ -309,6 +309,7 @@ class ApiloginAction extends CommonAction{
             $data = (int)$obj->result->ad_info->adcode;
             $area = D('Narea');
             $info = $area->where('code = '.$data)->find();
+            die(var_dump($area->getLastSql()));
             //$data = $obj->result->ad_info;
             if($info){
                 $rs = array(
