@@ -15,6 +15,9 @@ class ApiSorderAction extends CommonAction{
             $this->assign('keyword', $keyword);
         }
         $list = $Pay->where($map)->order(array('id' => 'desc'))->page($page . ',20')->select();
+        foreach ($list as $k => $v) {
+            $list[$k]['zp'] = (array)json_decode($v['zp']);
+        }
         $rs = array(
             'success'=>true,
             'list'=>$list,
