@@ -307,10 +307,10 @@ class ApiloginAction extends CommonAction{
 
         if($obj->status=='0'){
             $data = $obj->result->ad_info->adcode;
-            var_dump($obj->result->ad_info);
+            //var_dump($obj->result->ad_info);
             $area = D('Narea');
             $info = $area->where('code = '.$data)->find();
-            die(var_dump($area->getLastSql()));
+            //die(var_dump($area->getLastSql()));
             //$data = $obj->result->ad_info;
             if($info){
                 $rs = array(
