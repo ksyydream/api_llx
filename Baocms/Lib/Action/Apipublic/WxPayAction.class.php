@@ -137,7 +137,9 @@ class WxPayAction extends CommonAction{
         $result = $weixin_pay->unifiedOrder($param);
         if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
             //调用支付类里的get_package方法，得到构造的参数
-            $data['parameters'] = json_encode($weixin_pay->get_package($result['prepay_id']));
+            $result = $weixin_pay->get_package($result['prepay_id']);
+            $data['parameters'] = json_encode($result);
+            $data['data'] = $result;
             $data['fee'] = $logs['need_pay'];
             $data['pubid'] = $logs['log_id'];
             $rs = array(
