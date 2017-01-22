@@ -63,7 +63,7 @@ class ApiSorderAction extends CommonAction{
         $zp_list = array();
         if($arr){
             foreach ($arr as $k1 => $v1){
-                if($k1 = $this->shop_id){
+                if($k1 == $this->shop_id){
                     $shop_zp = (array)json_decode($v1);
                     if($shop_zp){
                         foreach($shop_zp as $k2 => $v2){
@@ -84,7 +84,7 @@ class ApiSorderAction extends CommonAction{
         );
         if($arr_yhk){
             foreach ($arr_yhk as $yhk_k1 => $yhk_v1){
-                if($yhk_k1 = $this->shop_id){
+                if($yhk_k1 == $this->shop_id){
                     $yhk_list['bd']+=(int)$yhk_v1;
                 }else{
                     $yhk_list['qt']+=(int)$yhk_v1;
@@ -95,7 +95,7 @@ class ApiSorderAction extends CommonAction{
             'success'=>true,
             'error_msg'=>'',
             'zp_list'=>$zp_list,
-            'yhk'=>$yhk_list
+            'yhk'=>$yhk_list,
         );
         $this->ajaxReturn($rs,'JSON');
         //echo '{"zp":' . $user['zp'] . ',"yhk":' . $user['yhk'] . '}';
