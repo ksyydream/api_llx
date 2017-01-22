@@ -39,4 +39,65 @@ class ApiSorderAction extends CommonAction{
         );
         $this->ajaxReturn($rs,'JSON');
     }
+
+    //获取用户赠品
+    public function get_zp()
+    {
+        if(!$mobile = $this->_post('mobile')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'电话号码不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if (!isMobile($mobile)) {
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'此电话不符合要求!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $Users = D('Users');
+        $user = $Users->where(array('mobile' => $mobile))->find();
+        $arr = (array)json_decode($user['zp']);
+        $zp_list = array();
+        if($arr){
+            foreach ($arr as $k1 => $v1){
+                if($k1 = $this->shop_id){
+                    $shop_zp = (array)json_decode($v1);
+                    if($shop_zp){
+                        foreach($shop_zp as $k2 => $v2){
+                            $zp_arr=array(
+                                'zp_name'=>$k2,
+                                'zp_num'=>$v2
+                            );
+                            $zp_list[]= $zp_arr;
+                        }
+                    }
+                }
+            }
+        }
+        $arr_yhk = (array)json_decode($user['yhk']);
+        $yhk_list = array(
+            'bd'=>0,
+            'qt'=>0
+        );
+        if($arr_yhk){
+            foreach ($arr_yhk as $yhk_k1 => $yhk_v1){
+                if($yhk_k1 = $this->shop_id){
+                    $yhk_list['bd']+=(int)$yhk_v1;
+                }else{
+                    $yhk_list['qt']+=(int)$yhk_v1;
+                }
+            }
+        }
+        $rs=array(
+            'success'=>true,
+            'error_msg'=>'',
+            'zp_list'=>$zp_list,
+            'yhk'=>$yhk_list
+        );
+        $this->ajaxReturn($rs,'JSON');
+        //echo '{"zp":' . $user['zp'] . ',"yhk":' . $user['yhk'] . '}';
+    }
 }
