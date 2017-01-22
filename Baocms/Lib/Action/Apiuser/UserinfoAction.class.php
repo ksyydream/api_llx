@@ -21,7 +21,8 @@ class UserinfoAction extends CommonAction{
                 'success'=>true,
                 'token'=>$this->token,
                 'nickname'=> $user['nickname'],//昵称
-                'money'=> $user['gold']/100,//账户余额
+                'money'=> $user['money'],//账户余额
+                'gold'=> $user['gold'],//账户余额
                 'integral'=> $user['integral'],
                 'rank_id'=>$user['rank_id'],
                 'mobile'=>$user['mobile'],
