@@ -63,6 +63,52 @@ class OrderModel extends CommonModel
         return $total - $fan - $useint;
     }
 
+    //可以使用余额 根据订单情况 返回支付记录需要实际支付的金额！
+    public function useGold($uid, $order_ids)
+    {
+
+        $orders = $this->where(array('order_id' => array('IN', $order_ids)))->select();
+        $users = D('Users');
+        $member = $users->find($uid);
+        $usegold = $fan = $total = 0;
+        foreach ($orders as $k => $order) {
+            //使用余额如果大于0 则不能更改
+            if($order['use_gold'] > 0){
+                if($order['total_price'] < $order['use_gold']){
+                    $member['gold'] += $order['use_gold'] - $order['total_price'];
+                    $addgold = $order['use_gold'] - $order['total_price'];
+                    $order['use_gold'] = $order['total_price'];
+                    $this->save($order); //保存ORDER
+                    $users->addGold($uid, $addgold, '商城购物使用余额退还');//退还
+                    $orders[$k]['use_gold'] = $order['use_gold'];
+                }
+            }else{
+                if ($_POST['gold']) {
+                    $post_gold = (int)$_POST['gold'];
+                    if($order['total_price'] < $post_gold){
+                        $post_gold = $order['total_price'];
+                    }
+                    if ($member['gold'] > $post_gold) {//账户余额大于可使用积分时
+                        $member['gold'] -= $post_gold;
+                        $orders[$k]['use_gold'] = $order['use_gold'];
+                        $this->save($order); //保存ORDER
+                        $users->addGold($uid, -$order['use_gold'], '商城购物使用余额');
+                    } elseif ($member['gold'] > 0) {//账户余额小于积分时
+                        $orders[$k]['use_gold'] = $order['use_gold'] = $member['gold'];
+                        $this->save($order); //保存ORDER
+                        $users->addGold($uid, -$member['gold'], '商城购物使用余额'); //小于等于0 就不执行了
+                        $member['gold'] = 0;
+                    }
+                }
+            }
+            $usegold += $order['use_gold'];
+            $fan += $order['mobile_fan'];
+            $total += $order['total_price'];
+        }
+
+        return $total - $fan - $usegold;
+    }
+
 
     public function overOrder($order_id)
     { //后台管理员可以直接确认2的
