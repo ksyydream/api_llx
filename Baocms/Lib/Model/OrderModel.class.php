@@ -84,7 +84,7 @@ class OrderModel extends CommonModel
                 }
             }else{
                 if ($_POST['gold']) {
-                    $post_gold = (int)$_POST['gold'];
+                    $post_gold = (int)$_POST['gold']*100;
                     if($order['total_price'] < $post_gold){
                         $post_gold = $order['total_price'];
                     }
