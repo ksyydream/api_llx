@@ -257,6 +257,97 @@ class ApiSorderAction extends CommonAction{
         }
     }
 
+    public function delete(){
+        $id = (int)$this->_post('id');
+        if (empty($id)) {
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'优惠买单 订单编号不能为空!'));
+        }
+        $pay = D('Pay')->find($id);
+        if (empty($pay) || $pay['status'] != 1) {
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'操作非法!'));
+        }
+        if ($pay['shop_id'] != $this->shop_id ) {
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'您没有权限访问！'));
+        }
+        $obj = D('Pay');
+        $obj->where(array('id' => $id))->delete();
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>''));
+    }
+
+    //线下支付 接口 需要检查
+    public function pay()
+    {
+        $id = (int)$this->_post('id');
+        if (empty($id)) {
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'优惠买单 订单编号不能为空!'));
+        }
+        $Pay = D('Pay');
+        $Shop = D('Shop');
+        $rs = $Pay->query("select a.*,shop_name from ".$Pay->getTableName()." a left join ".$Shop->getTableName()." b on a.shop_id = b.shop_id where a.id = ".$id);
+        if(empty($rs)){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'订单不存在!'));
+        }
+        $detail = $rs[0];
+        $detail['zp'] = (array)json_decode($rs[0]['zp']);
+        $zp_list = array();
+        if($detail['zp']){
+            foreach($detail['zp'] as $k2 => $v2){
+                $zp_arr=array(
+                    'zp_name'=>$k2,
+                    'zp_num'=>$v2
+                );
+                $zp_list[]= $zp_arr;
+            }
+        }
+        $member = D('Users')->where(array('mobile'=>$detail['mobile']))->find();
+        $rs=array(
+            'success'=>true,
+            'detail'=>$detail,
+            'zp_list'=>$zp_list,
+            'integral'=>$member['integral'],
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function check_pay(){
+
+        $id = $this->_post('id');
+        $integral = $this->_post('integral');
+        $Pay = D('Pay');
+        $Users = D('Users');
+        $rs = $Pay->where(array('id'=>$id))->find();
+        if(empty($rs)){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'不存在该笔付款!'));
+        }
+        if($rs['status'] != 1){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'请勿重复支付!'));
+        }
+        $member = D('Users')->where(array('mobile'=>$rs['mobile']))->find();
+//        if($rs['mobile'] != $member['mobile']){
+//            $this->fengmiMsg('权限不足');
+//        }
+        if ($rs['shop_id'] != $this->shop_id ) {
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'权限不足!'));
+        }
+
+        if($integral < 0 || $member['integral'] < $integral || $integral > ($rs['total'] - $rs['yhk'])*100){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'秀币输入错误!'));
+        }
+
+        $Shop = D('Shop');
+        $shop = $Shop->where(array('shop_id'=>$this->shop_id))->find();
+
+//        if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
+        $zp = (array)json_decode($rs['zp']);
+        $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+        $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME,'is_offline'=>2));
+        $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+        $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>''));
+    }
+
     private function compute_yhk($mobile, $yhk = '', $zp = '')
     {
         $Users = D('Users');
