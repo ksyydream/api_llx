@@ -54,13 +54,76 @@ class PayAction extends CommonAction
         }
         $detail = $rss[0];
         $detail['zp'] = (array)json_decode($rss[0]['zp']);
+        $zp_list = array();
+        if($detail['zp']){
+            foreach($detail['zp'] as $k2 => $v2){
+                $zp_arr=array(
+                    'zp_name'=>$k2,
+                    'zp_num'=>$v2
+                );
+                $zp_list[]= $zp_arr;
+            }
+        }
         $member = $this->member;
         $rs=array(
             'success'=>true,
             'detail'=>$detail,
             'integral'=>$member['integral'],
+            'zp_list'=>$zp_list,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function check_pay(){
+
+        $id = $this->_post('id');
+        $integral = $this->_post('integral');
+        $Pay = D('Pay');
+        $Users = D('Users');
+        $rs = $Pay->where(array('id'=>$id))->find();
+        if(empty($rs)){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'不存在该笔付款!'));
+        }
+        if($rs['status'] != 1){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'请勿重复支付!'));
+        }
+        $member = $this->member;
+        if($rs['mobile'] != $member['mobile']){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'权限不足!'));
+        }
+
+        if($integral < 0 || $member['integral'] < $integral || $integral > ($rs['total'] - $rs['yhk'])*100){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'秀币输入错误!'));
+        }
+
+        $Shop = D('Shop');
+        $shop = $Shop->where(array('shop_id'=>$rs['shop_id']))->find();
+
+        if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
+            $zp = (array)json_decode($rs['zp']);
+            $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+            $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME));
+            $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+            $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+            exit();
+        }
+
+        $pay_log = array(
+            'user_id'=>$member['user_id'],
+            'type'=>'breaks',
+            'order_id'=>$id,
+            'code'=>'weixin',
+            'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral,
+            'create_time'=>NOW_TIME,
+            'create_ip'=>get_client_ip(),
+            'is_paid'=>0
+        );
+        $Pay->where(array('id'=>$id))->save(array('integral'=>$integral));
+        $Paymentlogs = D('Paymentlogs');
+        $log_id = $Paymentlogs->add($pay_log);
+        $pay_log['log_id']=$log_id;
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log));
     }
 }

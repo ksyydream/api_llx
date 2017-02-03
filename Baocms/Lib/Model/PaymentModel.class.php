@@ -1060,7 +1060,11 @@ class PaymentModel extends CommonModel {
 
 			if (isset($yhk_limit[$shop_id])) {
 				if ($yhk_limit[$shop_id] < $yhk) {
-					$this->error('优惠券余额不足');
+					$rs=array(
+						'success'=>false,
+						'error_msg'=>'优惠券余额不足'
+					);
+					$this->ajaxReturn($rs,'JSON');
 				} else {
 					$yhk_limit[$shop_id] = $yhk_limit[$shop_id] - $yhk;
 				}
@@ -1078,7 +1082,11 @@ class PaymentModel extends CommonModel {
 					}
 				}
 				if($yhk_surplus > 0){
-					$this->error('优惠券余额不足');
+					$rs=array(
+						'success'=>false,
+						'error_msg'=>'优惠券余额不足'
+					);
+					$this->ajaxReturn($rs,'JSON');
 				}
 			}
 
@@ -1101,7 +1109,11 @@ class PaymentModel extends CommonModel {
 				foreach ($zp as $k => $v) {
 					if ($zp_limit->$key->$k) {
 						if ($zp_limit->$key->$k < $v) {
-							$this->error('赠品数量不足');
+							$rs=array(
+								'success'=>false,
+								'error_msg'=>'赠品数量不足'
+							);
+							$this->ajaxReturn($rs,'JSON');
 						} else {
 							$zp_limit->$key->$k = $zp_limit->$key->$k - $v;
 							$data[] = array(
@@ -1121,7 +1133,11 @@ class PaymentModel extends CommonModel {
 				}
 				$Users->where(array('mobile' => $mobile))->save(array('zp' => json_encode($zp_limit)));
 			} else {
-				$this->error('赠品有误,请查看');
+				$rs=array(
+					'success'=>false,
+					'error_msg'=>'赠品有误,请查看'
+				);
+				$this->ajaxReturn($rs,'JSON');
 			}
 		}
 
