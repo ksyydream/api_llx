@@ -146,11 +146,11 @@ class ApiSorderAction extends CommonAction{
         }
 
         $user_count = $Users->where(array('mobile' => $data['mobile']))->count();
-        die($this->ajaxReturn($Users->getLastSql(),'JSON'));
+       // die($this->ajaxReturn($Users->getLastSql(),'JSON'));
         if ($user_count == 0) {
             $rs=array(
                 'success'=>false,
-                'error_msg'=>'会员不存在1'
+                'error_msg'=>'会员不存在'
             );
             $this->ajaxReturn($rs,'JSON');
         }
