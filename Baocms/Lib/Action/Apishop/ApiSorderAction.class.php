@@ -149,7 +149,7 @@ class ApiSorderAction extends CommonAction{
         if ($user_count == 0) {
             $rs=array(
                 'success'=>false,
-                'error_msg'=>'会员不存在'
+                'error_msg'=>'会员不存在1'
             );
             $this->ajaxReturn($rs,'JSON');
         }
