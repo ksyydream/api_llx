@@ -222,7 +222,7 @@ class ApiSorderAction extends CommonAction{
             $yhk1 = $this->shop['yhk1'];
             $yhk1 = $yhk1-100 < 0 ? $yhk1 : 100;
             $yhk1 = $yhk1 >= 0 ? $yhk1 : 0;
-            $data['yhk'] = $data['total']/100 * $yhk1;
+            $data['yhk'] = ((int)$data['total']/100) * $yhk1;
             if($data['yhk'] >=$yhk_list['bd']){
                 $data['yhk'] = $yhk_list['bd'];
             }
@@ -230,7 +230,7 @@ class ApiSorderAction extends CommonAction{
             $yhk2 = $this->shop['yhk2'];
             $yhk2 = $yhk2-100 < 0 ? $yhk2 : 100;
             $yhk2 = $yhk2 >= 0 ? $yhk2 : 0;
-            $data['yhk'] = $data['total']/100 * $yhk2;
+            $data['yhk'] = ((int)$data['total']/100) * $yhk2;
             if($data['yhk'] >=$yhk_list['qt']){
                 $data['yhk'] = $yhk_list['qt'];
             }
