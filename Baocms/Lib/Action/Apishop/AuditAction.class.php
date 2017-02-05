@@ -148,11 +148,7 @@ class AuditAction extends CommonAction {
     }
 
     public function uploadpic(){
-        if ($_POST['photo']){
-        $img = $this->uploadimg('photo');}
-        if ($_POST['pic']){
-            $img=$this->uploadimg('pic');
-        }
+        $img = $this->uploadimg('photo');
         if($img){
             $rs = array(
                 'success' => true,
