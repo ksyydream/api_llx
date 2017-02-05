@@ -85,9 +85,12 @@ class CommonAction extends Action{
         $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
         $name = date('Y/m/d', NOW_TIME);
         if($folder != 'face'){
-            $dir = BASE_PATH . '/attachs/' .$folder.'/'. $name . '/';
-            if (!is_dir(BASE_PATH . '/attachs/' .$folder)) {
-                mkdir(BASE_PATH . '/attachs/' .$folder, 0755, true);
+            if (!is_dir(BASE_PATH . '/uploads_pic/')) {
+                mkdir(BASE_PATH . '/uploads_pic/', 0755, true);
+            }
+            $dir = BASE_PATH . '/uploads_pic/' .$folder.'/'. $name . '/';
+            if (!is_dir(BASE_PATH . '/uploads_pic/' .$folder)) {
+                mkdir(BASE_PATH . '/uploads_pic/' .$folder, 0755, true);
             }
         }else{
             $dir = BASE_PATH . '/attachs/' . $name . '/';
