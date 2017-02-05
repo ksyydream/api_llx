@@ -473,4 +473,51 @@ class OrderinfoAction extends CommonAction{
         return 1;
     }
 
+    public function order_del() {
+        $order_id = (int) $this->_post('order_id');
+        if (is_numeric($order_id) && ($order_id = (int) $order_id)) {
+            $obj = D('Order');
+            $detail = $obj->find($order_id);
+            if (!$detail) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'该订单不存在!'
+                );
+                die(json_encode($rs));
+            }
+            if ($detail['user_id'] != $this->app_uid) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'请不要操作他人的订单!'
+                );
+                die(json_encode($rs));
+                //$this->fengmiMsg('请不要操作他人的订单');
+            }
+            if ($detail['status'] != 0) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'该订单暂时不能取消!'
+                );
+                die(json_encode($rs));
+            }
+            if($obj->save(array('order_id' => $order_id, 'closed' => 1))){
+                if($detail['use_integral']){
+                    D('Users')->addGold($detail['user_id'],$detail['use_gold'],'取消订单'.$detail['order_id'].'余额退还');
+                }
+
+            }
+            $rs = array(
+                'success' => true,
+                'error_msg' => ''
+            );
+            die(json_encode($rs));
+        } else {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'请选择要取消的订单!'
+            );
+            die(json_encode($rs));
+        }
+    }
+
 }
