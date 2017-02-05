@@ -84,7 +84,15 @@ class CommonAction extends Action{
         $upload->maxSize = 102400; // 设置附件上传大小
         $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
         $name = date('Y/m/d', NOW_TIME);
-        $dir = BASE_PATH . '/attachs/' . $name . '/';
+        if($folder != 'face'){
+            $dir = BASE_PATH . '/attachs/' .$folder.'/'. $name . '/';
+            if (!is_dir(BASE_PATH . '/attachs/' .$folder)) {
+                mkdir(BASE_PATH . '/attachs/' .$folder, 0755, true);
+            }
+        }else{
+            $dir = BASE_PATH . '/attachs/' . $name . '/';
+        }
+
         if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
