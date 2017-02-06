@@ -47,7 +47,7 @@ class ApiPjfAction extends CommonAction{
             }else{
                 $this->assign('is_vs', $is_vs = 0);
             }
-            $json_pics = D('Goodsphoto')->getPics($detail['goods_id']);
+            $json_pics = D('Llxgoodsphoto')->getPics($detail['goods_id']);
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',

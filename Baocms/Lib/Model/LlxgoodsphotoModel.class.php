@@ -11,4 +11,9 @@ class LlxgoodsphotoModel extends CommonModel{
     protected $tableName =  'llxgoods_photos';
 
     protected $id = 0;
+
+    public function getPics($goods_id){
+        $goods_id = (int) $goods_id;
+        return $this->where(array('goods_id'=>$goods_id))->select();
+    }
 }
