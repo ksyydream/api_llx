@@ -18,7 +18,6 @@ class AuditAction extends CommonAction {
         if ($this->_post('name')) {
 
             $photo =  $this->_post('photo', false);
-            echo $photo;
             if(!$photo){
                 $rs['success']=false;
                 $rs['error_msg']='请上传营业执照，可以用手机拍照上传！';
@@ -48,8 +47,8 @@ class AuditAction extends CommonAction {
             $data['pic'] = $pic;
             $obj = D('Audit');
             $shop_audit = $obj->where('shop_id =' . ($this->shop_id))->find();
-            if ($shop_audit){
-                if ($obj->save($data)){
+            if ($shop_audit['audit_id']){
+                if ($obj->where(array('shop_id =' . ($this->shop_id)))->save($data)){
                     $rs['success']=true;
                     $rs['error_msg']='修改成功';
                     $this->ajaxReturn($rs,'JSON');
