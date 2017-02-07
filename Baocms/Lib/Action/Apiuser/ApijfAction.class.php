@@ -157,7 +157,7 @@ class ApijfAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'该订单不存在');
             die(json_encode($rs));
         }
-        if ($detail['user_id'] != $this->app_uid || $detail['status'] != -1) {
+        if ($detail['user_id'] != $this->app_uid || $detail['status'] < 1) {
             $rs = array('success' => false, 'error_msg'=>'该订单不可操作!');
             die(json_encode($rs));
         }
