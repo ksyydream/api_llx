@@ -682,7 +682,7 @@ class PaymentModel extends CommonModel {
                 }elseif ($logs['type'] == 'jf') {//订座定金
 					$pay = D('Jforder')->where(array('jforder'=>$logs['order_id']))->find();
 
-					D('Jforder')->save(array('jforder' => $logs['order_id'], 'status' => 2));
+					D('Jforder')->save(array('jforder_id' => $logs['order_id'], 'status' => 2));
 
 
 					//微信通知开始
