@@ -24,8 +24,4 @@ class LlxgoodsModel extends CommonModel{
             ->select();
         return $items;
     }
-
-    public function unlock(){
-        return $this->delete($this->id);
-    }
 }

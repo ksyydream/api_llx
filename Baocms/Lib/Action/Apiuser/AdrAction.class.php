@@ -49,7 +49,7 @@ class AdrAction extends CommonAction {
         }
     }
 
-        public function delete(){
+    public function delete(){
             $addr_id = (int)$this->_param('addr_id');
             if(empty($addr_id)){
                 $this->ajaxReturn(array('status'=>'error','error_msg'=>'地址不存在'));
@@ -65,8 +65,7 @@ class AdrAction extends CommonAction {
             }
         }
 
-
-        public function add_addr(){
+    public function add_addr(){
 
 
                 $name = I('name','','trim,htmlspecialchars');
@@ -119,9 +118,7 @@ class AdrAction extends CommonAction {
 
             }
 
-
-
-            public function edit_addr(){
+    public function edit_addr(){
 
 
                     $addr_id = I('addr_id','','trim,intval');
