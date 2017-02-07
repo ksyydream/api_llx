@@ -258,6 +258,55 @@ class ApiPshopAction extends CommonAction{
         die(json_encode($rs));
     }
 
+    public function goodsdianping()
+    {
+        $goods_id = trim($this->_param('goods_id'))?trim($this->_param('goods_id')):0;
+        $goods_id = (int)$goods_id;
+        if (!($detail = D('Goods')->find($goods_id))) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有此商品'
+            );
+            die(json_encode($rs));
+        }
+        if ($detail['closed']) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'商品已关闭'
+            );
+            die(json_encode($rs));
+        }
+        $Goodsdianping = D('Goodsdianping');
+        // 导入分页类
+        $map = array('closed' => 0, 'goods_id' => $goods_id, 'show_date' => array('ELT', TODAY));
+        $count = $Goodsdianping->where($map)->count();
+        $maxpage =ceil($count/5);
+        $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
+        $list = $Goodsdianping->where($map)->order(array('order_id' => 'desc'))->page($page.',5')->select();
+        $user_ids = $orders_ids = array();
+        foreach ($list as $k => $val) {
+            $user_ids[$val['user_id']] = $val['user_id'];
+            $users= D('Users')->itemsByIds($user_ids);
+            $list[$k]['username']=$users[$val['user_id']]['nickname'];
+            $list[$k]['face']=$users[$val['user_id']]['face'];
+            $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
+            $list[$k]['pic']=array();
+            foreach ($pic as $a => $v){
+            $list[$k]['pic'][]=$v['pic'];}
+        }
+        $rs = array(
+            'success' => true,
+            'totalnum'=> $count,
+            'list'=>$list,
+            'maxpage'=> $maxpage,
+            'page'=>$page,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
+    }
+
+
+
     public function hot_goods(){
         $shop_id = trim($this->_param('shop_id'))?trim($this->_param('shop_id')):0;
         $shop_id = (int)$shop_id;
