@@ -92,6 +92,7 @@ class ApijfAction extends CommonAction {
         );
         if($add_detail['need_pay']==0){
             $add_detail['status'] = 2;
+            $add_detail['pdate'] = date('Y-m-d H:i:s');
         }else{
             $add_detail['status'] = 1;
         }
@@ -278,7 +279,7 @@ class ApijfAction extends CommonAction {
         }
 
         if($order_det['need_pay']==0){
-            D('Jforder')->save(array('jforder_id' => $order_id, 'status' => 2));
+            D('Jforder')->save(array('jforder_id' => $order_id, 'status' => 2,'pdate'=>date('Y-m-d H:i:s')));
             $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1,'order_id'=>$order_id));
             exit();
         }
