@@ -123,7 +123,7 @@ class ApijfAction extends CommonAction {
         }
 
         if($add_detail['status']==2){
-            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1,'order_id'=>$order_id));
             exit();
         }else{
             $pay_log = array(
@@ -139,7 +139,7 @@ class ApijfAction extends CommonAction {
             $Paymentlogs = D('Paymentlogs');
             $log_id = $Paymentlogs->add($pay_log);
             $pay_log['log_id']=$log_id;
-            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log));
+            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log,'order_id'=>$order_id));
             exit();
         }
     }
@@ -183,7 +183,7 @@ class ApijfAction extends CommonAction {
             die(json_encode($rs));
         }
         $ud = D('Jforder');
-        $order_list = $ud->alias('a')->field('a.*,b.title,b.photo')
+        $order_list = $ud->alias('a')->group('a.jforder_id')->field('a.*,b.title,b.photo')
             ->join('bao_jf_order_goods b on a.jforder_id = b.jforder_id','LEFT')
             ->where('a.user_id='.$this->app_uid)
             ->where('a.status > 0')
@@ -279,7 +279,7 @@ class ApijfAction extends CommonAction {
 
         if($order_det['need_pay']==0){
             D('Jforder')->save(array('jforder_id' => $order_id, 'status' => 2));
-            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1,'order_id'=>$order_id));
             exit();
         }
         $pay_log = array(
@@ -295,7 +295,7 @@ class ApijfAction extends CommonAction {
         $Paymentlogs = D('Paymentlogs');
         $log_id = $Paymentlogs->add($pay_log);
         $pay_log['log_id']=$log_id;
-        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log));
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log,'order_id'=>$order_id));
         exit();
     }
 }
