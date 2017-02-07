@@ -11,7 +11,7 @@ class ApijfAction extends CommonAction {
         $goods_id = (int) $this->_post('goods_id');
         $pty = (int) $this->_post('pty'); //购买数量
         $addr = (int)$this->_post('addr_id');
-
+        $remark = $this->_post('remark');
         $gold = $this->_post('gold')?$this->_post('gold'):0; //用户使用的余额;
         $gold = (int)($gold * 100);
         //进行验证信息
@@ -85,6 +85,7 @@ class ApijfAction extends CommonAction {
             'user_id'=>$this->app_uid,
             'integral'=>$integral,
             'gold'=>$gold,
+            'remark'=> $remark ? $remark : '',
             'need_pay'=>$need_pay,
             'num'=>$pty,
             'total'=>$total,
