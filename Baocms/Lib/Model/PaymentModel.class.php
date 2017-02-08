@@ -214,18 +214,11 @@ class PaymentModel extends CommonModel {
 									foreach($zp_old as $kk=>$vv){
 										$zp_old2[$kk] = $vv;
 									}
-//
-//									$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.zp.log',"a" );
-//									fwrite($open,var_export($zp_old2[11]->啤酒,true));
-//									fclose($open);
 
 									if(isset($zp_old2[$v['shop_id']])){
 										foreach($zengpins as $vvv){
 											if(isset($zp_old2[$v['shop_id']]->$vvv['desc'])){
 												$zp_old2[$v['shop_id']]->$vvv['desc'] = $zp_old2[$v['shop_id']]->$vvv['desc'] + $vvv['qty'];
-//												$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.zp.log',"a" );
-//									fwrite($open,var_export($zp_old2[11]->啤酒,true));
-//									fclose($open);
 											}else{
 												$zp_old2[$v['shop_id']]->$vvv['desc'] = $vvv['qty'];
 											}
@@ -846,6 +839,7 @@ class PaymentModel extends CommonModel {
                 }
             }
         }
+		die(2);
         return true;
     }
 
