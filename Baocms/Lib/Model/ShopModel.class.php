@@ -7,6 +7,7 @@ class ShopModel extends CommonModel {
     protected $pk = 'shop_id';
     protected $tableName = 'shop';
 
+    protected $cate_ids =array();
     public function get_tj($city_id, $keyword) {
         $map = array('is_ding' => 1, 'audit' => 1, 'closed' => 0, 'city_id' => $city_id, 'shop_name' => array('LIKE', '%' . $keyword . '%'));
         $shop = $this->where($map)->order(array('orderby' => 'asc', 'score' => 'desc', 'view' => 'desc'))->limit(0, 8)->select();
@@ -181,6 +182,9 @@ class ShopModel extends CommonModel {
         $cate_id = $_POST['cate_id']?$_POST['cate_id']:0;
         $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
         if($cate_id!=0){
+            $this->cate_ids[] = $cate_id;
+            $this->get_all_cateid($cate_id);
+            $map['bao_shop.cate_id']=array('in',implode(',',$this->cate_ids));
             $map['bao_shop.cate_id'] = $cate_id;
         }
         $map['bao_shop.area_code'] = $area_code;
@@ -219,5 +223,18 @@ class ShopModel extends CommonModel {
         /*var_dump($this->getLastSql());*/
         return $data;
         //return $this->getLastSql();
+    }
+
+    private function get_all_cateid($cate_id){
+        //$this->cate_ids[]=$cate_id;
+        $Shopcate = D('Shopcate');
+        $list = $Shopcate
+            ->field('cate_id,cate_name,parent_id,orderby,is_hot')
+            ->where(array('parent_id'=>$cate_id))->select();
+        foreach($list as $val){
+            $this->cate_ids[] = $val['cate_id'];
+            $this->get_all_cateid($val['cate_id']);
+        }
+        return true;
     }
 }
