@@ -68,7 +68,6 @@ class OrderModel extends CommonModel
     {
 
         $orders = $this->where(array('order_id' => array('IN', $order_ids)))->select();
-        die(var_dump($orders));
         $users = D('Users');
         $member = $users->find($uid);
         $usegold = $fan = $total = 0;
