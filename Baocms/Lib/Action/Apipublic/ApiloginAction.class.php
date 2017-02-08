@@ -339,7 +339,22 @@ class ApiloginAction extends CommonAction{
         $express = $this->_post('express');
         $kd_num = $this->_post('kd_num');
         $result = $this->getcontent("http://www.kuaidi100.com/query?type={$express}&postid={$kd_num}");
-        die(var_dump($result));
+        if($result->message=='ok'){
+            $rs = array(
+                'success' => true,
+                'data' =>$result->data,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs = array(
+                'success' => false,
+                'data' =>$result->data,
+                'error_msg'=>'获取失败'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        //die(var_dump($result));
     }
 
     /*
