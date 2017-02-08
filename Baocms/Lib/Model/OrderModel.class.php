@@ -72,18 +72,20 @@ class OrderModel extends CommonModel
         $member = $users->find($uid);
         $usegold = $fan = $total = 0;
         foreach ($orders as $k => $order) {
+
             //使用余额如果大于0 则不能更改
             if($order['use_gold'] > 0){
-                if($order['total_price'] < $order['use_gold']){
-                    $member['gold'] += $order['use_gold'] - $order['total_price'];
-                    $addgold = $order['use_gold'] - $order['total_price'];
-                    $order['use_gold'] = $order['total_price'];
+                if($order['total_price']-$order['mobile_fan'] < $order['use_gold']){
+                    $member['gold'] += $order['use_gold'] - ($order['total_price'] + $order['mobile_fan']);
+                    $addgold = $order['use_gold'] - ($order['total_price'] + $order['mobile_fan']);
+                    $order['use_gold'] = $order['total_price']-$order['mobile_fan'];
                     $this->save($order); //保存ORDER
                     $users->addGold($uid, $addgold, '商城购物使用余额退还');//退还
                     $orders[$k]['use_gold'] = $order['use_gold'];
                 }
             }else{
                 if ($_POST['gold']) {
+                    die($_POST['gold']);
                     $post_gold = (int)($_POST['gold']*100);
                     $post_gold=(int)$post_gold;
                     if($order['total_price'] < $post_gold){
