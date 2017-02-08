@@ -780,7 +780,6 @@ class PaymentModel extends CommonModel {
 					$tuanrenCount = D('Ptuanteam') -> where(array('tuan_id' => $tuan['tuan_id'], 'tuan_status' => 2)) -> count();//拼团二开结束
 					
 				}else { // 商城购物
-					echo 4;
                     if (empty($logs['order_id']) && !empty($logs['order_ids'])) {//合并付款
                         $order_ids = explode(',', $logs['order_ids']);
 
@@ -819,7 +818,7 @@ class PaymentModel extends CommonModel {
 					$users = D('Users') -> find($logs['user_id']);
 					$balance = round($users['money'] / 100, 2);
 					include_once "Baocms/Lib/Net/Wxmesg.class.php";
-					die('7');
+
 					$_data_balance = array(
 						'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/mcenter/index/index', 
 						'topcolor' => '#F55555', 'first' => '您的账户余额发生变动，信息如下：', 
@@ -833,7 +832,7 @@ class PaymentModel extends CommonModel {
 
 					$balance_data = Wxmesg::pay($_data_balance);
 					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);
-
+					die('8');
 					//==========商城付款后微信通知结束==========////
                     D('Tongji')->log(2, $logs['need_pay']); //统计
 
