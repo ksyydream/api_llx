@@ -90,6 +90,7 @@ class OrderModel extends CommonModel
                     if($order['total_price']-$order['mobile_fan'] < $post_gold){
                         $post_gold = $order['total_price']-$order['mobile_fan'];
                     }
+                    $order['use_gold'] = $post_gold;
                     if ($member['gold'] > $post_gold) {//账户余额大于可使用积分时
                         $member['gold'] -= $post_gold;
                         $orders[$k]['use_gold'] = $order['use_gold'];
