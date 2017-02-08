@@ -316,6 +316,7 @@ class PaymentModel extends CommonModel {
 							}
 						}
 					}
+					die('2');
 				}
 
 
@@ -781,6 +782,7 @@ class PaymentModel extends CommonModel {
 					$tuanrenCount = D('Ptuanteam') -> where(array('tuan_id' => $tuan['tuan_id'], 'tuan_status' => 2)) -> count();//拼团二开结束
 					
 				}else { // 商城购物
+					die('1');
                     if (empty($logs['order_id']) && !empty($logs['order_ids'])) {//合并付款
                         $order_ids = explode(',', $logs['order_ids']);
 
@@ -839,7 +841,6 @@ class PaymentModel extends CommonModel {
                 }
             }
         }
-		die(2);
         return true;
     }
 

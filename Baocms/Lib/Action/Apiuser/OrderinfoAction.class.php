@@ -437,7 +437,6 @@ class OrderinfoAction extends CommonAction{
         $order_new = D('Order')->find($order_id);
         if($order_new['need_pay'] == 0){
             if(D('Payment')->logsPaid($logs['log_id'])){
-                die(1);
                 // 这里返回支付成功 全秀币支付
                 $rs = array(
                     'success' => true,
