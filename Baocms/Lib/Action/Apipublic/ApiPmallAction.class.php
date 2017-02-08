@@ -172,16 +172,30 @@ class ApiPmallAction extends CommonAction{
             $lng = (float)$this->_param('lng');
             $lat = (float)$this->_param('lat');
             if(!$lng || !$lat){
-                $rs = array(
-                    'success' => false,
-                    'error_msg'=>'经纬度不能为空!'
-                );
-                die(json_encode($rs));
+                $lat = 31.2383718228;
+                $lng = 121.3301816158;
             }
-            //$city_id = $this->_param('city_id')?$this->_param('city_id'):12;//如果没有city_id 默认使用上海
-            //$cate_id = $this->_param('cate_id')?$this->_param('cate_id'):0;
-            //$area_id = $this->_param('area_id')?$this->_param('area_id'):0;
-            $area_code = $this->_param('area_code')?$this->_param('area_code'):310101;
+            $area_code = $this->_post('area_code');
+            $area_name = '';
+            if(!$area_code){
+                $map_res = $this->use_QQmap($lat,$lng);
+                if($map_res != -1){
+                    if (!($detail = D('Narea')->where('code='.$map_res['code'])->find())) {
+                        $area_code = 310101;
+                        $area_name = '黄浦区';
+                    }else{
+                        $area_code = $map_res['code'];
+                        $area_name = $detail['name'];
+                    }
+                }
+            }else{
+                if (!($detail = D('Narea')->where('code='.$area_code)->find())) {
+                    $area_code = 310101;
+                    $area_name = '黄浦区';
+                }else{
+                    $area_name = $detail['name'];
+                }
+            }
             $page = $this->_param('page')?$this->_param('page'):1;
             $order = $this->_param('order')?$this->_param('order'):1;
             $shop_name = $this->_post('shop_name','trim')?$this->_post('shop_name','trim'):'';
@@ -191,6 +205,8 @@ class ApiPmallAction extends CommonAction{
             $rs = array(
                 'success' => true,
                 'shop_list'=>$list,
+                'area_code'=>$area_code,
+                'area_name'=>$area_name,
                 'error_msg'=>''
             );
             die(json_encode($rs));
@@ -203,7 +219,23 @@ class ApiPmallAction extends CommonAction{
             );
             die(json_encode($rs));
         }
+    }
 
+    private function use_QQmap($lat,$lng){
+        $res = file_get_contents("http://apis.map.qq.com/ws/geocoder/v1/?location={$lat},{$lng}&get_poi=1&key=JFOBZ-HYWWW-T3XR3-OA5ZK-BYBP3-2JF2F");//百度API
+        $obj=json_decode($res);
 
+        if($obj->status=='0'){
+            $data = $obj->result->ad_info->adcode;
+            $area = D('Narea');
+            $info = $area->where('code = '.$data)->find();
+            if($info){
+                return $info;
+            }else{
+                return -1;
+            }
+        }else{
+            return -1;
+        }
     }
 }
