@@ -339,10 +339,10 @@ class ApiloginAction extends CommonAction{
         $express = $this->_post('express');
         $kd_num = $this->_post('kd_num');
         $result = $this->getcontent("http://www.kuaidi100.com/query?type={$express}&postid={$kd_num}");
-        if($result->message=='ok'){
+        if($result['message']=='ok'){
             $rs = array(
                 'success' => true,
-                'data' =>$result->data,
+                'data' =>$result['data'],
                 'error_msg'=>''
             );
             $this->ajaxReturn($rs,'JSON');
