@@ -401,6 +401,7 @@ class OrderinfoAction extends CommonAction{
     public function check_order(){
         $order_id = (int) $this->_post('order_id');
         $order = D('Order')->find($order_id);
+        die(var_dump($order));
         if (empty($order) || $order['status'] != 0 || $order['user_id'] != $this->app_uid) {
             $rs = array(
                 'success' => false,
