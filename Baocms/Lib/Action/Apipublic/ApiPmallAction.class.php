@@ -230,6 +230,7 @@ class ApiPmallAction extends CommonAction{
 
         if($obj->status=='0'){
             $data = $obj->result->ad_info->adcode;
+            die(var_dump($data));
             $area = D('Narea');
             $info = $area->where('code = '.$data)->find();
             die(var_dump($info));
