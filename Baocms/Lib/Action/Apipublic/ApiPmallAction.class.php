@@ -187,6 +187,9 @@ class ApiPmallAction extends CommonAction{
                         $area_code = $map_res['code'];
                         $area_name = $detail['name'];
                     }
+                }else{
+                    $area_code = 310101;
+                    $area_name = '黄浦区';
                 }
             }else{
                 if (!($detail = D('Narea')->where('code='.$area_code)->find())) {
