@@ -316,7 +316,6 @@ class PaymentModel extends CommonModel {
 							}
 						}
 					}
-					die('2');
 				}
 
 
@@ -330,7 +329,7 @@ class PaymentModel extends CommonModel {
 						$users->addIntegral($shop_user_info['user_id'], $order_info['can_use_integral'], '客户商城购物获得秀币');
 					}
 				}
-
+				die('3');
                 if ($logs['type'] == 'gold') {
                     D('Users') -> updateCount($logs['user_id'], 'gold', (int)($logs['need_pay'] / 100));
 					D('Usergoldlogs') -> add(array(
