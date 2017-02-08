@@ -260,6 +260,7 @@ class ApiPshopAction extends CommonAction{
 
     public function goodsdianping()
     {
+        $orderby = (int)($this->_post('goods_id'))?(int)($this->_post('goods_id')):1;
         $goods_id = trim($this->_param('goods_id'))?trim($this->_param('goods_id')):0;
         $goods_id = (int)$goods_id;
         if (!($detail = D('Goods')->find($goods_id))) {
@@ -282,7 +283,24 @@ class ApiPshopAction extends CommonAction{
         $count = $Goodsdianping->where($map)->count();
         $maxpage =ceil($count/5);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
-        $list = $Goodsdianping->where($map)->order(array('order_id' => 'desc'))->page($page.',5')->select();
+        switch($orderby){
+            case 1:
+                $list = $Goodsdianping->where($map)->order(array('score' => 'desc'))->page($page.',5')->select();
+                break;
+            case 2:
+                $list = $Goodsdianping->where($map)->order(array('order_id' => 'desc'))->page($page.',5')->select();
+                break;
+            case 3:
+                $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
+                    ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
+                    ->where($map)
+                    ->page($page.',5')
+                    ->select();
+                break;
+            default:
+                $list = $Goodsdianping->where($map)->order(array('score' => 'desc'))->page($page.',5')->select();
+                break;
+        }
         $user_ids = $orders_ids = array();
         foreach ($list as $k => $val) {
             $user_ids[$val['user_id']] = $val['user_id'];
