@@ -189,6 +189,7 @@ class ApijfAction extends CommonAction {
             ->join('bao_jf_order_goods b on a.jforder_id = b.jforder_id','LEFT')
             ->where('a.user_id='.$this->app_uid)
             ->where('a.status > 0')
+            ->order("a.jforder_id desc")
             ->page($page . ',20')
             ->select();
         $rs = array(
