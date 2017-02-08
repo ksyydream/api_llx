@@ -260,7 +260,7 @@ class ApiPshopAction extends CommonAction{
 
     public function goodsdianping()
     {
-        $orderby = (int)($this->_post('goods_id'))?(int)($this->_post('goods_id')):1;
+        $orderby = (int)($this->_post('orderby'))?(int)($this->_post('orderby')):1;
         $goods_id = trim($this->_param('goods_id'))?trim($this->_param('goods_id')):0;
         $goods_id = (int)$goods_id;
         if (!($detail = D('Goods')->find($goods_id))) {
