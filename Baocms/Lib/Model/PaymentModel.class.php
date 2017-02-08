@@ -359,7 +359,7 @@ class PaymentModel extends CommonModel {
 					$_data_balance = array(
 						'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/mcenter/index/index', 
 						'topcolor' => '#F55555', 'first' => '您的账户余额发生变动，信息如下：', 
-						'remark' => '如对上述余额变动有异议，请联系客服人员协助处理。' . $CONFIG['site']['tel'], 
+						'remark' => '如对上述余额变动有异议，请联系客服人员协助处理。' . $this -> CONFIG['site']['tel'],
 						'accountType' => '会员账户', 
 						'operateType' => '费用支出', 
 						'operateInfo' => '充值金块', 
@@ -679,7 +679,7 @@ class PaymentModel extends CommonModel {
                     D('Sms')->dingTZshop($logs['order_id']);
 					
 					//拼团二开开始
-                }elseif ($logs['type'] == 'jf') {//订座定金
+                }elseif ($logs['type'] == 'jf') {//积分商城
 					$pay = D('Jforder')->where(array('jforder'=>$logs['order_id']))->find();
 
 					D('Jforder')->save(array('jforder_id' => $logs['order_id'], 'status' => 2,'pdate'=>date('Y-m-d H:i:s')));
@@ -706,12 +706,7 @@ class PaymentModel extends CommonModel {
 					$balance_data = Wxmesg::pay($_data_balance);
 					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);
 					//==========订座微信通知结束==========//
-					//短信通知订座
-					D('Sms')->sendSms('sms_ding', $member['mobile'], array('nickname' => $member['nickname'],'shopname' => $shops['shop_name'],));
 
-					D('Tongji')->log(3, $logs['need_pay']); //统计
-					//通知商家
-					D('Sms')->dingTZshop($logs['order_id']);
 
 					//拼团二开开始
 				} elseif ($logs['type'] == 'pintuan') {
