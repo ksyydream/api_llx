@@ -180,13 +180,8 @@ class ApiPmallAction extends CommonAction{
             if(!$area_code){
                 $map_res = $this->use_QQmap($lat,$lng);
                 if($map_res != -1){
-                    if (!($detail = D('Narea')->where('code='.$map_res['code'])->find())) {
-                        $area_code = 310101;
-                        $area_name = '黄浦区';
-                    }else{
-                        $area_code = $map_res['code'];
-                        $area_name = $detail['name'];
-                    }
+                    $area_code = $map_res['code'];
+                    $area_name = $map_res['name'];
                 }else{
                     $area_code = 310101;
                     $area_name = '黄浦区';
@@ -230,10 +225,8 @@ class ApiPmallAction extends CommonAction{
 
         if($obj->status=='0'){
             $data = $obj->result->ad_info->adcode;
-            die(var_dump($data));
             $area = D('Narea');
             $info = $area->where('code = '.$data)->find();
-            die(var_dump($info));
             if($info){
                 return $info;
             }else{
