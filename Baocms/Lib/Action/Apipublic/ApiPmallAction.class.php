@@ -179,7 +179,6 @@ class ApiPmallAction extends CommonAction{
             $area_name = '';
             if(!$area_code){
                 $map_res = $this->use_QQmap($lat,$lng);
-                die(var_dump($map_res));
                 if($map_res != -1){
                     if (!($detail = D('Narea')->where('code='.$map_res['code'])->find())) {
                         $area_code = 310101;
@@ -233,6 +232,7 @@ class ApiPmallAction extends CommonAction{
             $data = $obj->result->ad_info->adcode;
             $area = D('Narea');
             $info = $area->where('code = '.$data)->find();
+            die(var_dump($info));
             if($info){
                 return $info;
             }else{
