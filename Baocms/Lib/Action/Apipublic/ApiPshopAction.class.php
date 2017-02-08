@@ -281,6 +281,10 @@ class ApiPshopAction extends CommonAction{
         // 导入分页类
         $map = array('closed' => 0, 'goods_id' => $goods_id, 'show_date' => array('ELT', TODAY));
         $count = $Goodsdianping->where($map)->count();
+        $count_pics = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
+            ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
+            ->where($map)
+            ->count();
         $maxpage =ceil($count/5);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         switch($orderby){
@@ -315,6 +319,7 @@ class ApiPshopAction extends CommonAction{
         $rs = array(
             'success' => true,
             'totalnum'=> $count,
+            'totalnum_haspic'=>$count_pics,
             'list'=>$list,
             'maxpage'=> $maxpage,
             'page'=>$page,
