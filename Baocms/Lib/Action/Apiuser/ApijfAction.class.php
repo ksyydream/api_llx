@@ -240,6 +240,40 @@ class ApijfAction extends CommonAction {
         }
     }
 
+    public function order_sh(){
+        $order_id = (int) $this->_post('order_id');
+        //进行验证信息
+        if (empty($order_id)) {
+            $rs = array('success' => false, 'error_msg'=>'请选择订单!');
+            die(json_encode($rs));
+        }
+        if (!($detail = D('Jforder')->find($order_id))) {
+            $rs = array('success' => false, 'error_msg'=>'该订单不存在');
+            die(json_encode($rs));
+        }
+        if ($detail['user_id'] != $this->app_uid || $detail['status'] != 3) {
+            $rs = array('success' => false, 'error_msg'=>'该订单不可操作!');
+            die(json_encode($rs));
+        }
+        $data = array(
+            'jforder_id' => $order_id,
+            'status' => 4,
+        );
+        if (D('Jforder')->save($data)){
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'订单收货失败!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+    }
+
     public function order_pay(){
         $order_id = (int) $this->_post('order_id');
         //进行验证信息
