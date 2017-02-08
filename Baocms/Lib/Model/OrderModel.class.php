@@ -68,6 +68,7 @@ class OrderModel extends CommonModel
     {
 
         $orders = $this->where(array('order_id' => array('IN', $order_ids)))->select();
+        die(var_dump($orders));
         $users = D('Users');
         $member = $users->find($uid);
         $usegold = $fan = $total = 0;
@@ -85,11 +86,10 @@ class OrderModel extends CommonModel
                 }
             }else{
                 if ($_POST['gold']) {
-                    die($_POST['gold']);
                     $post_gold = (int)($_POST['gold']*100);
                     $post_gold=(int)$post_gold;
-                    if($order['total_price'] < $post_gold){
-                        $post_gold = $order['total_price'];
+                    if($order['total_price']-$order['mobile_fan'] < $post_gold){
+                        $post_gold = $order['total_price']-$order['mobile_fan'];
                     }
                     if ($member['gold'] > $post_gold) {//账户余额大于可使用积分时
                         $member['gold'] -= $post_gold;
