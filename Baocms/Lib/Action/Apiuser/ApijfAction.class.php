@@ -319,20 +319,26 @@ class ApijfAction extends CommonAction {
             $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1,'order_id'=>$order_id));
             exit();
         }
-        $pay_log = array(
-            'user_id'=>$this->app_uid,
-            'type'=>'jf',
-            'order_id'=>$order_id,
-            'code'=>'weixin',
-            'need_pay'=>$order_det['need_pay'],
-            'create_time'=>NOW_TIME,
-            'create_ip'=>get_client_ip(),
-            'is_paid'=>0
-        );
-        $Paymentlogs = D('Paymentlogs');
-        $log_id = $Paymentlogs->add($pay_log);
-        $pay_log['log_id']=$log_id;
-        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log,'order_id'=>$order_id));
+        $logs = D('Paymentlogs')->getLogsByOrderId('jf', $order_id);
+        if (empty($logs)) {
+            $logs = array(
+                'user_id'=>$this->app_uid,
+                'type'=>'jf',
+                'order_id'=>$order_id,
+                'code'=>'weixin',
+                'need_pay'=>$order_det['need_pay'],
+                'create_time'=>NOW_TIME,
+                'create_ip'=>get_client_ip(),
+                'is_paid'=>0
+            );
+            //单个付款走的这里，为什么没写入数据库$need_pay
+            $logs['log_id'] = D('Paymentlogs')->add($logs);
+        } else {
+            $logs['need_pay'] = $order_det['need_pay'];
+            $logs['code'] = '';
+            D('Paymentlogs')->save($logs);
+        }
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$logs,'order_id'=>$order_id));
         exit();
     }
 }
