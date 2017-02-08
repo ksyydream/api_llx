@@ -695,8 +695,8 @@ class PaymentModel extends CommonModel {
 						'balance' => $balance . '元'
 					);
 
-					$balance_data = Wxmesg::pay($_data_balance);
-					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);
+					/*$balance_data = Wxmesg::pay($_data_balance);
+					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);*/
 					//==========订座微信通知结束==========//
 
 
@@ -830,9 +830,8 @@ class PaymentModel extends CommonModel {
 						'balance' => $balance . '元'
 					);
 
-					$balance_data = Wxmesg::pay($_data_balance);
-					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);
-					die('8');
+					/*$balance_data = Wxmesg::pay($_data_balance);
+					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);*/
 					//==========商城付款后微信通知结束==========////
                     D('Tongji')->log(2, $logs['need_pay']); //统计
 
