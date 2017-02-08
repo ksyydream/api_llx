@@ -33,7 +33,7 @@ class OrderinfoAction extends CommonAction{
                     mobile_fan,
                     total_price,
                     need_pay')
-                    ->where($map)->page("{$page},10")->select();
+                    ->where($map)->order("order_id desc")->page("{$page},10")->select();
                 $order_ids =array();
                 foreach ($order_list as $key => $val) {
                     $order_ids[$val['order_id']] = $val['order_id'];
