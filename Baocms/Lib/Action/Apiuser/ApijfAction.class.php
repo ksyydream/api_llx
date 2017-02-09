@@ -167,7 +167,7 @@ class ApijfAction extends CommonAction {
             ->join('bao_narea d on a.area_code = d.code','LEFT')
             ->where('a.jforder_id='.$order_id)
             ->find();
-        $order_goods = D('Jfordergoods')->where(array('jforder'=>$order_id))->select();
+        $order_goods = D('Jfordergoods')->where(array('jforder_id'=>$order_id))->select();
         $rs = array(
             'success'=>true,
             'error_msg'=>'',
