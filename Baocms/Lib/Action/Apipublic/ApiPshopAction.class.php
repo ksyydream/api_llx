@@ -149,7 +149,7 @@ class ApiPshopAction extends CommonAction{
             $count = $Shopdianping->alias('a')->field("*")->join('left join bao_users b on a.user_id = b.user_id')->where($map)->count();
             $count_pics = $Shopdianping->alias('a')->group('a.dianping_id')->field('a.*,c.dianping_id yy_id')
                 ->join('left join bao_users b on a.user_id = b.user_id')
-                ->join('inner join bao_shop_dianping_pics c on a.dianping_id = c.dianping_id')
+                ->join('inner join bao_shop_dianping_pics c on a.order_id = c.order_id')
                 ->where($map)
                 ->count();
             switch($orderby){
