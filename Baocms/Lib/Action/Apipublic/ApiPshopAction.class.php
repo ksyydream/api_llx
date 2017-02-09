@@ -327,6 +327,7 @@ class ApiPshopAction extends CommonAction{
             $user_ids[$val['user_id']] = $val['user_id'];
             $users= D('Users')->itemsByIds($user_ids);
             $list[$k]['username']=$users[$val['user_id']]['nickname'];
+            $list[$k]['rank_id']=$users[$val['user_id']]['rank_id'];
             $list[$k]['face']=$users[$val['user_id']]['face'];
             $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
             $list[$k]['pic']=array();

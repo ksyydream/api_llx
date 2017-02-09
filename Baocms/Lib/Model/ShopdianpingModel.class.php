@@ -59,6 +59,7 @@ class ShopdianpingModel extends CommonModel {
             a.reply,
             FROM_UNIXTIME(a.create_time) AS create_time,
             b.face user_face,
+            b.rank_id,
             b.nickname user_nickname
             ")
             ->join('left join bao_users b on a.user_id = b.user_id')
@@ -83,6 +84,7 @@ class ShopdianpingModel extends CommonModel {
             a.reply,
             FROM_UNIXTIME(a.create_time) AS create_time,
             b.face user_face,
+            b.rank_id,
             b.nickname user_nickname
             ")
             ->join('left join bao_users b on a.user_id = b.user_id')
