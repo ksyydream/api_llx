@@ -350,6 +350,7 @@ class OrderinfoAction extends CommonAction{
         foreach ($ordergoods as $k => $val) {
             $order['shop_id'] = $k;
             $order['total_price'] = $total_price[$k];
+            $order['need_pay'] = $total_price[$k];
             $order['mobile_fan'] = $mm_price[$k];
             //手机下单减少的价钱 不同商家是不同的订单的
             $order['can_use_integral'] = $total_canuserintegral[$k];
@@ -368,7 +369,7 @@ class OrderinfoAction extends CommonAction{
         }
         $cart->where(array('cart_id'=>array('IN',$cart_ids)))->delete();
         if (count($order_ids) > 1) {
-            $need_pay = D('Order')->useIntegral($this->app_uid, $order_ids);
+            $need_pay = D('Order')->useGold($this->app_uid, $order_ids);
             $logs = array(
                 'type' => 'goods',
                 'user_id' => $this->app_uid,
