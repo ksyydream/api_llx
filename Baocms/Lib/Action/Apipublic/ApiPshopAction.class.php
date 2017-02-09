@@ -147,11 +147,11 @@ class ApiPshopAction extends CommonAction{
             $Shopdianping = D('Shopdianping');
             $map = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY));
             $count = $Shopdianping->alias('a')->field("*")->join('left join bao_users b on a.user_id = b.user_id')->where($map)->count();
-            $count_pics = $Shopdianping->alias('a')->group('a.dianping_id')->field('a.*,c.dianping_id yy_id')
-                ->join('left join bao_users b on a.user_id = b.user_id')
-                ->join('inner join bao_shop_dianping_pics c on a.order_id = c.order_id')
+            $count_pics = $Shopdianping->alias('a')->field('count(DISTINCT a.order_id) total')
+                ->join('LEFT JOIN bao_users b on a.user_id = b.user_id')
+                ->join('INNER JOIN bao_shop_dianping_pics c on a.order_id = c.order_id')
                 ->where($map)
-                ->count();
+                ->find();
             //die(var_dump($Shopdianping->getLastSql()));
             switch($orderby){
                 case 3:
@@ -173,7 +173,7 @@ class ApiPshopAction extends CommonAction{
                 'error_msg'=>'',
                 'list'=>$list,
                 'totalnum'=> $count,
-                'totalnum_haspic'=>$count_pics,
+                'totalnum_haspic'=>$count_pics['total'],
                 'pics'=>$pics
             );
             die(json_encode($rs));
@@ -301,7 +301,7 @@ class ApiPshopAction extends CommonAction{
         $map_count = array('a.closed' => 0, 'a.goods_id' => $goods_id, 'a.show_date' => array('ELT', TODAY));
         $count = $Goodsdianping->where($map)->count();
         $count_pics = $Goodsdianping->field('count(DISTINCT a.order_id) total')->alias('a')
-            ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
+            ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','INNER')
             ->where($map_count)
             ->find();
         die(var_dump($Goodsdianping->getLastSql()));
@@ -316,7 +316,7 @@ class ApiPshopAction extends CommonAction{
                 break;
             case 3:
                 $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
-                    ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
+                    ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','INNER')
                     ->where($map_count)
                     ->page($page.',5')
                     ->select();
@@ -340,7 +340,7 @@ class ApiPshopAction extends CommonAction{
         $rs = array(
             'success' => true,
             'totalnum'=> $count,
-            'totalnum_haspic'=>$count_pics,
+            'totalnum_haspic'=>$count_pics['total'],
             'list'=>$list,
             'maxpage'=> $maxpage,
             'page'=>$page,
