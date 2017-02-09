@@ -152,6 +152,7 @@ class ApiPshopAction extends CommonAction{
                 ->join('inner join bao_shop_dianping_pics c on a.order_id = c.order_id')
                 ->where($map)
                 ->count();
+            die(var_dump($Shopdianping->getLastSql()));
             switch($orderby){
                 case 3:
                     $list = $Shopdianping->dianpingByshopid_haspic($shop_id,$page);
