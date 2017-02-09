@@ -152,7 +152,7 @@ class ApiPshopAction extends CommonAction{
                 ->join('inner join bao_shop_dianping_pics c on a.order_id = c.order_id')
                 ->where($map)
                 ->count();
-            die(var_dump($Shopdianping->getLastSql()));
+            //die(var_dump($Shopdianping->getLastSql()));
             switch($orderby){
                 case 3:
                     $list = $Shopdianping->dianpingByshopid_haspic($shop_id,$page);
@@ -303,6 +303,7 @@ class ApiPshopAction extends CommonAction{
             ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
             ->where($map)
             ->count();
+        die(var_dump($Goodsdianping->getLastSql()));
         $maxpage =ceil($count/5);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         switch($orderby){
