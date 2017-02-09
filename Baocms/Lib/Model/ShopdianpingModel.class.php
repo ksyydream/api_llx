@@ -86,7 +86,7 @@ class ShopdianpingModel extends CommonModel {
             b.nickname user_nickname
             ")
             ->join('left join bao_users b on a.user_id = b.user_id')
-            ->join('inner join bao_shop_dianping_pics c on a.dianping_id = b.dianping_id')
+            ->join('inner join bao_shop_dianping_pics c on a.dianping_id = c.dianping_id')
             ->where($map)
             ->order(array('a.dianping_id' => 'asc'))
             ->page("{$page},5")

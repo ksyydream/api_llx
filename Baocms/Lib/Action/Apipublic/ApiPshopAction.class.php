@@ -145,6 +145,13 @@ class ApiPshopAction extends CommonAction{
                 die(json_encode($rs));
             }
             $Shopdianping = D('Shopdianping');
+            $map = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY));
+            $count = $Shopdianping->alias('a')->field("*")->join('left join bao_users b on a.user_id = b.user_id')->where($map)->count();
+            $count_pics = $Shopdianping->alias('a')->group('a.dianping_id')->field('a.*,c.dianping_id yy_id')
+                ->join('left join bao_users b on a.user_id = b.user_id')
+                ->join('inner join bao_shop_dianping_pics c on a.dianping_id = c.dianping_id')
+                ->where($map)
+                ->count();
             switch($orderby){
                 case 3:
                     $list = $Shopdianping->dianpingByshopid_haspic($shop_id,$page);
@@ -164,6 +171,8 @@ class ApiPshopAction extends CommonAction{
                 'success' => true,
                 'error_msg'=>'',
                 'list'=>$list,
+                'totalnum'=> $count,
+                'totalnum_haspic'=>$count_pics,
                 'pics'=>$pics
             );
             die(json_encode($rs));
