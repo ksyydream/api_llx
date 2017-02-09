@@ -179,16 +179,33 @@ class ApijfAction extends CommonAction {
     }
 
     public function order_list(){
+        $status = (int)($this->_post('status'))?(int)($this->_post('status')):0;
         $page = (int)$this->_post('page', 'htmlspecialchars')?(int)$this->_post('page', 'htmlspecialchars'):1;
         if (empty($page)) {
             $rs = array('success' => false, 'error_msg'=>'请选择页数!');
             die(json_encode($rs));
         }
+        $map = array('a.status' => array('GT', 0), 'a.user_id' => $this->app_uid);
+        switch($status){
+            case 1:
+                $map['a.status'] = 1;
+                break;
+            case 2:
+                $map['a.status'] = 2;
+                break;
+            case 3:
+                $map['a.status'] = 3;
+                break;
+            case 4:
+                $map['a.status'] = 4;
+                break;
+            default:
+                break;
+        }
         $ud = D('Jforder');
         $order_list = $ud->alias('a')->group('a.jforder_id')->field('a.*,b.title,b.photo')
             ->join('bao_jf_order_goods b on a.jforder_id = b.jforder_id','LEFT')
-            ->where(array('a.user_id'=>$this->app_uid))
-            ->where('a.status > 0')
+            ->where($map)
             ->order("a.jforder_id desc")
             ->page($page . ',20')
             ->select();
