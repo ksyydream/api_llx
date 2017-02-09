@@ -300,7 +300,7 @@ class ApiPshopAction extends CommonAction{
         $map = array('closed' => 0, 'goods_id' => $goods_id, 'show_date' => array('ELT', TODAY));
         $map_count = array('a.closed' => 0, 'a.goods_id' => $goods_id, 'a.show_date' => array('ELT', TODAY));
         $count = $Goodsdianping->where($map)->count();
-        $count_pics = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
+        $count_pics = $Goodsdianping->alias('a')->distinct(true)->field('a.order_id')
             ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
             ->where($map_count)
             ->count();
@@ -312,7 +312,7 @@ class ApiPshopAction extends CommonAction{
                 $list = $Goodsdianping->where($map)->order(array('score' => 'desc'))->page($page.',5')->select();
                 break;
             case 2:
-                $list = $Goodsdianping->where($map)->order(array('order_id' => 'desc'))->page($page.',5')->select();
+                $list = $Goodsdianping->where($map)->order(array('create_time' => 'desc'))->page($page.',5')->select();
                 break;
             case 3:
                 $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
