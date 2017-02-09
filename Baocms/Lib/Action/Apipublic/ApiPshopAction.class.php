@@ -127,6 +127,7 @@ class ApiPshopAction extends CommonAction{
 
     public function shopDianPing(){
         try{
+            $orderby = (int)($this->_post('orderby'))?(int)($this->_post('orderby')):1;
             $shop_id = (int)$this->_param('shop_id');
             $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
             if (!$detail = D('Shop')->find($shop_id)) {
@@ -144,7 +145,14 @@ class ApiPshopAction extends CommonAction{
                 die(json_encode($rs));
             }
             $Shopdianping = D('Shopdianping');
-            $list = $Shopdianping->dianpingByshopid($shop_id,$page);
+            switch($orderby){
+                case 3:
+                    $list = $Shopdianping->dianpingByshopid_haspic($shop_id,$page);
+                    break;
+                default:
+                    $list = $Shopdianping->dianpingByshopid($shop_id,$page,$orderby);
+                    break;
+            }
             $dianping_ids = array();
             foreach ($list as $k => $val) {
                 $dianping_ids[$val['dianping_id']] = $val['dianping_id'];

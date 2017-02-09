@@ -49,10 +49,10 @@ class ShopdianpingModel extends CommonModel {
      * 新增函数
      */
 
-    public function dianpingByshopid($shop_id,$page){
+    public function dianpingByshopid($shop_id,$page,$orderby = 1){
         $Model = new Model();
         $map = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY));
-        $items = $Model->table('bao_shop_dianping a')
+        $Model->table('bao_shop_dianping a')
             ->field("a.contents,
             a.score,
             a.dianping_id,
@@ -62,8 +62,33 @@ class ShopdianpingModel extends CommonModel {
             b.nickname user_nickname
             ")
             ->join('left join bao_users b on a.user_id = b.user_id')
+            ->where($map);
+        if($orderby == 2){
+            $Model->order(array('a.dianping_id' => 'desc'));
+        }else{
+            $Model->order(array('a.score' => 'desc'));
+        }
+        $items = $Model->page("{$page},5")->select();
+        return $items;
+    }
+
+    public function dianpingByshopid_haspic($shop_id,$page){
+        $Model = new Model();
+        $map = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY));
+        $items = $Model->table('bao_shop_dianping a')
+            ->group('a.dianping_id')
+            ->field("a.contents,
+            a.score,
+            a.dianping_id,
+            a.reply,
+            FROM_UNIXTIME(a.create_time) AS create_time,
+            b.face user_face,
+            b.nickname user_nickname
+            ")
+            ->join('left join bao_users b on a.user_id = b.user_id')
+            ->join('inner join bao_shop_dianping_pics c on a.dianping_id = b.dianping_id')
             ->where($map)
-            ->order(array('a.dianping_id' => 'desc'))
+            ->order(array('a.dianping_id' => 'asc'))
             ->page("{$page},5")
             ->select();
         return $items;
