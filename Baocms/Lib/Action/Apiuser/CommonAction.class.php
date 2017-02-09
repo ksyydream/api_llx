@@ -77,7 +77,7 @@ class CommonAction extends Action{
         $upload->savePath = $dir; // 设置附件上传目录
         $base64 = $this->_post($input_name);
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
-            $img_name = $this->getRandChar(24).'jpg';
+            $img_name = $this->getRandChar(24).'.jpg';
             $img = base64_decode(str_replace($result[1], '', $base64));
             file_put_contents($dir.$img_name, $img);//返回的是字节数
             $data['face'] = $name.'/'.$img_name;
@@ -111,7 +111,7 @@ class CommonAction extends Action{
             if(is_array($base64)){
                 foreach ($base64 as $img_file){
                     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $img_file, $result)){
-                        $img_name = $this->getRandChar(24).'jpg';
+                        $img_name = $this->getRandChar(24).'.jpg';
                         $img = base64_decode(str_replace($result[1], '', $img_file));
                         file_put_contents($dir.$img_name, $img);//返回的是字节数
                         $data['face'][] = $name.'/'.$img_name;
