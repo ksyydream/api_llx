@@ -309,13 +309,13 @@ class ApiPshopAction extends CommonAction{
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         switch($orderby){
             case 1:
-                $list = $Goodsdianping->where($map)->order(array('score' => 'desc'))->page($page.',5')->select();
+                $list = $Goodsdianping->field('*,FROM_UNIXTIME(create_time) AS cdate')->where($map)->order(array('score' => 'desc'))->page($page.',5')->select();
                 break;
             case 2:
-                $list = $Goodsdianping->where($map)->order(array('create_time' => 'desc'))->page($page.',5')->select();
+                $list = $Goodsdianping->field('*,FROM_UNIXTIME(create_time) AS cdate')->where($map)->order(array('create_time' => 'desc'))->page($page.',5')->select();
                 break;
             case 3:
-                $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
+                $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,FROM_UNIXTIME(a.create_time) AS cdate')
                     ->join('INNER JOIN bao_goods_dianping_pics b on a.order_id = b.order_id')
                     ->where($map_count)
                     ->page($page.',5')
