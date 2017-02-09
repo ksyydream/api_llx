@@ -369,7 +369,7 @@ class OrderinfoAction extends CommonAction{
         }
         $cart->where(array('cart_id'=>array('IN',$cart_ids)))->delete();
         if (count($order_ids) > 1) {
-            $need_pay = D('Order')->useGold($this->app_uid, $order_ids);
+            /*$need_pay = D('Order')->useGold($this->app_uid, $order_ids);
             $logs = array(
                 'type' => 'goods',
                 'user_id' => $this->app_uid,
@@ -381,7 +381,7 @@ class OrderinfoAction extends CommonAction{
                 'create_ip' => get_client_ip(),
                 'is_paid' => 0
             );
-            $logs['log_id'] = D('Paymentlogs')->add($logs);
+            $logs['log_id'] = D('Paymentlogs')->add($logs);*/
             $rs = array(
                 'success' => true,
                 'error_msg' => '',
