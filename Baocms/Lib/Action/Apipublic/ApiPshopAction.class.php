@@ -316,7 +316,7 @@ class ApiPshopAction extends CommonAction{
                 break;
             case 3:
                 $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
-                    ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','INNER')
+                    ->join('INNER JOIN bao_goods_dianping_pics b on a.order_id = b.order_id')
                     ->where($map_count)
                     ->page($page.',5')
                     ->select();
