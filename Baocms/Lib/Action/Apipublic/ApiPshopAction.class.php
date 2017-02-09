@@ -304,7 +304,7 @@ class ApiPshopAction extends CommonAction{
             ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
             ->where($map_count)
             ->count();
-        //die(var_dump($Goodsdianping->getLastSql()));
+        die(var_dump($Goodsdianping->getLastSql()));
         $maxpage =ceil($count/5);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         switch($orderby){
