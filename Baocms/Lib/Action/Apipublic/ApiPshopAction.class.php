@@ -298,10 +298,11 @@ class ApiPshopAction extends CommonAction{
         $Goodsdianping = D('Goodsdianping');
         // 导入分页类
         $map = array('closed' => 0, 'goods_id' => $goods_id, 'show_date' => array('ELT', TODAY));
+        $map_count = array('a.closed' => 0, 'a.goods_id' => $goods_id, 'a.show_date' => array('ELT', TODAY));
         $count = $Goodsdianping->where($map)->count();
         $count_pics = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
             ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
-            ->where($map)
+            ->where($map_count)
             ->count();
         //die(var_dump($Goodsdianping->getLastSql()));
         $maxpage =ceil($count/5);
@@ -316,7 +317,7 @@ class ApiPshopAction extends CommonAction{
             case 3:
                 $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,b.pic_id yy_id')
                     ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
-                    ->where($map)
+                    ->where($map_count)
                     ->page($page.',5')
                     ->select();
                 break;
