@@ -300,10 +300,10 @@ class ApiPshopAction extends CommonAction{
         $map = array('closed' => 0, 'goods_id' => $goods_id, 'show_date' => array('ELT', TODAY));
         $map_count = array('a.closed' => 0, 'a.goods_id' => $goods_id, 'a.show_date' => array('ELT', TODAY));
         $count = $Goodsdianping->where($map)->count();
-        $count_pics = $Goodsdianping->alias('a')->distinct(true)->field('a.order_id')
+        $count_pics = $Goodsdianping->field('count(DISTINCT a.order_id) total')->alias('a')->distinct(true)->field('a.order_id')
             ->join('bao_goods_dianping_pics b on a.order_id = b.order_id','inner')
             ->where($map_count)
-            ->count();
+            ->find();
         die(var_dump($Goodsdianping->getLastSql()));
         $maxpage =ceil($count/5);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
