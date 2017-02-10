@@ -202,12 +202,12 @@ class PaymentModel extends CommonModel {
 									$yhk[$key] = $val;
 								}
 								if(isset($yhk[$v['shop_id']])){
-									$yhk[$v['shop_id']] = $yhk[$v['shop_id']] + $v['yhq'];
+									$yhk[$v['shop_id']] = $yhk[$v['shop_id']] + ($v['yhq']*$v['buygoods_num']);
 								}else{
-									$yhk[$v['shop_id']] = $v['yhq'];
+									$yhk[$v['shop_id']] = ($v['yhq']*$v['buygoods_num']);
 								}
 							}else{
-								$yhk = array($v['shop_id'] => $v['yhq']);
+								$yhk = array($v['shop_id'] => ($v['yhq']*$v['buygoods_num']));
 							}
 							$Users->where(array('user_id'=>$logs['user_id']))->save(array('yhk'=>json_encode($yhk)));
 
@@ -224,14 +224,14 @@ class PaymentModel extends CommonModel {
 									if(isset($zp_old2[$v['shop_id']])){
 										foreach($zengpins as $vvv){
 											if(isset($zp_old2[$v['shop_id']]->$vvv['desc'])){
-												$zp_old2[$v['shop_id']]->$vvv['desc'] = $zp_old2[$v['shop_id']]->$vvv['desc'] + $vvv['qty'];
+												$zp_old2[$v['shop_id']]->$vvv['desc'] = $zp_old2[$v['shop_id']]->$vvv['desc'] + ($vvv['qty']*$v['buygoods_num']);
 											}else{
-												$zp_old2[$v['shop_id']]->$vvv['desc'] = $vvv['qty'];
+												$zp_old2[$v['shop_id']]->$vvv['desc'] = ($vvv['qty']*$v['buygoods_num']);
 											}
 										}
 									}else{
 										foreach($zengpins as $vvv){
-											$zp_old2[$v['shop_id']]->$vvv['desc'] = $vvv['qty'];
+											$zp_old2[$v['shop_id']]->$vvv['desc'] = ($vvv['qty']*$v['buygoods_num']);
 										}
 									}
 
@@ -266,7 +266,7 @@ class PaymentModel extends CommonModel {
 								if($zengpins){
 									$zp = array();
 									foreach($zengpins as $k=>$vv){
-										$zps[$vv['desc']] = $vv['qty'];
+										$zps[$vv['desc']] = ($vv['qty']*$v['buygoods_num']);
 									}
 									$zp[$v['shop_id']] = (object)$zps;
 								}
@@ -288,7 +288,7 @@ class PaymentModel extends CommonModel {
 							if(isset($parent[$v['shop_id']])){
 								$uid1 = $parent[$v['shop_id']];
 //								$users->addIntegral($uid1, $v['mall_price']*0.2, '第一层分红获得秀币');
-								D('Users')->Money($uid1, $v['mall_price']*0.2, '第一层提成获得');
+								D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*0.2, '第一层提成获得');
 
 								//第二层
 								$parent2 = array();
@@ -302,7 +302,7 @@ class PaymentModel extends CommonModel {
 								if(isset($parent2[$v['shop_id']])){
 									$uid2 = $parent2[$v['shop_id']];
 //									$users->addIntegral($uid2, $v['mall_price']*0.1, '第二层分红获得秀币');
-									D('Users')->Money($uid2, $v['mall_price']*0.1, '第二层提成获得');
+									D('Users')->Money($uid2, $v['mall_price']*$v['buygoods_num']*0.1, '第二层提成获得');
 
 									//第三层
 									$parent3 = array();
@@ -316,7 +316,7 @@ class PaymentModel extends CommonModel {
 									if(isset($parent3[$v['shop_id']])){
 										$uid3 = $parent3[$v['shop_id']];
 //										$users->addIntegral($uid2, $v['mall_price']*0.05, '第三层分红获得秀币');
-										D('Users')->Money($uid3, $v['mall_price']*0.05, '第三层提成获得');
+										D('Users')->Money($uid3, $v['mall_price']*$v['buygoods_num']*0.05, '第三层提成获得');
 									}
 								}
 							}
