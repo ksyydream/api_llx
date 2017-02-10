@@ -103,7 +103,7 @@ class CartAction extends CommonAction {
             die(json_encode($rs));
         }
         $res = $cart->where("cart_id = {$cart_id}")->save(array('num'=>$num));
-        die(var_dump($cart->getLastSql()));
+        //die(var_dump($cart->getLastSql()));
         if($res){
             $rs = array('success' => true, 'error_msg' => '');
             die(json_encode($rs));
