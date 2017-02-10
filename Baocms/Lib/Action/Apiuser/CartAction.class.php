@@ -86,11 +86,11 @@ class CartAction extends CommonAction {
         $row = $cart->find($cart_id);
         if($row){
             if($row['user_id'] != $this->app_uid){
-                $rs = array('success' => false, 'error_msg' => '只可操作自己的购物车!');
+                $rs = array('success' => false, 'error_msg' => '只可操作自己的购物车!1');
                 die(json_encode($rs));
             }
         }else{
-            $rs = array('success' => false, 'error_msg' => '未找到购物车信息!');
+            $rs = array('success' => false, 'error_msg' => '未找到购物车信息!2');
             die(json_encode($rs));
         }
         $num = (int)$this->_post('num');
