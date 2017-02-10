@@ -186,6 +186,8 @@ class WxPayAction extends CommonAction{
     }
 
     public function notify(){
+        $this->wx_appid=C('wx_Android_appid');
+        $this->wx_appsecret=C('wx_Android_appsecret');
         $wxconfig=array(
             'appid'=> $this->wx_appid?$this->wx_appid:'',
             'mch_id'=> C('mch_id'),
