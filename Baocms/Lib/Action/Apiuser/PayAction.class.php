@@ -152,4 +152,104 @@ class PayAction extends CommonAction
         $pay_log['log_id']=$log_id;
         $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log));
     }
+
+    private function compute_yhk($mobile, $yhk = '', $zp = '',$shop_id)
+    {
+        $Users = D('Users');
+        $Pay = D('Pay');
+        $Yhk_log = D('Yhklog');
+        $Zengpin_log = D('Zengpinlog');
+        $user = $Users->where(array('mobile' => $mobile))->find();
+
+        if ($yhk > 0) {//优惠卡规则
+            $yhk_limit_old = (array)json_decode($user['yhk']);
+            $yhk_limit = array();
+            foreach ($yhk_limit_old as $key => $val) {
+                $yhk_limit[$key] = $val;
+            }
+
+            if (isset($yhk_limit[$shop_id])) {
+                if ($yhk_limit[$shop_id] < $yhk) {
+                    $rs=array(
+                        'success'=>false,
+                        'error_msg'=>'优惠券余额不足'
+                    );
+                    $this->ajaxReturn($rs,'JSON');
+                } else {
+                    $yhk_limit[$shop_id] = $yhk_limit[$shop_id] - $yhk;
+                }
+            }else{
+                $yhk_surplus = $yhk;
+                foreach($yhk_limit as $k=>$v){
+                    if($yhk_surplus > 0){
+                        if($v < $yhk_surplus){
+                            $yhk_surplus = $yhk_surplus - $v;
+                            $yhk_limit[$k] = 0;
+                        }else{
+                            $yhk_limit[$k] = $v - $yhk_surplus;
+                            $yhk_surplus = 0;
+                        }
+                    }
+                }
+                if($yhk_surplus > 0){
+                    $rs=array(
+                        'success'=>false,
+                        'error_msg'=>'优惠券余额不足'
+                    );
+                    $this->ajaxReturn($rs,'JSON');
+                }
+            }
+
+            $data = array(
+                'mobile' => $mobile,
+                'qty' => $yhk,
+                'create_time' => NOW_TIME,
+                'shop_id' => $shop_id,
+                'type' => -1
+            );
+            $Yhk_log->add($data);
+            $Users->where(array('mobile' => $mobile))->save(array('yhk' => json_encode($yhk_limit)));
+        }
+
+        if ($zp) {
+            $zp_limit = json_decode($user['zp']);
+            $key = (string)$shop_id;
+            $data = array();
+            if ($zp_limit->$key) {
+                foreach ($zp as $k => $v) {
+                    if ($zp_limit->$key->$k) {
+                        if ($zp_limit->$key->$k < $v) {
+                            $rs=array(
+                                'success'=>false,
+                                'error_msg'=>'赠品数量不足'
+                            );
+                            $this->ajaxReturn($rs,'JSON');
+                        } else {
+                            $zp_limit->$key->$k = $zp_limit->$key->$k - $v;
+                            $data[] = array(
+                                'mobile' => $mobile,
+                                'qty' => $v,
+                                'create_time' => NOW_TIME,
+                                'shop_id' => $shop_id,
+                                'type' => -1,
+                                'desc' => $k
+                            );
+                        }
+                    }
+                }
+
+                foreach($data as $k=>$v){
+                    $Zengpin_log->add($v);
+                }
+                $Users->where(array('mobile' => $mobile))->save(array('zp' => json_encode($zp_limit)));
+            } else {
+                $rs=array(
+                    'success'=>false,
+                    'error_msg'=>'赠品有误,请查看'
+                );
+                $this->ajaxReturn($rs,'JSON');
+            }
+        }
+
+    }
 }
