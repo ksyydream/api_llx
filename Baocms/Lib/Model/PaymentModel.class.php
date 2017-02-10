@@ -165,12 +165,18 @@ class PaymentModel extends CommonModel {
 				$Zengpin = D('zengpin');
 
 				if($logs['type'] == 'goods'){
-					$goods = $Order_goods->query("select b.* from ".$Order_goods->getTableName()." a left join ".$Goods->getTableName()." b on a.goods_id = b.goods_id where a.order_id = ".$logs['order_id'] );
+					$goods = $Order_goods->query("select b.*,a.num buygoods_num from ".$Order_goods->getTableName()." a left join ".$Goods->getTableName()." b on a.goods_id = b.goods_id where a.order_id = ".$logs['order_id'] );
 //					$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.bbb.log',"a" );
 //					fwrite($open,var_export($goods,true));
 //					fclose($open);
 					foreach($goods as $v){
 						if($v['is_yhk'] == 1){//优惠卡规则
+
+							//新增加会员等级功能,购买一张优惠卡 就提升一个等级
+							$user_vip = $Users->where(array('user_id'=>$logs['user_id']))->find();
+							$old_vip = (int)$user_vip['rank_id'];
+							$Users->where(array('user_id'=>$logs['user_id']))->save(array('rank_id'=>$old_vip + $v['buygoods_num']));
+							//等级完成
 							$Fenhong = D('Fenhong');
 							$UserShop = D('Usershop');
 							if(!$UserShop->where(array('uid'=>$logs['user_id'],'shop_id'=>$v['shop_id']))->find()){
@@ -189,7 +195,7 @@ class PaymentModel extends CommonModel {
 								'status'=>1
 							));
 							$user = $Users->where(array('user_id'=>$logs['user_id']))->find();
-							if($user['yhk']){
+							if($user['yhk']){//这里处理 优惠卡
 								$yhk_old = (Array)json_decode($user['yhk']);
 								$yhk = array();
 								foreach ($yhk_old as $key=>$val){
