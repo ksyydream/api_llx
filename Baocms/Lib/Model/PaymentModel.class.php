@@ -383,9 +383,9 @@ class PaymentModel extends CommonModel {
 					$pay = D('Pay')->where(array('id'=>$logs['order_id']))->find();
 
 //
-					$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
+					/*$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
 					fwrite($open,var_export($pay,true));
-					fclose($open);
+					fclose($open);*/
 
                     $shop = D('Shop')->find($pay['shop_id']);
 
@@ -426,8 +426,14 @@ class PaymentModel extends CommonModel {
 //					D('Sms') -> breaksTZuser($order['order_id']);//发送短信给用户
 //					D('Users')->where(array('user_id'=>$pay['user_id']))->setDec('integral',$pay['integral']);
 //					D('Users')->where(array('user_id'=>$shop['user_id']))->setInc('integral',$pay['integral']);
-					D('Users')->addIntegral($logs['user_id'], -$pay['integral'], '优惠买单使用秀币');
-					D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
+					if($pay['integral']>0){
+						D('Users')->addIntegral($logs['user_id'], -$pay['integral'], '优惠买单使用秀币');
+						D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
+					}
+					if($pay['use_gold']>0){
+						D('Users')->addGold($logs['user_id'], -$pay['use_gold'], '优惠买单使用余额');
+						D('Users')->addGold($shop['user_id'], $pay['use_gold'], '客户优惠买单获得余额');
+					}
 
 					$zp = (array)json_decode($pay['zp']);
 					$this->compute_yhk($pay['mobile'],$pay['yhk'],$zp,$pay['shop_id']);

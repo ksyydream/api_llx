@@ -69,6 +69,7 @@ class PayAction extends CommonAction
             'success'=>true,
             'detail'=>$detail,
             'integral'=>$member['integral'],
+            'gold'=>$member['gold'],
             'zp_list'=>$zp_list,
             'error_msg'=>''
         );
@@ -79,6 +80,7 @@ class PayAction extends CommonAction
 
         $id = $this->_post('id');
         $integral = $this->_post('integral');
+        $gold = (int)($this->_post('gold')*100) ;
         $Pay = D('Pay');
         $Users = D('Users');
         $rs = $Pay->where(array('id'=>$id))->find();
@@ -110,12 +112,30 @@ class PayAction extends CommonAction
             exit();
         }
 
+        if($gold < 0 || $member['gold'] < $gold || $gold > ($rs['total'] - $rs['yhk'])*100 - $integral ){
+            $this->ajaxReturn(array('success'=>false,'error_msg'=>'余额输入错误!'));
+        }
+
+        if($gold == ($rs['total'] - $rs['yhk'])*100 - $integral){//全部用秀币抵扣,不涉及支付
+            $zp = (array)json_decode($rs['zp']);
+            $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+            $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>$gold,'pay_time'=>NOW_TIME));
+            if($integral > 0){
+                $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+                $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+            }
+            $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
+            $Users->addGold($shop['user_id'],$gold,'客户优惠买单获得余额');
+            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+            exit();
+        }
+
         $pay_log = array(
             'user_id'=>$member['user_id'],
             'type'=>'breaks',
             'order_id'=>$id,
             'code'=>'weixin',
-            'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral,
+            'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral - $gold,
             'create_time'=>NOW_TIME,
             'create_ip'=>get_client_ip(),
             'is_paid'=>0
