@@ -102,6 +102,10 @@ class CartAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'数量不能小于1 或者 大于99!');
             die(json_encode($rs));
         }
+        if($num == $row['num']){
+            $rs = array('success' => false, 'error_msg'=>'修改数量与原数量相同!');
+            die(json_encode($rs));
+        }
         $res = $cart->where("cart_id = {$cart_id}")->save(array('num'=>$num));
         //die(var_dump($cart->getLastSql()));
         if($res){
