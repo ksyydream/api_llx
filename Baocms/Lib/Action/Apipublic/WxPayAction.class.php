@@ -59,7 +59,7 @@ class WxPayAction extends CommonAction{
         $param["time_start"] = date("YmdHis");
         $param["time_expire"] = date("YmdHis", time() + 600);
         $param["goods_tag"] = "拉拉秀线上商城";
-        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/notify';
+        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/appnotify';
         $param["trade_type"] = "APP";
         //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
         $result = $weixin_pay->unifiedOrder($param);
@@ -131,7 +131,7 @@ class WxPayAction extends CommonAction{
         $param["time_start"] = date("YmdHis");
         $param["time_expire"] = date("YmdHis", time() + 600);
         $param["goods_tag"] = "拉拉秀线上商城";
-        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/notify';
+        $param["notify_url"] = 'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/jsnotify';
         $param["trade_type"] = "JSAPI";
         $param["openid"] = $openid;
         $result = $weixin_pay->unifiedOrder($param);
@@ -193,6 +193,50 @@ class WxPayAction extends CommonAction{
             'mch_id'=> C('mch_id'),
             'apikey'=> C('apikey'),
             'appsecret'=> $this->wx_appsecret?$this->wx_appsecret:'',
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $data_array = $weixin_pay->get_back_data();
+        if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
+            //$data_array['out_trade_no'] 就是传送的 商家订单
+            if(D('Payment')->logsPaid($data_array['out_trade_no'])){
+                return 'SUCCESS';
+            }else{
+                return 'FAIL';
+            }
+        }
+    }
+
+    public function appnotify(){
+        $this->wx_appid=C('wx_Android_appid');
+        $this->wx_appsecret=C('wx_Android_appsecret');
+        $wxconfig=array(
+            'appid'=> C('wx_Android_appid'),
+            'mch_id'=> C('mch_id'),
+            'apikey'=> C('apikey'),
+            'appsecret'=> C('wx_Android_appsecret'),
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $data_array = $weixin_pay->get_back_data();
+        if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
+            //$data_array['out_trade_no'] 就是传送的 商家订单
+            if(D('Payment')->logsPaid($data_array['out_trade_no'])){
+                return 'SUCCESS';
+            }else{
+                return 'FAIL';
+            }
+        }
+    }
+
+    public function jsnotify(){
+        $wxconfig=array(
+            'appid'=> C('wx_appid'),
+            'mch_id'=> C('wx_mch_id'),
+            'apikey'=> C('wx_apikey'),
+            'appsecret'=> C('wx_appsecret'),
             'sslcertPath'=> C('sslcertPath'),
             'sslkeyPath'=> C('sslkeyPath'),
         );
