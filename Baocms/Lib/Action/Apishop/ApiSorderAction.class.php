@@ -270,6 +270,13 @@ class ApiSorderAction extends CommonAction{
         if ($pay['shop_id'] != $this->shop_id ) {
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'您没有权限访问！'));
         }
+        $member = D('Users')->where(array('mobile'=>$pay['mobile']))->find();
+        if($pay['integral'] > 0){
+            D('Users')->addIntegral($member['user_id'],$pay['integral'],'优惠买单订单取消,退回秀币');
+        }
+        if($pay['use_gold'] > 0){
+            D('Users')->addGold($member['user_id'],$pay['use_gold'],'优惠买单订单取消,退回余额');
+        }
         $obj = D('Pay');
         $obj->where(array('id' => $id))->delete();
         $this->ajaxReturn(array('success'=>true,'error_msg'=>''));
@@ -306,6 +313,7 @@ class ApiSorderAction extends CommonAction{
             'detail'=>$detail,
             'zp_list'=>$zp_list,
             'integral'=>$member['integral'],
+            //'gold'=>$member['gold'],
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
@@ -315,6 +323,7 @@ class ApiSorderAction extends CommonAction{
 
         $id = $this->_post('id');
         $integral = $this->_post('integral');
+        //$gold = (int)($this->_post('gold')*100) ;
         $Pay = D('Pay');
         $Users = D('Users');
         $rs = $Pay->where(array('id'=>$id))->find();
@@ -343,8 +352,11 @@ class ApiSorderAction extends CommonAction{
         $zp = (array)json_decode($rs['zp']);
         $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
         $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME,'is_offline'=>2));
-        $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
-        $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+        if($integral>0){
+            $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+            $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+        }
+
 
         $this->ajaxReturn(array('success'=>true,'error_msg'=>''));
     }
