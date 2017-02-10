@@ -25,6 +25,7 @@ class OrderinfoAction extends CommonAction{
                     ->field('FROM_UNIXTIME(create_time) AS create_time,
                     order_id,
                     use_integral,
+                    use_gold,
                     status,
                     is_daofu,
                     is_dianping,
@@ -503,7 +504,7 @@ class OrderinfoAction extends CommonAction{
                 die(json_encode($rs));
             }
             if($obj->save(array('order_id' => $order_id, 'closed' => 1))){
-                if($detail['use_integral']){
+                if($detail['use_gold']){
                     D('Users')->addGold($detail['user_id'],$detail['use_gold'],'取消订单'.$detail['order_id'].'余额退还');
                 }
 
