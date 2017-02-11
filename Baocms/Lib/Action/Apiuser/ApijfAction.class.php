@@ -203,7 +203,7 @@ class ApijfAction extends CommonAction {
                 break;
         }
         $ud = D('Jforder');
-        $order_list = $ud->alias('a')->group('a.jforder_id')->field('a.*,b.title,b.photo')
+        $order_list = $ud->alias('a')->group('a.jforder_id')->field('a.*,b.goods_id,b.title,b.photo')
             ->join('bao_jf_order_goods b on a.jforder_id = b.jforder_id','LEFT')
             ->where($map)
             ->order("a.jforder_id desc")
