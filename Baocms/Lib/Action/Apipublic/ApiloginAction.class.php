@@ -288,7 +288,7 @@ class ApiloginAction extends CommonAction{
     public function get_wxconfig(){
         require_cache( APP_PATH . 'Lib/Net/Wxjssdk.php' );//
         $Wxjssdk = new Wxjssdk();
-        $signPackage = @$Wxjssdk->wxgetSignPackage(C('wx_appid'),C('wx_appsecret'),C('sys_path'));
+        $signPackage = @$Wxjssdk->wxgetSignPackage(C('zs_wx_appid'),C('zs_wx_appsecret'),C('sys_path'));
         $rs = array(
             'success' => true,
             'error_msg' => '',
