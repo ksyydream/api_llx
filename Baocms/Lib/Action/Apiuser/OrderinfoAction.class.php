@@ -525,4 +525,163 @@ class OrderinfoAction extends CommonAction{
         }
     }
 
+    public function shopdianping_check() {
+        $data_shop_dianping = $this->_CONFIG['mobile']['data_shop_dianping'];
+        $shop_id = (int) $this->_post('order_id');;
+        if (!$detail = D('Shop')->find($shop_id)) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'该商家不存在!'
+            );
+            die(json_encode($rs));
+        }
+
+
+        $shop_order = D('Order')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'status'=>8))->find();//配送完成订单
+        $tuan_order = D('Tuancode')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'is_used'=>1))->find();//团验证
+        $ele_order = D('Eleorder')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'status'=>8))->find();//外卖消费后
+
+        if (empty($shop_order) and empty($tuan_order) and empty($ele_order )) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'你还没在此商家消费过，暂时不能参与点评哦!'
+            );
+            die(json_encode($rs));
+        }
+
+
+        $cates = D('Shopcate')->fetchAll();
+        $cate = $cates[$detail['cate_id']];
+        $this->assign('cate', $cate);
+        $this->assign('detail', $detail);
+        $this->display();
+    }
+
+    public function shopdianping_save() {
+        $data_shop_dianping = $this->_CONFIG['mobile']['data_shop_dianping'];
+        $shop_id = (int) $this->_post('order_id');;
+        if (!$detail = D('Shop')->find($shop_id)) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'该商家不存在!'
+            );
+            die(json_encode($rs));
+        }
+
+
+        $shop_order = D('Order')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'status'=>8))->find();//配送完成订单
+        $tuan_order = D('Tuancode')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'is_used'=>1))->find();//团验证
+        $ele_order = D('Eleorder')->where(array('shop_id'=>$shop_id,'user_id' => $this->app_uid,'status'=>8))->find();//外卖消费后
+
+        if (empty($shop_order) and empty($tuan_order) and empty($ele_order )) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'你还没在此商家消费过，暂时不能参与点评哦!'
+            );
+            die(json_encode($rs));
+        }
+
+
+        $cates = D('Shopcate')->fetchAll();
+        $cate = $cates[$detail['cate_id']];
+        $score=$this->_post('score');
+        if ($score) {
+            $data = $this->checkFields($this->_post('data', false), array('score', 'd1', 'd2', 'd3', 'cost', 'contents'));
+            $data['user_id'] = $this->uid;
+            $data['shop_id'] = $shop_id;
+            $data['score'] = (int) $data['score'];
+            if ($data['score'] <= 0 || $data['score'] > 5) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'请选择评分!'
+                );
+                die(json_encode($rs));
+            }
+            $data['d1'] = (int) $data['d1'];
+            if (empty($data['d1'])) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d1'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            if ($data['d1'] > 5 || $data['d1'] < 1) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d1'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            $data['d2'] = (int) $data['d2'];
+            if (empty($data['d2'])) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d2'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            if ($data['d2'] > 5 || $data['d2'] < 1) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d2'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            $data['d3'] = (int) $data['d3'];
+            if (empty($data['d3'])) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d3'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            if ($data['d3'] > 5 || $data['d3'] < 1) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>$cate['d3'] . '评分不能为空'
+                );
+                die(json_encode($rs));
+            }
+            $data['cost'] = (int) $data['cost'];
+            $data['contents'] = htmlspecialchars($data['contents']);
+            if (empty($data['contents'])) {
+                $rs = array('success' => false, 'error_msg'=>'不说点什么么');
+                die(json_encode($rs));
+            }
+            $data['create_time'] = NOW_TIME;
+            //$data['show_date'] = date('Y-m-d', NOW_TIME);
+
+            //15天后显示 --> 立刻显示
+            $data_shop_dianping = $this->_CONFIG['mobile']['data_shop_dianping'];
+            $data['show_date'] = date('Y-m-d', NOW_TIME + $data_shop_dianping * 86400); //15天生效
+            $data['create_ip'] = get_client_ip();
+            $obj = D('Shopdianping');
+            if ($dianping_id = $obj->add($data)) {
+                $photos = $this->_post('photos', false);
+                $local = array();
+                foreach ($photos as $val) {
+                    if (isImage($val))
+                        $local[] = $val;
+                }
+                if (!empty($local))
+                    D('Shopdianpingpics')->upload($dianping_id, $data['shop_id'], $local);
+                D('Shop')->updateCount($shop_id, 'score_num');
+                D('Users')->updateCount($this->uid, 'ping_num');
+                D('Shopdianping')->updateScore($shop_id);
+                $rs = array('success' => true, 'error_msg'=>'');
+                die(json_encode($rs));
+            }
+            $rs = array('success' => false, 'error_msg'=>'操作失败');
+            die(json_encode($rs));
+        }else {
+            $rs = array(
+                'success' => true,
+                'detail'=> $detail,
+                'cate'=> $cate,
+                'error_msg'=>''
+            );
+            die(json_encode($rs));
+        }
+    }
+
 }

@@ -135,4 +135,13 @@ class CommonAction extends Action{
 
         return $data['face'];
     }
+
+    protected function checkFields($data = array(), $fields = array()) {
+        foreach ($data as $k => $val) {
+            if (!in_array($k, $fields)) {
+                unset($data[$k]);
+            }
+        }
+        return $data;
+    }
 }
