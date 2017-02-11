@@ -129,17 +129,25 @@ class PayAction extends CommonAction
             $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
             exit();
         }
+        $logs = D('Paymentlogs')->getLogsByOrderId('breaks', $id);
+        if (empty($logs)) {
+            $logs = array(
+                'user_id'=>$member['user_id'],
+                'type'=>'breaks',
+                'order_id'=>$id,
+                'code'=>'weixin',
+                'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral - $gold,
+                'create_time'=>NOW_TIME,
+                'create_ip'=>get_client_ip(),
+                'is_paid'=>0
+            );
+            $logs['log_id'] = D('Paymentlogs')->add($logs);
+        }else{
+            $logs['need_pay'] = ($rs['total'] - $rs['yhk'])*100 - $integral - $gold;
+            $logs['code'] = '';
+            D('Paymentlogs')->save($logs);
+        }
 
-        $pay_log = array(
-            'user_id'=>$member['user_id'],
-            'type'=>'breaks',
-            'order_id'=>$id,
-            'code'=>'weixin',
-            'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral - $gold,
-            'create_time'=>NOW_TIME,
-            'create_ip'=>get_client_ip(),
-            'is_paid'=>0
-        );
         $Pay->where(array('id'=>$id))->save(array('integral'=>$integral,'use_gold'=>$gold));
         if($integral > 0){
             $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
@@ -147,10 +155,7 @@ class PayAction extends CommonAction
         if($gold > 0){
             $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
         }
-        $Paymentlogs = D('Paymentlogs');
-        $log_id = $Paymentlogs->add($pay_log);
-        $pay_log['log_id']=$log_id;
-        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$pay_log));
+        $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>2,'logs'=>$logs));
     }
 
     private function compute_yhk($mobile, $yhk = '', $zp = '',$shop_id)
