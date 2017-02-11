@@ -114,10 +114,10 @@ class WxPayAction extends CommonAction{
         require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             //'appid'=> $this->wx_appid,
-            'appid'=> C('wx_appid'),
-            'mch_id'=> C('wx_mch_id'),
-            'apikey'=> C('wx_apikey'),
-            'appsecret'=> C('wx_appsecret'),
+            'appid'=> C('zs_wx_appid'),
+            'mch_id'=> C('zs_wx_mch_id'),
+            'apikey'=> C('zs_wx_apikey'),
+            'appsecret'=> C('zs_wx_appsecret'),
             'sslcertPath'=> C('sslcertPath'),
             'sslkeyPath'=> C('sslkeyPath'),
         );
@@ -239,10 +239,10 @@ class WxPayAction extends CommonAction{
     public function jsnotify(){
         require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
-            'appid'=> C('wx_appid'),
-            'mch_id'=> C('wx_mch_id'),
-            'apikey'=> C('wx_apikey'),
-            'appsecret'=> C('wx_appsecret'),
+            'appid'=> C('zs_wx_appid'),
+            'mch_id'=> C('zs_wx_mch_id'),
+            'apikey'=> C('zs_wx_apikey'),
+            'appsecret'=> C('zs_wx_appsecret'),
             'sslcertPath'=> C('sslcertPath'),
             'sslkeyPath'=> C('sslkeyPath'),
         );
@@ -285,8 +285,8 @@ class WxPayAction extends CommonAction{
     }
 
     public function get_openid(){
-        $appid=C('wx_appid');
-        $secret= C('wx_appsecret');
+        $appid=C('zs_wx_appid');
+        $secret= C('zs_wx_appsecret');
         $openid='';
         if(empty($_GET['code'])){
             $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
@@ -303,8 +303,8 @@ class WxPayAction extends CommonAction{
 
     public function get_openidbycode(){
         $code = $this->_post('code');
-        $appid=C('wx_appid');
-        $secret= C('wx_appsecret');
+        $appid=C('zs_wx_appid');
+        $secret= C('zs_wx_appsecret');
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
         $a_access_token=json_decode($j_access_token,true);
         if($openid = $a_access_token['openid']){
