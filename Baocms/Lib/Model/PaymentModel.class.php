@@ -175,7 +175,11 @@ class PaymentModel extends CommonModel {
 							//新增加会员等级功能,购买一张优惠卡 就提升一个等级
 							$user_vip = $Users->where(array('user_id'=>$logs['user_id']))->find();
 							$old_vip = (int)$user_vip['rank_id'];
-							$Users->where(array('user_id'=>$logs['user_id']))->save(array('rank_id'=>$old_vip + $v['buygoods_num']));
+							$new_vip = $old_vip + $v['buygoods_num'];
+							if($new_vip >=9){
+								$new_vip = 9;
+							}
+							$Users->where(array('user_id'=>$logs['user_id']))->save(array('rank_id'=>$new_vip));
 							//等级完成
 							$Fenhong = D('Fenhong');
 							$UserShop = D('Usershop');
