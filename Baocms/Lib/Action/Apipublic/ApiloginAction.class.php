@@ -12,7 +12,7 @@ class ApiloginAction extends CommonAction{
         fwrite($open,var_export($dataall,true));
         fclose($open);
         $token= $this->get_token();
-        die('http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/jsnotify');
+        die('http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/appnotify');
         $rs = array(
             'success' => $token==-1?false:true,
             'user_id' => get_token_uid($token),
