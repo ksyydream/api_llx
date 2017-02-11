@@ -209,6 +209,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function appnotify(){
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $this->wx_appid=C('wx_Android_appid');
         $this->wx_appsecret=C('wx_Android_appsecret');
         $wxconfig=array(
@@ -235,6 +236,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function jsnotify(){
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             'appid'=> C('wx_appid'),
             'mch_id'=> C('wx_mch_id'),
