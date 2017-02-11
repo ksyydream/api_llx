@@ -186,6 +186,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function notify(){
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $this->wx_appid=C('wx_Android_appid');
         $this->wx_appsecret=C('wx_Android_appsecret');
         $wxconfig=array(
