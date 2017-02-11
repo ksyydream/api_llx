@@ -8,7 +8,7 @@
 class ApiloginAction extends CommonAction{
     public function test_token(){
         $dataall = $this->_param();
-        $open=fopen('/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
+        $open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($dataall,true));
         fclose($open);
         $token= $this->get_token();
