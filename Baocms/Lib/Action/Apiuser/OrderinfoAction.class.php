@@ -204,6 +204,8 @@ class OrderinfoAction extends CommonAction{
                     'error_msg'=>'图片地址必须是数组!'
                 );
                 die(json_encode($rs));
+            }else{
+
             }
         }
         $goodss = D('Ordergoods')->where('order_id ='.$detail['order_id']) -> find();

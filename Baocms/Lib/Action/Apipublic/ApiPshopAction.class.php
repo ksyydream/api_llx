@@ -335,7 +335,11 @@ class ApiPshopAction extends CommonAction{
             $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
             $list[$k]['pic']=array();
             foreach ($pic as $a => $v){
-            $list[$k]['pic'][]=$v['pic'];}
+                if(file_exists(pathinfo(__FILE__, PATHINFO_BASENAME).'/attachs/'.$v['pic'])){
+                    //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+                    $list[$k]['pic'][]=$v['pic'];
+                }
+            }
         }
         $rs = array(
             'success' => true,
