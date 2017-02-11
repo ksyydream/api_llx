@@ -221,7 +221,7 @@ class WxPayAction extends CommonAction{
         );
         $weixin_pay = new Wechatpay($wxconfig);
         $data_array = $weixin_pay->get_back_data();
-        $open=fopen('/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
+        $open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($data_array,true));
         fclose($open);
         if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
