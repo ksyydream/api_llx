@@ -10,7 +10,7 @@ class MessageAction extends CommonAction {
 
     public function index() {
         $Msg = D('Msg');
-        $map = array('is_fenzhan'=>0,'user_id'=> 0);
+        $map = array('is_fenzhan'=>0);
         $count = $Msg->where($map)->count();
         $maxpage=ceil($count/6);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
