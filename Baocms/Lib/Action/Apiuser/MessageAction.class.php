@@ -10,14 +10,18 @@ class MessageAction extends CommonAction {
 
     public function index() {
         $Msg = D('Msg');
-        $map = array('is_fenzhan'=>0);
+        $map = array();
+        $map['is_fenzhan']=0;
+        $map['user_id']=array($this->app_uid,0,'OR');
         $count = $Msg->where($map)->count();
         $maxpage=ceil($count/6);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         $msgs = $Msg->where($map)->order(array('msg_id' => 'desc'))->page($page.',6')->select();
+        $test=$Msg->getLastSql();
         $rs=array(
             'success'=>true,
             'msg'=>$msgs,
+            'test'=>$test,
             'type'=>$Msg->getType(),
             'page'=>$page,
             'maxpage'=>(int)$maxpage,
