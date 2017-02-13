@@ -368,6 +368,12 @@ class ApiloginAction extends CommonAction{
         if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
             //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
             $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'数据库保存的新版本,安装包丢失'
+            );
+            $this->ajaxReturn($rs,'JSON');
         }
         if($info){
             $rs = array(
