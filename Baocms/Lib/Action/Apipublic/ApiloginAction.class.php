@@ -368,6 +368,7 @@ class ApiloginAction extends CommonAction{
         if(file_exists(BASE_PATH.'/'.$info['path'])){
             //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
             $info['dx']=filesize(BASE_PATH.'/'.$info['path']);
+            $info['yy']=BASE_PATH.'/'.$info['path'];
         }
         if($info){
             $rs = array(
