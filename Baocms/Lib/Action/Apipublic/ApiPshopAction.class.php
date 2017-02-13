@@ -24,6 +24,13 @@ class ApiPshopAction extends CommonAction{
                 );
                 die(json_encode($rs));
             }
+            $area = D('Narea');
+            $info = $area->where('code = '.$detail['area_code'])->find();
+            if($info){
+                $area_name = $info['name'];
+            }else{
+                $area_name = '';
+            }
             $Shopdianping = D('Shopdianping');
             $map = array('closed' => 0, 'shop_id' => $shop_id, 'show_date' => array('ELT', TODAY));
             $count = $Shopdianping->where($map)->count(); // 查询满足要求的总记录数
@@ -111,6 +118,7 @@ class ApiPshopAction extends CommonAction{
                 'totalnum'=>$count,
                 'detail'=>$detail,
                 'ex' => $ex,
+                'area_name'=>$area_name,
                 'favnum'=>$favnum,
                 'error_msg'=>''
             );
