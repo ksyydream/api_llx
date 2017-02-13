@@ -365,10 +365,9 @@ class ApiloginAction extends CommonAction{
             $this->ajaxReturn($rs,'JSON');
         }
         $info = D('Appinfo')->order('version_num desc')->find();
-        if(file_exists(BASE_PATH.'/'.$info['path'])){
+        if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
             //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
-            $info['dx']=filesize(BASE_PATH.'/'.$info['path']);
-            $info['yy']=BASE_PATH.'/'.$info['path'];
+            $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
         }
         if($info){
             $rs = array(
