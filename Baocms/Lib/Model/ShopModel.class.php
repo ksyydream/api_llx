@@ -198,6 +198,7 @@ class ShopModel extends CommonModel {
         bao_shop.yhk1,
         bao_shop.yhk2,
         bao_shop.score,
+        bao_shop.shop_class,
         ROUND(lat_lng_distance('{$lat}', '{$lng}', bao_shop.lat, bao_shop.lng), 2) AS juli,
         IFNULL(sum(bao_goods.sold_num),0) AS allsold_num")
             ->where($map)
