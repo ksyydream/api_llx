@@ -358,6 +358,30 @@ class ApiloginAction extends CommonAction{
         //die(var_dump($result));
     }
 
+    public function get_app_info(){
+        $app_type = (int)$this->_post('app_type');
+        if(!$app_type){
+            $rs = array('success' => false, 'error_msg'=>'请选择安卓还是IOS!');
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $info = D('Appinfo')->order('version_num desc')->find();
+        if($info){
+            $rs = array(
+                'success' => true,
+                'info' =>$info,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'获取失败'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+
+    }
+
     /*
 	 * 采集网页内容的方法
 	 */
