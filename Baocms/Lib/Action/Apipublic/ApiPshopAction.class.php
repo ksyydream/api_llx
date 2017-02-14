@@ -55,10 +55,10 @@ class ApiPshopAction extends CommonAction{
                     $rs = json_decode($rs,true);
                 //die(var_dump($rs));
                     if($rs['subscribe'] != 1){
-                        die('123');
                         /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
                         exit();*/
                         $img_url = $this->get_or_create_ticket($_GET['uid'],$shop_id);
+                        die($img_url);
                         $rs = array(
                             'success' => false,
                             'error_msg'=>'需要关注公众号!',
