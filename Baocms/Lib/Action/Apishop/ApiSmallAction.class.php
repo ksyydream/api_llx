@@ -99,6 +99,7 @@ class ApiSmallAction extends CommonAction{
             'shop_info'=>$this->shop,
             'user_info'=>$this->member,
             'shop_detail'=>D('Shopdetails')->find($this->shop_id),
+            'shop_audit'=> D('Audit')->where('shop_id =' . ($this->shop_id))->find(),
             'shop_cate_name'=>'',
             'error_msg'=>''
         );
