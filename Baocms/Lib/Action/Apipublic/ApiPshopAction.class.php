@@ -53,8 +53,9 @@ class ApiPshopAction extends CommonAction{
                     $access_token = $rs['access_token'];
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
-                die(var_dump($rs));
+                //die(var_dump($rs));
                     if($rs['subscribe'] != 1){
+                        die('123');
                         /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
                         exit();*/
                         $img_url = $this->get_or_create_ticket($_GET['uid'],$shop_id);
