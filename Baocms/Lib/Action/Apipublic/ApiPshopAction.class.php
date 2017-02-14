@@ -58,7 +58,7 @@ class ApiPshopAction extends CommonAction{
                         /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
                         exit();*/
                         $img_url = $this->get_or_create_ticket($_GET['uid'],$shop_id);
-                        die($img_url);
+                        //die($img_url);
                         $rs = array(
                             'success' => false,
                             'error_msg'=>'需要关注公众号!',
@@ -159,6 +159,19 @@ class ApiPshopAction extends CommonAction{
         $ticket = $ticket_data->ticket;
         $img_url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
         return $img_url;
+    }
+
+    private function post($url, $post_data, $timeout = 300){
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-type:application/json;encoding=utf-8',
+                'content' => urldecode(json_encode($post_data)),
+                'timeout' => $timeout
+            )
+        );
+        $context = stream_context_create($options);
+        return file_get_contents($url, false, $context);
     }
 
     public function shopDianPing(){
