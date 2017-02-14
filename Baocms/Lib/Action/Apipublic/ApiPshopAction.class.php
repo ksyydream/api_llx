@@ -42,8 +42,8 @@ class ApiPshopAction extends CommonAction{
             }
             if($_GET['uid']){
                 $openid = $this->_post('openid');
-                    $Userparent = D('Userparent');
-                    $parent = array();
+                $Userparent = D('Userparent');
+                $parent = array();
                     //$appid = $this -> _CONFIG['weixin']["appid"];
                     //$appsecret = $this -> _CONFIG['weixin']["appsecret"];
                 $appid = C('zs_wx_appid');
@@ -53,6 +53,7 @@ class ApiPshopAction extends CommonAction{
                     $access_token = $rs['access_token'];
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
+                die(var_dump($rs));
                     if($rs['subscribe'] != 1){
                         /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
                         exit();*/
