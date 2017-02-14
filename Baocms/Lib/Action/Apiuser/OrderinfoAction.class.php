@@ -132,7 +132,7 @@ class OrderinfoAction extends CommonAction{
             $json_addr = D('Useraddr')->find($detail['addr_id']);
             $shop_info = D('Shop')->find($detail['shop_id']);
             $json_types = D('Order')->getType();
-            $express_info = D('expresscomp')->where('express='.$detail['express'])->find();
+            //$express_info = D('expresscomp')->where('express='.$detail['express'])->find();
             $rs = array(
                 'success' => true,
                 'order_title'=>$order_title,
@@ -140,7 +140,7 @@ class OrderinfoAction extends CommonAction{
                 'addr'=>$json_addr,
                 'types'=>$json_types,
                 'detail'=>$detail,
-                'express_mobile'=>$express_info?$express_info['mobile']:'',
+                //'express_mobile'=>$express_info?$express_info['mobile']:'',
                 'order_goods_info'=>$order_goods_info,
                 //'goods'=>$json_goods,
                 'error_msg'=>''

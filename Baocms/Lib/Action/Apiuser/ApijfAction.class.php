@@ -168,11 +168,14 @@ class ApijfAction extends CommonAction {
             ->where('a.jforder_id='.$order_id)
             ->find();
         $order_goods = D('Jfordergoods')->where(array('jforder_id'=>$order_id))->select();
+        $express_info = D('expresscomp')->where('express='.$detail['express'])->find();
+
         $rs = array(
             'success'=>true,
             'error_msg'=>'',
             'order_detail'=>$detail,
             'order_addr'=>$order_addr,
+            'express_mobile'=>$express_info?$express_info['mobile']:'',
             'goods_list'=>$order_goods
         );
         die(json_encode($rs));
