@@ -117,6 +117,7 @@ class ApiPshopAction extends CommonAction{
                 'success' => true,
                 'totalnum'=>$count,
                 'detail'=>$detail,
+                'shop_audit'=> D('Audit')->where('shop_id =' . ($shop_id))->find(),
                 'ex' => $ex,
                 'area_name'=>$area_name,
                 'favnum'=>$favnum,
