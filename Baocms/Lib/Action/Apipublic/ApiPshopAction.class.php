@@ -41,12 +41,7 @@ class ApiPshopAction extends CommonAction{
                 D('Userslook')->look($this->app_uid, $shop_id);
             }
             if($_GET['uid']){
-                if(IS_WEIXIN){
-                    if(!$_COOKIE['openid']){
-                        $this->access_openid('',false,$_GET['uid']);
-                    }
-
-                    $openid = $_COOKIE['openid'];
+                $openid = $this->_post('openid');
                     $Userparent = D('Userparent');
                     $parent = array();
                     $appid = $this -> _CONFIG['weixin']["appid"];
@@ -58,8 +53,16 @@ class ApiPshopAction extends CommonAction{
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
                     if($rs['subscribe'] != 1){
-                        redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
-                        exit();
+                        /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
+                        exit();*/
+                        $img_url = $this->get_or_create_ticket($_GET['uid'],$shop_id);
+                        $rs = array(
+                            'success' => false,
+                            'error_msg'=>'需要关注公众号!',
+                            'img_url'=>$img_url
+                        );
+                        die(json_encode($rs));
+
                     }
 
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
@@ -86,7 +89,6 @@ class ApiPshopAction extends CommonAction{
                             $Userparent->add($data);
                         }
                     }
-                }
             }
            /*
             //招聘
@@ -132,6 +134,26 @@ class ApiPshopAction extends CommonAction{
             die(json_encode($rs));
         }
 
+    }
+
+    private function get_or_create_ticket($uid = '',$shop_id = '', $action_name = 'QR_LIMIT_STR_SCENE') {
+//        $access_token = $this->get_access_token();
+
+        $appid = $this -> _CONFIG['weixin']["appid"];
+        $appsecret = $this -> _CONFIG['weixin']["appsecret"];
+        import("@/Net.Jssdk");
+        $jssdk = new JSSDK("$appid", "$appsecret");
+        $access_token = $jssdk->getAccessToken();
+
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+        @$post_data->expire_seconds = 2592000;
+        @$post_data->action_name = $action_name;
+        @$post_data->action_info->scene->scene_str = $uid.'/'.$shop_id;
+        $ticket_data = json_decode($this->post($url, $post_data));
+        $ticket = $ticket_data->ticket;
+        $img_url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
+        return $img_url;
     }
 
     public function shopDianPing(){
