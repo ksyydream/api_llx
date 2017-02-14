@@ -44,9 +44,10 @@ class ApiPshopAction extends CommonAction{
                 $openid = $this->_post('openid');
                     $Userparent = D('Userparent');
                     $parent = array();
-                    $appid = $this -> _CONFIG['weixin']["appid"];
-                    $appsecret = $this -> _CONFIG['weixin']["appsecret"];
-
+                    //$appid = $this -> _CONFIG['weixin']["appid"];
+                    //$appsecret = $this -> _CONFIG['weixin']["appsecret"];
+                $appid = C('zs_wx_appid');
+                $appsecret = C('zs_wx_appsecret');
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
                     $rs = json_decode($rs,true);
                     $access_token = $rs['access_token'];
@@ -139,8 +140,10 @@ class ApiPshopAction extends CommonAction{
     private function get_or_create_ticket($uid = '',$shop_id = '', $action_name = 'QR_LIMIT_STR_SCENE') {
 //        $access_token = $this->get_access_token();
 
-        $appid = $this -> _CONFIG['weixin']["appid"];
-        $appsecret = $this -> _CONFIG['weixin']["appsecret"];
+        //$appid = $this -> _CONFIG['weixin']["appid"];
+        //$appsecret = $this -> _CONFIG['weixin']["appsecret"];
+        $appid = C('zs_wx_appid');
+        $appsecret = C('zs_wx_appsecret');
         import("@/Net.Jssdk");
         $jssdk = new JSSDK("$appid", "$appsecret");
         $access_token = $jssdk->getAccessToken();
