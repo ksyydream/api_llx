@@ -85,7 +85,9 @@ class TeamAction extends CommonAction{
             if(isset($parent[$shop_id])){
                 foreach($users as $vv){
                     if($parent[$shop_id] == $vv){
-                        $data_n[] = $data[$k]['uid'];
+                        if($data[$k]['uid']!=$this->app_uid){ //新增加 不显示自己
+                            $data_n[] = $data[$k]['uid'];
+                        }
                     }
                 }
             }

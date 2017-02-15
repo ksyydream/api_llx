@@ -69,38 +69,40 @@ class ApiPshopAction extends CommonAction{
 
                     }
 
-                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
-
-                    if($uid['uid'] != $puid){//不是自己分享给自己的
-                        $rs = $Userparent->where(array('openid'=>$openid))->find();
-                        $dataall=array('cdate'=>date('Y-m-d H:i:s'));
-                        if($rs){
-                            $parent_old = json_decode($rs['parent']);
-                            foreach ($parent_old as $k=>$v){
-                                $parent[$k] = $v;
-                            }
-                            if(!isset($parent[$shop_id])){
+                    $uids = D('Connect')->where(array('open_id'=>$openid))->select();
+                    foreach($uids as $uid){
+                        if($uid['uid'] != $puid){//不是自己分享给自己的
+                            $rs = $Userparent->where(array('openid'=>$openid))->find();
+                            $dataall=array('cdate'=>date('Y-m-d H:i:s'));
+                            if($rs){
+                                $parent_old = json_decode($rs['parent']);
+                                foreach ($parent_old as $k=>$v){
+                                    $parent[$k] = $v;
+                                }
+                                if(!isset($parent[$shop_id])){
+                                    $parent[$shop_id] = $puid;
+                                }
+                                $parent = json_encode($parent);
+                                $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent));
+                                $dataall['openid']=$openid;
+                                $dataall['parent']=$parent;
+                            }else{
                                 $parent[$shop_id] = $puid;
+                                $parent = json_encode($parent);
+                                $data = array(
+                                    'openid'=>$openid,
+                                    'parent'=>$parent
+                                );
+                                $Userparent->add($data);
+                                $dataall['openid']=$openid;
+                                $dataall['parent']=$parent;
                             }
-                            $parent = json_encode($parent);
-                            $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent));
-                            $dataall['openid']=$openid;
-                            $dataall['parent']=$parent;
-                        }else{
-                            $parent[$shop_id] = $puid;
-                            $parent = json_encode($parent);
-                            $data = array(
-                                'openid'=>$openid,
-                                'parent'=>$parent
-                            );
-                            $Userparent->add($data);
-                            $dataall['openid']=$openid;
-                            $dataall['parent']=$parent;
+                            $open=fopen('/var/wx.txt',"a" );
+                            fwrite($open,var_export($dataall,true));
+                            fclose($open);
                         }
-                        $open=fopen('/var/wx.txt',"a" );
-                        fwrite($open,var_export($dataall,true));
-                        fclose($open);
                     }
+
                 }else{
 
                 }
