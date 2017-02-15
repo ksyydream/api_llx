@@ -52,6 +52,7 @@ class YhkAction extends CommonAction {
         $shop_id=$this->_param('shop_id');
         //$url=getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('sid'=>$shop_id))."?uid=".$this->app_uid;
         $url=getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('shop_id'=>$shop_id,'puid'=>$this->app_uid));
+        //$url="http://llx.51loveshow.com/description?shop_id={$shop_id}&puid={$this->app_uid}";
         $rs = array(
             'success'=>true,
             'url'=>$url,
