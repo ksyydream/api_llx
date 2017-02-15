@@ -8,11 +8,11 @@
 class ApiloginAction extends CommonAction{
     public function test_token(){
         $dataall = $this->_param();
-        $open=fopen('/var/wx.txt',"a" );
+        /*$open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($dataall,true));
-        fclose($open);
+        fclose($open);*/
         $token= $this->get_token();
-        die(pathinfo(__FILE__, PATHINFO_BASENAME).'/attachs/');
+        die(getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('shop_id'=>1,'puid'=>2),''));
         $rs = array(
             'success' => $token==-1?false:true,
             'user_id' => get_token_uid($token),
