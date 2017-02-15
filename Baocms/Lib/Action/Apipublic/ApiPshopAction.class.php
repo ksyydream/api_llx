@@ -72,6 +72,7 @@ class ApiPshopAction extends CommonAction{
 
                     if($uid['uid'] != $_GET['uid']){//不是自己分享给自己的
                         $rs = $Userparent->where(array('openid'=>$openid))->find();
+                        $dataall=array('cdate'=>date('Y-m-d H:i:s'));
                         if($rs){
                             $parent_old = json_decode($rs['parent']);
                             foreach ($parent_old as $k=>$v){
@@ -82,6 +83,8 @@ class ApiPshopAction extends CommonAction{
                             }
                             $parent = json_encode($parent);
                             $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent));
+                            $dataall['openid']=$openid;
+                            $dataall['parent']=$parent;
                         }else{
                             $parent[$shop_id] = $_GET['uid'];
                             $parent = json_encode($parent);
@@ -90,7 +93,12 @@ class ApiPshopAction extends CommonAction{
                                 'parent'=>$parent
                             );
                             $Userparent->add($data);
+                            $dataall['openid']=$openid;
+                            $dataall['parent']=$parent;
                         }
+                        $open=fopen('/var/wx.txt',"a" );
+                        fwrite($open,var_export($dataall,true));
+                        fclose($open);
                     }
             }
            /*
