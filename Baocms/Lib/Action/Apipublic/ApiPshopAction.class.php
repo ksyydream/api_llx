@@ -41,7 +41,7 @@ class ApiPshopAction extends CommonAction{
                 D('Userslook')->look($this->app_uid, $shop_id);
             }
             if($puid > 0){
-                die(var_dump($puid));
+                //die(var_dump($puid));
                 if($openid=$this->_post('openid')){
                     $Userparent = D('Userparent');
                     $parent = array();
