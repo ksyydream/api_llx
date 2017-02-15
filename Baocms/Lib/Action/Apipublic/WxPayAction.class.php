@@ -321,11 +321,14 @@ class WxPayAction extends CommonAction{
                     if(!$uid){
                         D('Connect')->add($data);
                     }else{
-                        if(!$uid['uid']){
-                            D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['mobile']));
-                        }else{
-                            if($uid['uid']!=$user_info['user_id']){
-                                D('Connect')->add($data);
+                        $con_uid = D('Connect')->where(array('uid'=>$user_info['user_id']))->find();
+                        if(!$con_uid){
+                            if(!$uid['uid']){
+                                D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['mobile']));
+                            }else{
+                                if($uid['uid']!=$user_info['user_id']){
+                                    D('Connect')->add($data);
+                                }
                             }
                         }
                     }
@@ -340,6 +343,31 @@ class WxPayAction extends CommonAction{
                     }
                 }
             }
+            //$Userparent = D('Userparent');
+            /*if($this->app_uid > 0 ){
+                $user_info = D('Users')->find($this->app_uid);
+                if($user_info){
+                    $con_uid = D('Userparent')->where(array('uid'=>$user_info['user_id']))->find();
+                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+                    $data=array(
+                        'open_id'=>$openid,
+                        'uid'=>$user_info['user_id'],
+                        'mobile'=>$user_info['mobile']
+                    );
+                    if(!$con_uid){
+                        D('Connect')->add($data);
+                    }
+                }else{
+                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+                    $data=array(
+                        'type'=>'weixin',
+                        'open_id'=>$openid
+                    );
+                    if(!$uid){
+                        D('Connect')->add($data);
+                    }
+                }
+            }*/
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',
