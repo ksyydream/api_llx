@@ -6,7 +6,7 @@
  * Time: 上午11:15
  */
 class ApiPshopAction extends CommonAction{
-    public function shopdetail($sid=null){
+    public function shopdetail($sid=null,$puid=0){
         try{
 
             $shop_id = $sid ? $sid : $this->_post('shop_id');
@@ -40,24 +40,24 @@ class ApiPshopAction extends CommonAction{
             if ($this->token != -1) {
                 D('Userslook')->look($this->app_uid, $shop_id);
             }
-            if($_GET['uid']){
-                $openid = $this->_post('openid');
-                $Userparent = D('Userparent');
-                $parent = array();
+            if($puid > 0){
+                if($openid=$this->_post('openid')){
+                    $Userparent = D('Userparent');
+                    $parent = array();
                     //$appid = $this -> _CONFIG['weixin']["appid"];
                     //$appsecret = $this -> _CONFIG['weixin']["appsecret"];
-                $appid = C('zs_wx_appid');
-                $appsecret = C('zs_wx_appsecret');
+                    $appid = C('zs_wx_appid');
+                    $appsecret = C('zs_wx_appsecret');
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
                     $rs = json_decode($rs,true);
                     $access_token = $rs['access_token'];
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
-                //die(var_dump($rs));
+                    //die(var_dump($rs));
                     if($rs['subscribe'] != 1){
                         /*redirect(U('/weixin/index/get_or_create_ticket', array('uid' => $_GET['uid'],'shop_id'=>$shop_id)));
                         exit();*/
-                        $img_url = $this->get_or_create_ticket($_GET['uid'],$shop_id);
+                        $img_url = $this->get_or_create_ticket($puid,$shop_id);
                         //die($img_url);
                         $rs = array(
                             'success' => false,
@@ -70,7 +70,7 @@ class ApiPshopAction extends CommonAction{
 
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
 
-                    if($uid['uid'] != $_GET['uid']){//不是自己分享给自己的
+                    if($uid['uid'] != $puid){//不是自己分享给自己的
                         $rs = $Userparent->where(array('openid'=>$openid))->find();
                         $dataall=array('cdate'=>date('Y-m-d H:i:s'));
                         if($rs){
@@ -79,14 +79,14 @@ class ApiPshopAction extends CommonAction{
                                 $parent[$k] = $v;
                             }
                             if(!isset($parent[$shop_id])){
-                                $parent[$shop_id] = $_GET['uid'];
+                                $parent[$shop_id] = $puid;
                             }
                             $parent = json_encode($parent);
                             $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent));
                             $dataall['openid']=$openid;
                             $dataall['parent']=$parent;
                         }else{
-                            $parent[$shop_id] = $_GET['uid'];
+                            $parent[$shop_id] = $puid;
                             $parent = json_encode($parent);
                             $data = array(
                                 'openid'=>$openid,
@@ -100,6 +100,9 @@ class ApiPshopAction extends CommonAction{
                         fwrite($open,var_export($dataall,true));
                         fclose($open);
                     }
+                }else{
+
+                }
             }
            /*
             //招聘
