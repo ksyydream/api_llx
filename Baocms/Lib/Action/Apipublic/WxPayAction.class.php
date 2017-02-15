@@ -308,6 +308,22 @@ class WxPayAction extends CommonAction{
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
         $a_access_token=json_decode($j_access_token,true);
         if($openid = $a_access_token['openid']){
+            if($this->app_uid > 0 ){
+                $user_info = D('Users')->find($this->app_uid);
+                if($user_info){
+                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+                    $data=array(
+                        'type'=>'weixin',
+                        'openid'=>$openid,
+                        'uid'=>$user_info['user_id'],
+                    );
+                    if(!$uid){
+                        D('Connect')->add($data);
+                    }else{
+                        D('Connect')->where(array('openid'=>$openid))->save(array('uid'=>$user_info['user_id']));
+                    }
+                }
+            }
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',
