@@ -324,9 +324,10 @@ class WxPayAction extends CommonAction{
                         if(!$uid['uid']){
                             D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['mobile']));
                         }else{
-                            D('Connect')->add($data);
+                            if($uid['uid']!=$user_info['user_id']){
+                                D('Connect')->add($data);
+                            }
                         }
-
                     }
                 }else{
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
