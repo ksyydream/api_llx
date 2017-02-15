@@ -223,9 +223,9 @@ class WxPayAction extends CommonAction{
         );
         $weixin_pay = new Wechatpay($wxconfig);
         $data_array = $weixin_pay->get_back_data();
-        $open=fopen('/var/wx.txt',"a" );
+       /* $open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($data_array,true));
-        fclose($open);
+        fclose($open);*/
         if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
             //$data_array['out_trade_no'] 就是传送的 商家订单
             if(D('Payment')->logsPaid($data_array['out_trade_no'])){
@@ -308,6 +308,22 @@ class WxPayAction extends CommonAction{
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
         $a_access_token=json_decode($j_access_token,true);
         if($openid = $a_access_token['openid']){
+            if($this->app_uid > 0 ){
+                $user_info = D('Users')->find($this->app_uid);
+                if($user_info){
+                    $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+                    $data=array(
+                        'type'=>'weixin',
+                        'openid'=>$openid,
+                        'uid'=>$user_info['user_id'],
+                    );
+                    if(!$uid){
+                        D('Connect')->add($data);
+                    }else{
+                        D('Connect')->where(array('openid'=>$openid))->save(array('uid'=>$user_info['user_id']));
+                    }
+                }
+            }
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',

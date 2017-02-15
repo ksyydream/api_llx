@@ -278,6 +278,7 @@ class ApijfAction extends CommonAction {
         }
         $data = array(
             'jforder_id' => $order_id,
+            'edate'=>date('Y-m-d H:i:s'),
             'status' => 4,
         );
         if (D('Jforder')->save($data)){
