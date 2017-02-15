@@ -143,6 +143,8 @@ class PaymentModel extends CommonModel {
         $this->log_id = $logs_id; //用于外层回调
         $logs = D('Paymentlogs')->find($logs_id);
 
+        $rstt=json_encode($logs);
+        D('Test')->add(array('a'=>$rstt));
         if (!empty($logs) && !$logs['is_paid']) {
             $data = array(
                 'log_id' => $logs_id,
@@ -165,31 +167,14 @@ class PaymentModel extends CommonModel {
 				$Zengpin = D('zengpin');
 
 				if($logs['type'] == 'goods'){
-					$goods = $Order_goods->query("select b.*,a.num buygoods_num from ".$Order_goods->getTableName()." a left join ".$Goods->getTableName()." b on a.goods_id = b.goods_id where a.order_id = ".$logs['order_id'] );
+					$goods = $Order_goods->query("select b.* from ".$Order_goods->getTableName()." a left join ".$Goods->getTableName()." b on a.goods_id = b.goods_id where a.order_id = ".$logs['order_id'] );
 //					$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.bbb.log',"a" );
 //					fwrite($open,var_export($goods,true));
 //					fclose($open);
 					foreach($goods as $v){
 						if($v['is_yhk'] == 1){//优惠卡规则
-
-							//新增加会员等级功能,购买一张优惠卡 就提升一个等级
-							$user_vip = $Users->where(array('user_id'=>$logs['user_id']))->find();
-							$old_vip = (int)$user_vip['rank_id'];
-							$new_vip = $old_vip + $v['buygoods_num'];
-							if($new_vip >=9){
-								$new_vip = 9;
-							}
-							$Users->where(array('user_id'=>$logs['user_id']))->save(array('rank_id'=>$new_vip));
-							//等级完成
 							$Fenhong = D('Fenhong');
 							$UserShop = D('Usershop');
-							if(!$UserShop->where(array('uid'=>$logs['user_id'],'shop_id'=>$v['shop_id']))->find()){
-								$UserShop->add(array(
-									'create_time'=>NOW_TIME,
-									'shop_id'=>$v['shop_id'],
-									'uid'=>$logs['user_id'],
-								));
-							}
 							$Fenhong->add(array(
 								'total_price'=>$v['mall_price'],
 								'create_time'=>NOW_TIME,
@@ -198,20 +183,28 @@ class PaymentModel extends CommonModel {
 								'goods_id'=>$v['goods'],
 								'status'=>1
 							));
+							if(!$UserShop->where(array('uid'=>$logs['user_id'],'shop_id'=>$v['shop_id']))->find()){
+								$UserShop->add(array(
+									'create_time'=>NOW_TIME,
+									'shop_id'=>$v['shop_id'],
+									'uid'=>$logs['user_id'],
+								));
+							}
+
 							$user = $Users->where(array('user_id'=>$logs['user_id']))->find();
-							if($user['yhk']){//这里处理 优惠卡
+							if($user['yhk']){
 								$yhk_old = (Array)json_decode($user['yhk']);
 								$yhk = array();
 								foreach ($yhk_old as $key=>$val){
 									$yhk[$key] = $val;
 								}
 								if(isset($yhk[$v['shop_id']])){
-									$yhk[$v['shop_id']] = $yhk[$v['shop_id']] + ($v['yhq']*$v['buygoods_num']);
+									$yhk[$v['shop_id']] = $yhk[$v['shop_id']] + $v['yhq'];
 								}else{
-									$yhk[$v['shop_id']] = ($v['yhq']*$v['buygoods_num']);
+									$yhk[$v['shop_id']] = $v['yhq'];
 								}
 							}else{
-								$yhk = array($v['shop_id'] => ($v['yhq']*$v['buygoods_num']));
+								$yhk = array($v['shop_id'] => $v['yhq']);
 							}
 							$Users->where(array('user_id'=>$logs['user_id']))->save(array('yhk'=>json_encode($yhk)));
 
@@ -224,18 +217,25 @@ class PaymentModel extends CommonModel {
 									foreach($zp_old as $kk=>$vv){
 										$zp_old2[$kk] = $vv;
 									}
+//
+//									$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.zp.log',"a" );
+//									fwrite($open,var_export($zp_old2[11]->啤酒,true));
+//									fclose($open);
 
 									if(isset($zp_old2[$v['shop_id']])){
 										foreach($zengpins as $vvv){
 											if(isset($zp_old2[$v['shop_id']]->$vvv['desc'])){
-												$zp_old2[$v['shop_id']]->$vvv['desc'] = $zp_old2[$v['shop_id']]->$vvv['desc'] + ($vvv['qty']*$v['buygoods_num']);
+												$zp_old2[$v['shop_id']]->$vvv['desc'] = $zp_old2[$v['shop_id']]->$vvv['desc'] + $vvv['qty'];
+//												$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.zp.log',"a" );
+//									fwrite($open,var_export($zp_old2[11]->啤酒,true));
+//									fclose($open);
 											}else{
-												$zp_old2[$v['shop_id']]->$vvv['desc'] = ($vvv['qty']*$v['buygoods_num']);
+												$zp_old2[$v['shop_id']]->$vvv['desc'] = $vvv['qty'];
 											}
 										}
 									}else{
 										foreach($zengpins as $vvv){
-											$zp_old2[$v['shop_id']]->$vvv['desc'] = ($vvv['qty']*$v['buygoods_num']);
+											$zp_old2[$v['shop_id']]->$vvv['desc'] = $vvv['qty'];
 										}
 									}
 
@@ -270,7 +270,7 @@ class PaymentModel extends CommonModel {
 								if($zengpins){
 									$zp = array();
 									foreach($zengpins as $k=>$vv){
-										$zps[$vv['desc']] = ($vv['qty']*$v['buygoods_num']);
+										$zps[$vv['desc']] = $vv['qty'];
 									}
 									$zp[$v['shop_id']] = (object)$zps;
 								}
@@ -280,19 +280,29 @@ class PaymentModel extends CommonModel {
 							$Userparent = D('Userparent');
 							$openid = D('Connect')->getFieldByUid($logs['user_id'],'open_id');
 							$users = D('Users');
-
+                            
 							//第一层
 							$parent = array();
 							$userparent = $Userparent->where(array('openid'=>$openid))->find();
 							$parent_o = json_decode($userparent['parent']);
+
+							$fx=D('shop')->where(array('shop_id'=>$v['shop_id']))->find();
+							$fx1=$fx['fx_1']/100;
+							$fx2=$fx['fx_2']/100;
+							$fx3=$fx['fx_3']/100;
 							foreach($parent_o as $k=>$val){
 								$parent[$k] = $val;
 							}
-
+							$rstt=$logs['user_id'];
+							D('Test')->add(array('a'=>$rstt));
+							$rstt=$openid;
+							D('Test')->add(array('a'=>$rstt));
 							if(isset($parent[$v['shop_id']])){
 								$uid1 = $parent[$v['shop_id']];
 //								$users->addIntegral($uid1, $v['mall_price']*0.2, '第一层分红获得秀币');
-								D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*0.2, '第一层提成获得');
+								D('Users')->Money($uid1, $v['mall_price']*$fx1, '第一层提成获得');
+								$rstt=D('Users')->getLastSql();
+								D('Test')->add(array('a'=>$rstt));
 
 								//第二层
 								$parent2 = array();
@@ -306,7 +316,7 @@ class PaymentModel extends CommonModel {
 								if(isset($parent2[$v['shop_id']])){
 									$uid2 = $parent2[$v['shop_id']];
 //									$users->addIntegral($uid2, $v['mall_price']*0.1, '第二层分红获得秀币');
-									D('Users')->Money($uid2, $v['mall_price']*$v['buygoods_num']*0.1, '第二层提成获得');
+									D('Users')->Money($uid2, $v['mall_price']*$fx2, '第二层提成获得');
 
 									//第三层
 									$parent3 = array();
@@ -320,7 +330,7 @@ class PaymentModel extends CommonModel {
 									if(isset($parent3[$v['shop_id']])){
 										$uid3 = $parent3[$v['shop_id']];
 //										$users->addIntegral($uid2, $v['mall_price']*0.05, '第三层分红获得秀币');
-										D('Users')->Money($uid3, $v['mall_price']*$v['buygoods_num']*0.05, '第三层提成获得');
+										D('Users')->Money($uid3, $v['mall_price']*$fx3, '第三层提成获得');
 									}
 								}
 							}
@@ -328,17 +338,26 @@ class PaymentModel extends CommonModel {
 					}
 				}
 
-
+				
 				if($logs['type'] == 'goods'){//添加商户获得秀币
 					$order_id = $logs['order_id'];
 					$order_info = D('Order')->find($order_id);
+					$order_detail=$Order_goods->where(array('order_id'=>$order_id))->select();
 					if($order_info['can_use_integral'] > 0){//用户使用了秀币,商家应该获得秀币
-
 						$shop_id = $order_info['shop_id'];
 						$shop_user_info = D('Shop')->find($shop_id);
-						$users->addIntegral($shop_user_info['user_id'], $order_info['can_use_integral'], '客户商城购物获得秀币');
+						foreach ($order_detail as $v){
+						    $val=$Goods->where(array('goods_id'=>$v['goods_id']))->select();
+						    foreach ($val as $k){
+						        if ($k['is_yhk']==1){
+						            $rlintegral=$order_info['can_use_integral']-$v['price'];
+						        }
+						    }
+						}
+						$users->addIntegral($shop_user_info['user_id'], $rlintegral * 0.4, '客户商城购物获得秀币');
 					}
 				}
+            
                 if ($logs['type'] == 'gold') {
                     D('Users') -> updateCount($logs['user_id'], 'gold', (int)($logs['need_pay'] / 100));
 					D('Usergoldlogs') -> add(array(
@@ -361,7 +380,7 @@ class PaymentModel extends CommonModel {
 					$_data_balance = array(
 						'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/mcenter/index/index', 
 						'topcolor' => '#F55555', 'first' => '您的账户余额发生变动，信息如下：', 
-						'remark' => '如对上述余额变动有异议，请联系客服人员协助处理。' . $this -> CONFIG['site']['tel'],
+						'remark' => '如对上述余额变动有异议，请联系客服人员协助处理。' . $CONFIG['site']['tel'], 
 						'accountType' => '会员账户', 
 						'operateType' => '费用支出', 
 						'operateInfo' => '充值金块', 
@@ -387,9 +406,9 @@ class PaymentModel extends CommonModel {
 					$pay = D('Pay')->where(array('id'=>$logs['order_id']))->find();
 
 //
-					/*$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
+					$open=fopen('/var/www/html/baocms/Baocms/Lib/Payment/logs/'.date( 'Y-m-d' ) . '.6666.log',"a" );
 					fwrite($open,var_export($pay,true));
-					fclose($open);*/
+					fclose($open);
 
                     $shop = D('Shop')->find($pay['shop_id']);
 
@@ -430,14 +449,8 @@ class PaymentModel extends CommonModel {
 //					D('Sms') -> breaksTZuser($order['order_id']);//发送短信给用户
 //					D('Users')->where(array('user_id'=>$pay['user_id']))->setDec('integral',$pay['integral']);
 //					D('Users')->where(array('user_id'=>$shop['user_id']))->setInc('integral',$pay['integral']);
-					if($pay['integral']>0){
-						//D('Users')->addIntegral($logs['user_id'], -$pay['integral'], '优惠买单使用秀币');
-						D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
-					}
-					if($pay['use_gold']>0){
-						//D('Users')->addGold($logs['user_id'], -$pay['use_gold'], '优惠买单使用余额');
-						D('Users')->addGold($shop['user_id'], $pay['use_gold'], '客户优惠买单获得余额');
-					}
+					D('Users')->addIntegral($logs['user_id'], -$pay['integral'], '优惠买单使用秀币');
+					D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
 
 					$zp = (array)json_decode($pay['zp']);
 					$this->compute_yhk($pay['mobile'],$pay['yhk'],$zp,$pay['shop_id']);
@@ -687,37 +700,7 @@ class PaymentModel extends CommonModel {
                     D('Sms')->dingTZshop($logs['order_id']);
 					
 					//拼团二开开始
-                }elseif ($logs['type'] == 'jf') {//积分商城
-					$pay = D('Jforder')->where(array('jforder'=>$logs['order_id']))->find();
-
-					D('Jforder')->save(array('jforder_id' => $logs['order_id'], 'status' => 2,'pdate'=>date('Y-m-d H:i:s')));
-
-
-					//微信通知开始
-					$limit = round($logs['need_pay'] / 100, 2);
-					$users = D('Users')->find($logs['user_id']);
-					$balance = round($users['gold'] / 100, 2);
-
-					//==========这里是通知哪里的暂时还是不是很清楚==========//
-					include_once "Baocms/Lib/Net/Wxmesg.class.php";
-					$_data_balance = array(
-						'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/mcenter/index/index',
-						'topcolor' => '#F55555', 'first' => '您的账户余额发生变动，信息如下：',
-						'remark' => '如对上述余额变动有异议，请联系客服人员协助处理。' . $this -> CONFIG['site']['tel'],
-						'accountType' => '会员账户',
-						'operateType' => '费用支出',
-						'operateInfo' => '购物消费',
-						'limit' => '-' . $limit . '元',
-						'balance' => $balance . '元'
-					);
-
-					/*$balance_data = Wxmesg::pay($_data_balance);
-					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);*/
-					//==========订座微信通知结束==========//
-
-
-					//拼团二开开始
-				} elseif ($logs['type'] == 'pintuan') {
+                } elseif ($logs['type'] == 'pintuan') {
 					$obj = D('Porder');
 					$tuan = $obj -> find($logs['order_id']);
 					$uid = $tuan['user_id'];
@@ -828,7 +811,6 @@ class PaymentModel extends CommonModel {
 						}
 						
                     }
-
 					//==========这里是通知哪里的暂时还是不是很清楚==========//
 					$limit = round($logs['need_pay'] / 100, 2);
 					$users = D('Users') -> find($logs['user_id']);
@@ -846,8 +828,9 @@ class PaymentModel extends CommonModel {
 						'balance' => $balance . '元'
 					);
 
-					/*$balance_data = Wxmesg::pay($_data_balance);
-					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);*/
+					$balance_data = Wxmesg::pay($_data_balance);
+					$return = Wxmesg::net($logs['user_id'], 'OPENTM201495900', $balance_data);
+
 					//==========商城付款后微信通知结束==========////
                     D('Tongji')->log(2, $logs['need_pay']); //统计
 
@@ -1098,11 +1081,7 @@ class PaymentModel extends CommonModel {
 
 			if (isset($yhk_limit[$shop_id])) {
 				if ($yhk_limit[$shop_id] < $yhk) {
-					$rs=array(
-						'success'=>false,
-						'error_msg'=>'优惠券余额不足'
-					);
-					$this->ajaxReturn($rs,'JSON');
+					$this->error('优惠券余额不足');
 				} else {
 					$yhk_limit[$shop_id] = $yhk_limit[$shop_id] - $yhk;
 				}
@@ -1120,11 +1099,7 @@ class PaymentModel extends CommonModel {
 					}
 				}
 				if($yhk_surplus > 0){
-					$rs=array(
-						'success'=>false,
-						'error_msg'=>'优惠券余额不足'
-					);
-					$this->ajaxReturn($rs,'JSON');
+					$this->error('优惠券余额不足');
 				}
 			}
 
@@ -1147,11 +1122,7 @@ class PaymentModel extends CommonModel {
 				foreach ($zp as $k => $v) {
 					if ($zp_limit->$key->$k) {
 						if ($zp_limit->$key->$k < $v) {
-							$rs=array(
-								'success'=>false,
-								'error_msg'=>'赠品数量不足'
-							);
-							$this->ajaxReturn($rs,'JSON');
+							$this->error('赠品数量不足');
 						} else {
 							$zp_limit->$key->$k = $zp_limit->$key->$k - $v;
 							$data[] = array(
@@ -1171,11 +1142,7 @@ class PaymentModel extends CommonModel {
 				}
 				$Users->where(array('mobile' => $mobile))->save(array('zp' => json_encode($zp_limit)));
 			} else {
-				$rs=array(
-					'success'=>false,
-					'error_msg'=>'赠品有误,请查看'
-				);
-				$this->ajaxReturn($rs,'JSON');
+				$this->error('赠品有误,请查看');
 			}
 		}
 
