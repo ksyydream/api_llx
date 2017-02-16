@@ -293,7 +293,7 @@ class ApiloginAction extends CommonAction{
             'success' => true,
             'error_msg' => '',
             'wxappId' => $signPackage["appId"],
-            'wxtimestamp' => $signPackage["timestamp"],
+            'wxtimestamp' => (string)$signPackage["timestamp"],
             'wxnonceStr' => $signPackage["nonceStr"],
             'wxsignature' => $signPackage["signature"]
         );
