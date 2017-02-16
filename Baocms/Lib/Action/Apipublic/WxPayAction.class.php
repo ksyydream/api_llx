@@ -367,6 +367,14 @@ class WxPayAction extends CommonAction{
                             if(!$rs1['mobile']){
                                 $Userparent->where(array('openid'=>$openid))->save(array('mobile'=>$user_info['mobile']));
                             }
+                        }else{
+                            $Userparent->add(
+                                array(
+                                    'mobile' => $user_info['mobile'],
+                                    'openid'=>$openid,
+                                    'parent'=>json_encode(array())
+                                )
+                            );
                         }
                     }
                 }else{
