@@ -123,7 +123,7 @@ class CommonAction extends Action{
         import('ORG.Net.UploadFile');
         $data['face']='';
         $upload = new UploadFile(); //
-        $upload->maxSize = 102400; // 设置附件上传大小
+        $upload->maxSize = 1024000; // 设置附件上传大小
         $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
         $name = date('Y/m/d', NOW_TIME);
         $dir = BASE_PATH . '/attachs/' . $name . '/';
