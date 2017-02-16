@@ -148,7 +148,22 @@ class OrderModel extends CommonModel
                             'order_id' => $order_id,
                             'intro' => $info,
                         ));
-                        D('Users')->Money($shop['user_id'], $order['need_pay'], '商户商城订单资金结算：' . $order_id);//写入金块
+                        $order_info = D('Order')->find($order_id);
+                        $order_detail=D('Ordergoods')->where(array('order_id'=>$order_id))->select();
+                        $shop_id = $order_info['shop_id'];
+                        $shop_user_info = D('Shop')->find($shop_id);
+                        $rlpay=$order['total_price'];
+                        foreach ($order_detail as $v){
+                            $val=D('Goods')->where(array('goods_id'=>$v['goods_id']))->select();
+                            foreach ($val as $k){
+                                if ($k['is_yhk']==1){
+                                    $rlpay=$rlpay-$k['price'];
+                                }
+                            }
+                        }
+                        if ($rlpay>0){
+                        D('Users')->Money($shop['user_id'], $rlpay, '商户商城订单资金结算：' . $order_id);//写入金块
+                        }
                     }
 
 
