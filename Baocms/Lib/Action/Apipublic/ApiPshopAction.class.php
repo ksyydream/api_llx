@@ -97,6 +97,10 @@ class ApiPshopAction extends CommonAction{
                                         }
                                         if(!isset($parent[$shop_id])){
                                             $parent[$shop_id] = $puid;
+                                        }else{
+                                            if($parent[$shop_id]==$user_info['user_id']){
+                                                $parent[$shop_id] = $puid;
+                                            }
                                         }
                                         $parent = json_encode($parent);
                                         $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent,'mobile'=>$user_info['mobile']));
@@ -133,6 +137,10 @@ class ApiPshopAction extends CommonAction{
                                     }
                                     if(!isset($parent[$shop_id])){
                                         $parent[$shop_id] = $puid;
+                                    }else{
+                                        if($parent[$shop_id]==$user_info['user_id']){
+                                            $parent[$shop_id] = $puid;
+                                        }
                                     }
                                     $parent = json_encode($parent);
                                     $Userparent->where(array('mobile'=>$rs['mobile']))->save(array('parent'=>$parent));
