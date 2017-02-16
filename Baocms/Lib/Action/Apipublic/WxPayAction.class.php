@@ -379,6 +379,15 @@ class WxPayAction extends CommonAction{
                         D('Connect')->add($data);
                     }
                 }
+            }else{
+                $uid = D('Connect')->where(array('open_id'=>$openid))->find();
+                $data=array(
+                    'type'=>'weixin',
+                    'open_id'=>$openid
+                );
+                if(!$uid){
+                    D('Connect')->add($data);
+                }
             }
             $rs = array(
                 'success' => true,
