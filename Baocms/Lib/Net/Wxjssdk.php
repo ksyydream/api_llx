@@ -34,7 +34,7 @@ class Wxjssdk {
         $signPackage = array(
             "appId"     => $this->appId,
             "nonceStr"  => $nonceStr,
-            "timestamp" => $timestamp,
+            "timestamp" => (string)$timestamp,
             "url"       => $url,
             "signature" => $signature,
             "rawString" => $string
