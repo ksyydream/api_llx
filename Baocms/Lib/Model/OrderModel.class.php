@@ -136,20 +136,35 @@ class OrderModel extends CommonModel
                     $ip = get_client_ip();
                     $info = '购物结算';
 
-                    if($order['need_pay'] > 0){
-                        D('Shopmoney')->add(array(
-                            'shop_id' => $order['shop_id'],
-                            'city_id' => $shop['city_id'],
-                            'area_id' => $shop['area_id'],
-                            'money' => $order['need_pay'],
-                            'create_time' => NOW_TIME,
-                            'create_ip' => $ip,
-                            'type' => 'goods',
-                            'order_id' => $order_id,
-                            'intro' => $info,
-                        ));
-                        D('Users')->Money($shop['user_id'], $order['need_pay'], '商户商城订单资金结算：' . $order_id);//写入金块
-                    }
+
+                        $order_info = D('Order')->find($order_id);
+                        $order_detail=D('Ordergoods')->where(array('order_id'=>$order_id))->select();
+                        $shop_id = $order_info['shop_id'];
+                        $shop_user_info = D('Shop')->find($shop_id);
+                        $rlpay=$order['total_price'];
+                        foreach ($order_detail as $v){
+                            $val=D('Goods')->where(array('goods_id'=>$v['goods_id']))->select();
+                            foreach ($val as $k){
+                                if ($k['is_yhk']==1){
+                                    $rlpay=$rlpay-$k['price']*$v['num'];
+                                }
+                            }
+                        }
+                        if ($rlpay>0){
+                            D('Shopmoney')->add(array(
+                                'shop_id' => $order['shop_id'],
+                                'city_id' => $shop['city_id'],
+                                'area_id' => $shop['area_id'],
+                                'money' => $rlpay,
+                                'create_time' => NOW_TIME,
+                                'create_ip' => $ip,
+                                'type' => 'goods',
+                                'order_id' => $order_id,
+                                'intro' => $info,
+                            ));
+                        D('Users')->Money($shop['user_id'], $rlpay, '商户商城订单资金结算：' . $order_id);//写入金块
+                        }
+
 
 
 //                    foreach ($goods as $val) {
