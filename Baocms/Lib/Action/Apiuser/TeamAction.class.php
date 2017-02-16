@@ -72,8 +72,8 @@ class TeamAction extends CommonAction{
 
     public function get_low_users($users,$shop_id){
         $Userparent = D('Userparent');
-        $sql = "SELECT a.*,b.uid FROM `bao_user_parent` a left join `bao_connect` b on a.openid = b.open_id";
-
+        //$sql = "SELECT a.*,b.uid FROM `bao_user_parent` a left join `bao_connect` b on a.openid = b.open_id";
+        $sql = "SELECT a.*,b.user_id FROM `bao_user_parent` a left join `bao_users` b on a.mobile = b.mobile";
         $data = $Userparent->query($sql);
         $data_n = array();
         foreach($data as $k=>$v){
@@ -85,8 +85,8 @@ class TeamAction extends CommonAction{
             if(isset($parent[$shop_id])){
                 foreach($users as $vv){
                     if($parent[$shop_id] == $vv){
-                        if($data[$k]['uid']!=$this->app_uid){ //新增加 不显示自己
-                            $data_n[] = $data[$k]['uid'];
+                        if($data[$k]['user_id']!=$this->app_uid){ //新增加 不显示自己
+                            $data_n[] = $data[$k]['user_id'];
                         }
                     }
                 }

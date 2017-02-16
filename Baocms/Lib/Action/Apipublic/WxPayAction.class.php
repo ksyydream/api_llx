@@ -308,7 +308,7 @@ class WxPayAction extends CommonAction{
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
         $a_access_token=json_decode($j_access_token,true);
         if($openid = $a_access_token['openid']){
-            if($this->app_uid > 0 ){
+            /*if($this->app_uid > 0 ){
                 $user_info = D('Users')->find($this->app_uid);
                 if($user_info){
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
@@ -342,20 +342,32 @@ class WxPayAction extends CommonAction{
                         D('Connect')->add($data);
                     }
                 }
-            }
-            //$Userparent = D('Userparent');
-            /*if($this->app_uid > 0 ){
+            }*/
+            $Userparent = D('Userparent');
+            if($this->app_uid > 0 ){
                 $user_info = D('Users')->find($this->app_uid);
                 if($user_info){
-                    $con_uid = D('Userparent')->where(array('uid'=>$user_info['user_id']))->find();
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
                     $data=array(
+                        'type'=>'weixin',
                         'open_id'=>$openid,
                         'uid'=>$user_info['user_id'],
                         'mobile'=>$user_info['mobile']
                     );
-                    if(!$con_uid){
+                    if(!$uid){
                         D('Connect')->add($data);
+                    }else{
+                        D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['mobile']));
+                    }
+                    //这里处理 为登陆前的数据
+                    $rs1 = $Userparent->where(array('openid'=>$openid))->find();
+                    $rs2 = $Userparent->where(array('mobile' => $user_info['mobile']))->find();
+                    if(!$rs2){
+                        if($rs1){
+                            if(!$rs1['mobile']){
+                                $Userparent->where(array('openid'=>$openid))->save(array('mobile'=>$user_info['mobile']));
+                            }
+                        }
                     }
                 }else{
                     $uid = D('Connect')->where(array('open_id'=>$openid))->find();
@@ -367,7 +379,7 @@ class WxPayAction extends CommonAction{
                         D('Connect')->add($data);
                     }
                 }
-            }*/
+            }
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',
