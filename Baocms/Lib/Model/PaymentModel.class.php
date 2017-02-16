@@ -270,7 +270,7 @@ class PaymentModel extends CommonModel {
 							$users = D('Users');
 							//第一层
 							$parent = array();
-							$userparent = $Userparent->where(array('openid'=>$openid))->find();
+							$userparent = $Userparent->where(array('mobile'=>$user['mobile']))->find();
 							$parent_o = json_decode($userparent['parent']);
 
 							$fx=D('shop')->where(array('shop_id'=>$v['shop_id']))->find();
@@ -286,14 +286,14 @@ class PaymentModel extends CommonModel {
 							D('Test')->add(array('a'=>$rstt));
 							if(isset($parent[$v['shop_id']])){
 								$uid1 = $parent[$v['shop_id']];
-//								$users->addIntegral($uid1, $v['mall_price']*0.2, '第一层分红获得秀币');
 								D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*$fx1, '第一层提成获得');
 								$rstt=D('Users')->getLastSql();
 								D('Test')->add(array('a'=>$rstt));
 								//第二层
 								$parent2 = array();
-								$openid = D('Connect')->getFieldByUid($uid1,'open_id');
-								$userparent = $Userparent->where(array('openid'=>$openid))->find();
+								$user_fx_2 = $Users->where(array('user_id'=>$uid1))->find();
+								//$openid = D('Connect')->getFieldByUid($uid1,'open_id');
+								$userparent = $Userparent->where(array('mobile'=>$user_fx_2?$user_fx_2['mobile']:'-1'))->find();
 								$parent_o = json_decode($userparent['parent']);
 								foreach($parent_o as $k=>$val){
 									$parent2[$k] = $val;
@@ -304,8 +304,10 @@ class PaymentModel extends CommonModel {
 									D('Users')->Money($uid2, $v['mall_price']*$v['buygoods_num']*$fx2, '第二层提成获得');
 									//第三层
 									$parent3 = array();
-									$openid = D('Connect')->getFieldByUid($uid2,'open_id');
-									$userparent = $Userparent->where(array('openid'=>$openid))->find();
+									//$openid = D('Connect')->getFieldByUid($uid2,'open_id');
+									$user_fx_3 = $Users->where(array('user_id'=>$uid2))->find();
+									$userparent = $Userparent->where(array('mobile'=>$user_fx_3?$user_fx_3['mobile']:'-1'))->find();
+									//$userparent = $Userparent->where(array('openid'=>$openid))->find();
 									$parent_o = json_decode($userparent['parent']);
 									foreach($parent_o as $k=>$val){
 										$parent3[$k] = $val;
