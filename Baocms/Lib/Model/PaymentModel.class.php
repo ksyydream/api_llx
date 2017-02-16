@@ -280,17 +280,17 @@ class PaymentModel extends CommonModel {
 							foreach($parent_o as $k=>$val){
 								$parent[$k] = $val;
 							}
-							$rstt=$logs['user_id'];
+							/*$rstt=$logs['user_id'];
 							D('Test')->add(array('a'=>$rstt));
 							$rstt=$openid;
-							D('Test')->add(array('a'=>$rstt));
+							D('Test')->add(array('a'=>$rstt));*/
 							if(isset($parent[$v['shop_id']])){
 								$uid1 = $parent[$v['shop_id']];
 								if($uid1 != $logs['user_id']){
 									D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*$fx1, '第一层提成获得');
 								}
-								$rstt=D('Users')->getLastSql();
-								D('Test')->add(array('a'=>$rstt));
+								/*$rstt=D('Users')->getLastSql();
+								D('Test')->add(array('a'=>$rstt));*/
 								//第二层
 								$parent2 = array();
 								$user_fx_2 = $Users->where(array('user_id'=>$uid1))->find();
