@@ -414,11 +414,11 @@ class PaymentModel extends CommonModel {
 //					D('Users')->where(array('user_id'=>$shop['user_id']))->setInc('integral',$pay['integral']);
 					if($pay['integral']>0){
 						//D('Users')->addIntegral($logs['user_id'], -$pay['integral'], '优惠买单使用秀币');
-						D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
+						//D('Users')->addIntegral($shop['user_id'], $pay['integral'], '客户优惠买单获得秀币');
 					}
 					if($pay['use_gold']>0){
 						//D('Users')->addGold($logs['user_id'], -$pay['use_gold'], '优惠买单使用余额');
-						D('Users')->addGold($shop['user_id'], $pay['use_gold'], '客户优惠买单获得余额');
+						D('Users')->addGold($shop['user_id'], $pay['use_gold']+$logs['need_pay'], '客户优惠买单获得余额');
 					}
 					$zp = (array)json_decode($pay['zp']);
 					$this->compute_yhk($pay['mobile'],$pay['yhk'],$zp,$pay['shop_id']);

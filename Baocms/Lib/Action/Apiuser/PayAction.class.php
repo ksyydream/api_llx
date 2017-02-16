@@ -150,7 +150,7 @@ class PayAction extends CommonAction
 
         $Pay->where(array('id'=>$id))->save(array('integral'=>$integral,'use_gold'=>$gold));
         if($integral > 0){
-            $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+            //$Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
         }
         if($gold > 0){
             $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
