@@ -136,7 +136,7 @@ class OrderModel extends CommonModel
                     $ip = get_client_ip();
                     $info = '购物结算';
 
-                    if($order['need_pay'] > 0){
+                   /* if($order['need_pay'] > 0){
                         D('Shopmoney')->add(array(
                             'shop_id' => $order['shop_id'],
                             'city_id' => $shop['city_id'],
@@ -149,7 +149,7 @@ class OrderModel extends CommonModel
                             'intro' => $info,
                         ));
                         D('Users')->Money($shop['user_id'], $order['need_pay'], '商户商城订单资金结算：' . $order_id);//写入金块
-                    }
+                    }*/
 
 
 //                    foreach ($goods as $val) {
