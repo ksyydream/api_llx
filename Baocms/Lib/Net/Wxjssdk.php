@@ -22,6 +22,7 @@ class Wxjssdk {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $url = $_SERVER['HTTP_REFERER'];
+//        $url = "http://llx.51loveshow.com/home";
         $timestamp = time();
         $nonceStr = $this->wxcreateNonceStr();
 
