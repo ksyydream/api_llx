@@ -286,7 +286,9 @@ class PaymentModel extends CommonModel {
 							D('Test')->add(array('a'=>$rstt));
 							if(isset($parent[$v['shop_id']])){
 								$uid1 = $parent[$v['shop_id']];
-								D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*$fx1, '第一层提成获得');
+								if($uid1 != $logs['user_id']){
+									D('Users')->Money($uid1, $v['mall_price']*$v['buygoods_num']*$fx1, '第一层提成获得');
+								}
 								$rstt=D('Users')->getLastSql();
 								D('Test')->add(array('a'=>$rstt));
 								//第二层
@@ -301,7 +303,9 @@ class PaymentModel extends CommonModel {
 								if(isset($parent2[$v['shop_id']])){
 									$uid2 = $parent2[$v['shop_id']];
 //									$users->addIntegral($uid2, $v['mall_price']*0.1, '第二层分红获得秀币');
-									D('Users')->Money($uid2, $v['mall_price']*$v['buygoods_num']*$fx2, '第二层提成获得');
+									if($uid2 != $logs['user_id']){
+										D('Users')->Money($uid2, $v['mall_price']*$v['buygoods_num']*$fx2, '第二层提成获得');
+									}
 									//第三层
 									$parent3 = array();
 									//$openid = D('Connect')->getFieldByUid($uid2,'open_id');
@@ -315,7 +319,9 @@ class PaymentModel extends CommonModel {
 									if(isset($parent3[$v['shop_id']])){
 										$uid3 = $parent3[$v['shop_id']];
 //										$users->addIntegral($uid2, $v['mall_price']*0.05, '第三层分红获得秀币');
-										D('Users')->Money($uid3, $v['mall_price']*$v['buygoods_num']*$fx3, '第三层提成获得');
+										if($uid3 != $logs['user_id']){
+											D('Users')->Money($uid3, $v['mall_price']*$v['buygoods_num']*$fx3, '第三层提成获得');
+										}
 									}
 								}
 							}
