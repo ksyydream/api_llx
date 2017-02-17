@@ -183,14 +183,17 @@ class PaymentModel extends CommonModel {
 									'uid'=>$logs['user_id'],
 								));
 							}
-							$Fenhong->add(array(
-								'total_price'=>$v['mall_price'],
-								'create_time'=>NOW_TIME,
-								'shop_id'=>$v['shop_id'],
-								'uid'=>$logs['user_id'],
-								'goods_id'=>$v['goods'],
-								'status'=>1
-							));
+							for ($fh_num=1; $fh_num<=$v['buygoods_num']; $fh_num++) {
+								$Fenhong->add(array(
+									'total_price'=>$v['mall_price'],
+									'create_time'=>NOW_TIME,
+									'shop_id'=>$v['shop_id'],
+									'uid'=>$logs['user_id'],
+									'goods_id'=>$v['goods'],
+									'status'=>1
+								));
+							}
+
 							$user = $Users->where(array('user_id'=>$logs['user_id']))->find();
 							if($user['yhk']){//这里处理 优惠卡
 								$yhk_old = (Array)json_decode($user['yhk']);
