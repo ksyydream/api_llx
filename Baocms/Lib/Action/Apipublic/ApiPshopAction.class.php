@@ -249,7 +249,7 @@ class ApiPshopAction extends CommonAction{
 
     public function shopDianPing(){
         try{
-            $orderby = (int)($this->_post('orderby'))?(int)($this->_post('orderby')):1;
+           // $orderby = (int)($this->_post('orderby'))?(int)($this->_post('orderby')):1;
             $shop_id = (int)$this->_param('shop_id');
             $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
             if (!$detail = D('Shop')->find($shop_id)) {
@@ -301,8 +301,8 @@ class ApiPshopAction extends CommonAction{
             die(json_encode($rs));*/
             $Goodsdianping = D('Goodsdianping');
             // 导入分页类
-            $map = array('closed' => 0, 'shop_id' => $shop_id, 'show_date' => array('ELT', TODAY),'a.score'=> 5);
-            $map_count = array('a.closed' => 0, 'a.goods_id' => $shop_id, 'a.show_date' => array('ELT', TODAY),'a.score'=> 5);
+            $map = array('closed' => 0, 'a.shop_id' => $shop_id, 'show_date' => array('ELT', TODAY),'a.score'=> 5);
+            $map_count = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY),'a.score'=> 5);
             $count = $Goodsdianping->where($map)->count();
             $count_pics = $Goodsdianping->field('count(DISTINCT a.order_id) total')->alias('a')
                 ->join('INNER JOIN bao_goods_dianping_pics b on a.order_id = b.order_id')
