@@ -266,7 +266,7 @@ class ApiPshopAction extends CommonAction{
                 );
                 die(json_encode($rs));
             }
-            $Shopdianping = D('Shopdianping');
+            /*$Shopdianping = D('Shopdianping');
             $map = array('a.closed' => 0, 'a.shop_id' => $shop_id, 'a.show_date' => array('ELT', TODAY));
             $count = $Shopdianping->alias('a')->field("*")->join('left join bao_users b on a.user_id = b.user_id')->where($map)->count();
             $count_pics = $Shopdianping->alias('a')->field('count(DISTINCT a.order_id) total')
@@ -297,6 +297,48 @@ class ApiPshopAction extends CommonAction{
                 'totalnum'=> $count,
                 'totalnum_haspic'=>$count_pics['total'],
                 'pics'=>$pics
+            );
+            die(json_encode($rs));*/
+            $Goodsdianping = D('Goodsdianping');
+            // 导入分页类
+            $map = array('closed' => 0, 'shop_id' => $shop_id, 'show_date' => array('ELT', TODAY),'a.score'=> 5);
+            $map_count = array('a.closed' => 0, 'a.goods_id' => $shop_id, 'a.show_date' => array('ELT', TODAY),'a.score'=> 5);
+            $count = $Goodsdianping->where($map)->count();
+            $count_pics = $Goodsdianping->field('count(DISTINCT a.order_id) total')->alias('a')
+                ->join('INNER JOIN bao_goods_dianping_pics b on a.order_id = b.order_id')
+                ->where($map_count)
+                ->find();
+            $maxpage =ceil($count/5);
+            $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
+            $list = $Goodsdianping->alias('a')->group('a.order_id')->field('a.*,FROM_UNIXTIME(a.create_time) AS cdate')
+                ->join('INNER JOIN bao_goods_dianping_pics b on a.order_id = b.order_id')
+                ->where($map_count)
+                ->page($page.',5')
+                ->select();
+            $user_ids = $orders_ids = array();
+            foreach ($list as $k => $val) {
+                $user_ids[$val['user_id']] = $val['user_id'];
+                $users= D('Users')->itemsByIds($user_ids);
+                $list[$k]['username']=$users[$val['user_id']]['nickname'];
+                $list[$k]['rank_id']=$users[$val['user_id']]['rank_id'];
+                $list[$k]['face']=$users[$val['user_id']]['face'];
+                $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
+                $list[$k]['pic']=array();
+                foreach ($pic as $a => $v){
+                    if(file_exists(BASE_PATH.'/attachs/'.$v['pic'])){
+                        //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+                        $list[$k]['pic'][]=$v['pic'];
+                    }
+                }
+            }
+            $rs = array(
+                'success' => true,
+                //'totalnum'=> $count,
+                'totalnum_haspic'=>$count_pics['total'],
+                'list'=>$list,
+                'maxpage'=> $maxpage,
+                'page'=>$page,
+                'error_msg'=>''
             );
             die(json_encode($rs));
         }catch(Exception $e) {
