@@ -239,14 +239,34 @@ class OrderinfoAction extends CommonAction{
             $data['show_date'] = date('Y-m-d', NOW_TIME + $data_mall_dianping * 86400); //15天生效
             $data['create_ip'] = get_client_ip( );
             $obj = D( "Goodsdianping" );
+            //$count_pl = $obj->where("shop_id={$detail['shop_id']}")->count();//已有该商铺商品评论数量
             if ($dianping_id = $obj->add( $data ) ){
                 //$photos = $this->uploadimg2($_FILES['photos']);
                 $photos = $this->_post('photos_path')?$this->_post('photos_path'):array();
                 D( "Goodsdianpingpics" )->upload( $order_id, $photos,$goods_id );
                 D( "Order" )->save( array( "order_id" => $order_id,"is_dianping" => 1));
+                $shop_info = D('Shop')->find($detail['shop_id']);
+                //计算分数
+                if($shop_info){
+                    $old_score_shop = $shop_info['score']?$shop_info['score']:35;
+                    $new_score_shop = (int)(($old_score_shop * $shop_info['score_num'] + $score)/($shop_info['score_num']+1));
+                    $new_score_shop = (int)$new_score_shop;
+                    if($new_score_shop < 10){
+                        $new_score_shop = 10;
+                    }
+                    if($new_score_shop > 50){
+                        $new_score_shop=50;
+                    }
+                    D('Shop')->where("shop_id = {$detail['shop_id']}")->save(array('score'=>$new_score_shop));
+                }
+
+
                 D( "Shop" )->updateCount( $detail['shop_id'], "score_num" );
                 D( "Users" )->updateCount( $this->app_uid, "ping_num" );
                 D( "Users" )->prestige( $this->app_uid, "dianping" );
+
+
+
                 $rs = array(
                     'success' => true,
                     'error_msg'=>'评价成功'
