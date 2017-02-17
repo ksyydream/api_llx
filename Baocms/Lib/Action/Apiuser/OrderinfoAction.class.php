@@ -547,5 +547,27 @@ class OrderinfoAction extends CommonAction{
         }
     }
 
-
+    public function check_mobile(){
+        if(!trim($this->_post('mobile'))){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'请输入电话号码!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $mobile = trim($this->_post('mobile'));
+        if ($user = D('Users')->getUserByAccount($mobile)) {
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'查无此人'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+    }
 }
