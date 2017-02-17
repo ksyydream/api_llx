@@ -143,10 +143,10 @@ class OrderModel extends CommonModel
                         $shop_user_info = D('Shop')->find($shop_id);
                         $rlpay=$order['total_price'];
                         foreach ($order_detail as $v){
-                            $val=D('Goods')->where(array('goods_id'=>$v['goods_id']))->select();
-                            foreach ($val as $k){
-                                if ($k['is_yhk']==1){
-                                    $rlpay=$rlpay-$k['price']*$v['num'];
+                            $val=D('Goods')->where(array('goods_id'=>$v['goods_id']))->find();
+                            if ($val) {
+                                if ($val['is_yhk'] == 1) {
+                                    $rlpay = $rlpay - $v['price'] * $v['num'];
                                 }
                             }
                         }
