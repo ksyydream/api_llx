@@ -120,25 +120,10 @@ class MoneyAction extends CommonAction{
         $userscash = D('Userscash')->where(array('user_id' => $user_ids['user_id']))->find();;
         $shop = D('Shop')->where(array('user_id' => $user_id))->find();
         $forzengold = 0;
-        if ($shop == '') {
             $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
             $cash_money_big = $this->_CONFIG['cash']['user_big'];
-        } elseif ($shop['is_renzheng'] == 0) {
-            $rlgold=$this->member['gold']-3000000 >= 0?$this->member['gold']-3000000:0;
-            $forzengold=$rlgold > 0 ? 3000000 : $this->member['gold'];
-            $cash_money = $this->_CONFIG['cash']['shop'];
-            $cash_money_big = $this->_CONFIG['cash']['shop_big'];
-        } elseif ($shop['is_renzheng'] == 1) {
-            $rlgold=$this->member['gold']-3000000 >= 0?$this->member['gold']-3000000:0;
-            $forzengold=$rlgold > 0 ? 3000000 : $this->member['gold'];
-            $cash_money = $this->_CONFIG['cash']['renzheng_shop'];
-            $cash_money_big = $this->_CONFIG['cash']['renzheng_shop_big'];
-        } else {
-            $rlgold=$this->member['gold'];
-            $cash_money = $this->_CONFIG['cash']['user'];
-            $cash_money_big = $this->_CONFIG['cash']['user_big'];
-        }
+
 
         //对比手机号码，验证码
         $shop = D('Shop')->where(array('shop_id' => $this->shop_id))->find();
@@ -156,13 +141,13 @@ class MoneyAction extends CommonAction{
             }
             /*if ($gold > $cash_money_big * 100) {
                 $this->fengmiMsg('您单笔最多能提现' . $cash_money_big . '元');
-            }*/
+            }
             if ($this->member['gold']-$gold<3000000) {
                 $rs['error_msg']='商户可提取资金不足，无法提现';
                 $this->ajaxReturn($rs,'JSON');
-            }
-            if ($gold > $this->member['gold'] || $this->member['gold'] <= 3000000) {
-                $rs['error_msg']='商户可资金不足，无法提现';
+            }*/
+            if ($gold > $this->member['gold'] || $this->member['gold'] == 0) {
+                $rs['error_msg']='资金不足，无法提现';
                 $this->ajaxReturn($rs,'JSON');
             }
             if (!$data['bank_name'] = htmlspecialchars($_POST['bank_name'])) {
