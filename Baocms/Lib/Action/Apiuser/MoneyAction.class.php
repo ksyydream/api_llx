@@ -107,7 +107,7 @@ class MoneyAction extends CommonAction{
         $userscash = D('Userscash')->where(array('user_id' => $user_id))->find();;
         $shop = D('Shop')->where(array('user_id' => $user_id))->find();
         $forzengold = 0;
-        if ($shop == '') {
+        /*if ($shop == '') {
             $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
             $cash_money_big = $this->_CONFIG['cash']['user_big'];
@@ -121,11 +121,11 @@ class MoneyAction extends CommonAction{
             $forzengold=$rlgold > 0 ? 3000000 : $this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['renzheng_shop'];
             $cash_money_big = $this->_CONFIG['cash']['renzheng_shop_big'];
-        } else {
+        } else {*/
             $rlgold=$this->member['gold'];
             $cash_money = $this->_CONFIG['cash']['user'];
-            $cash_money_big = $this->_CONFIG['cash']['user_big'];
-        }
+            //$cash_money_big = $this->_CONFIG['cash']['user_big'];
+
 
         if($_POST['gold']) {
             $rs = array(
@@ -155,23 +155,23 @@ class MoneyAction extends CommonAction{
                 $rs['error_msg']='提现金额小于最低提现额度';
                 $this->ajaxReturn($rs,'JSON');
             }
-            if ($gold > $cash_money_big * 100) {
+            /*if ($gold > $cash_money_big * 100) {
                 $rs['error_msg']='您单笔最多能提现' . $cash_money_big . '元';
                 $this->ajaxReturn($rs,'JSON');
-            }
+            }*/
 
             if ($gold > $this->member['gold'] || $this->member['gold'] == 0) {
                 $rs['test']=$gold;
                 $rs['error_msg']='资金不足，无法提现';
                 $this->ajaxReturn($rs,'JSON');
             }
-            if ($shop['is_renzheng'] === 0 || $shop['is_renzheng'] == 1) {
+            /*if ($shop['is_renzheng'] === 0 || $shop['is_renzheng'] == 1) {
                 if ($gold >($this->member['gold']-3000000) ||$this->member['gold'] <=3000000){
                     $rs['test']=$shop['is_renzheng'];
                     $rs['error_msg']='资金不足，无法提现1';
                     $this->ajaxReturn($rs,'JSON');
                 }
-            }
+            }*/
 
 /*          if (empty($yzm)) {
                  $rs['error_msg']='请输入短信验证码';
