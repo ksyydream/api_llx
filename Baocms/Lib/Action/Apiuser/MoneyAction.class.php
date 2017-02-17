@@ -161,7 +161,6 @@ class MoneyAction extends CommonAction{
             }*/
 
             if ($gold > $this->member['gold'] || $this->member['gold'] == 0) {
-                $rs['test']=$gold;
                 $rs['error_msg']='资金不足，无法提现';
                 $this->ajaxReturn($rs,'JSON');
             }
