@@ -144,11 +144,11 @@ class OrderModel extends CommonModel
                         $rlpay=$order['total_price'];
                         foreach ($order_detail as $v){
                             $val=D('Goods')->where(array('goods_id'=>$v['goods_id']))->select();
-                            foreach ($val as $k){
-                                if ($k['is_yhk']==1){
-                                    $rlpay=$rlpay-$k['price']*$v['num'];
+
+                                if ($val['is_yhk']==1){
+                                    $rlpay=$rlpay-$v['price']*$v['num'];
                                 }
-                            }
+
                         }
                         if ($rlpay>0){
                             D('Shopmoney')->add(array(
