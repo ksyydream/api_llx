@@ -15,7 +15,7 @@ class UserinfoAction extends CommonAction{
                 $yhk_s+=$v;
             }
             $shop = D('Shop');
-            $shop_user = $shop->where("user_id={$user_id}")->select();
+            $shop_user = $shop->where("user_id={$user_id} and closed=0")->select();
             $shop_count = count($shop_user);
             $rs = array(
                 'success'=>true,
