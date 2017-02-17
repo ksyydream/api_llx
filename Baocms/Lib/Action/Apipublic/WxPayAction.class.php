@@ -395,6 +395,8 @@ class WxPayAction extends CommonAction{
                 );
                 if(!$uid){
                     D('Connect')->add($data);
+                }else{
+                    $open_uid = $uid['uid']?$uid['uid']:0;
                 }
             }
             $rs = array(

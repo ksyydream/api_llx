@@ -132,6 +132,8 @@ class OrderinfoAction extends CommonAction{
             $json_addr = D('Useraddr')->find($detail['addr_id']);
             $shop_info = D('Shop')->find($detail['shop_id']);
             $json_types = D('Order')->getType();
+            //获取上级分销账号
+            //$parent_mobile = $this->get_parent_mobile($this->app_uid,$detail['shop_id']);
             //$express_info = D('expresscomp')->where('express='.$detail['express'])->find();
             $rs = array(
                 'success' => true,
@@ -142,6 +144,7 @@ class OrderinfoAction extends CommonAction{
                 'detail'=>$detail,
                 //'express_mobile'=>$express_info?$express_info['mobile']:'',
                 'order_goods_info'=>$order_goods_info,
+                //'parent_mobile'=>$parent_mobile,
                 //'goods'=>$json_goods,
                 'error_msg'=>''
             );
@@ -569,5 +572,63 @@ class OrderinfoAction extends CommonAction{
             );
             $this->ajaxReturn($rs,'JSON');
         }
+    }
+    //获取上级分销账号 电话号码
+    private function get_parent_mobile($user_id,$shop_id){
+        if($user_id!=0 and $shop_id!=0){
+            if ($user = D('Users')->find($user_id)) {
+                $Userparent = D('Userparent');
+                $userparent = $Userparent->where(array('mobile'=>$user['mobile']))->find();
+                $parent_o = json_decode($userparent['parent']);
+
+                foreach($parent_o as $k=>$val){
+                    $parent[$k] = $val;
+                }
+
+                if(isset($parent[$shop_id])){
+                    $uid1 = $parent[$shop_id];
+                    if($parent_user = D('Users')->find($uid1)){
+                        return $parent_user['mobile'];
+                    }
+                }
+            }
+        }
+        return '';
+    }
+    //获取上级分销账号 电话号码
+    private function save_parent($user_id,$parent_mobile,$shop_id){
+        $Userparent = D('Userparent');
+        if($parent_user = D('Users')->where("mobile={$parent_mobile}")->find()){
+            if($user_id!=$parent_user['user_id']){
+                if ($user_info = D('Users')->find($user_id)) {
+                    $rs = $Userparent->where(array('mobile' => $user_info['mobile']))->find();
+                    if ($rs) {
+                        $parent_old = json_decode($rs['parent']);
+                        foreach ($parent_old as $k => $v) {
+                            $parent[$k] = $v;
+                        }
+                        if (!isset($parent[$shop_id])) {
+                            $parent[$shop_id] = $parent_user['user_id'];
+                        }else{
+                            if($parent[$shop_id]==$user_info['user_id']){
+                                $parent[$shop_id] = $parent_user['user_id'];
+                            }
+                        }
+                        $parent = json_encode($parent);
+                        $Userparent->where(array('mobile' => $user_info['mobile']))->save(array('parent' => $parent));
+                    } else {
+                        $parent[$shop_id] = $parent_user['user_id'];
+                        $parent = json_encode($parent);
+                        $data = array(
+                            'mobile' => $user_info['mobile'],
+                            'parent'=>$parent
+                        );
+                        $Userparent->add($data);
+                    }
+                }
+
+            }
+        }
+        return true;
     }
 }
