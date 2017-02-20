@@ -97,7 +97,7 @@ class TeamAction extends CommonAction{
 
     public function get_user_info($users){
         $map['user_id']  = array('in',$users);
-        $data = D('Users')->field('face,mobile,nickname')->where($map)->select();
+        $data = D('Users')->field('face,account AS mobile,nickname')->where($map)->select();
 
         return $data;
     }
