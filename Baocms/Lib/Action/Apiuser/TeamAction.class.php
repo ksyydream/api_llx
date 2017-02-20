@@ -56,6 +56,17 @@ class TeamAction extends CommonAction{
         }else{
             $team3_info = array();
         }
+        $fx1=0;
+        $fx2=0;
+        $fx3=0;
+        if($shop_id){
+            $fx=D('shop')->where(array('shop_id'=>$v['shop_id']))->find();
+            if($fx){
+                $fx1=$fx['fx_1']/100;
+                $fx2=$fx['fx_2']/100;
+                $fx3=$fx['fx_3']/100;
+            }
+        }
         $rs = array(
             'success'=>true,
             'shop'=>$shops,
@@ -63,6 +74,9 @@ class TeamAction extends CommonAction{
             'team2_info'=>$team2_info,
             'team3_info'=>$team3_info,
             'shop_id'=>$shop_id,
+            'fx1'=>$fx1,
+            'fx2'=>$fx2,
+            'fx3'=>$fx3,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
