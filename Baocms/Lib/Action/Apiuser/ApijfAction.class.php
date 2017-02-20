@@ -101,7 +101,7 @@ class ApijfAction extends CommonAction {
         D('Jfordergoods')->add(array(
             'title'=>$detail['title'],
             'jforder_id'=>$order_id,
-            'price'=>$detail['price'],
+            'price'=>$detail['mall_price'],
             'goods_id'=>$detail['goods_id'],
             'photo'=>$detail['photo'],
             'pty'=>$pty,
