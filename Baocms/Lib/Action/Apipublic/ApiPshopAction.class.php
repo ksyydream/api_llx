@@ -68,7 +68,7 @@ class ApiPshopAction extends CommonAction{
                     if($user_info){//在登陆的状态
                         //$uid = D('Connect')->where(array('mobile'=>$user_info['mobile']))->find();
                         if($user_info['user_id'] != $puid) {//不是自己分享给自己的
-                            $rs = $Userparent->where(array('mobile' => $user_info['mobile']))->find();
+                            $rs = $Userparent->where(array('mobile' => $user_info['account']))->find();
                             if ($rs) {
                                 $parent_old = json_decode($rs['parent']);
                                 foreach ($parent_old as $k => $v) {
@@ -82,7 +82,7 @@ class ApiPshopAction extends CommonAction{
                                     }
                                 }
                                 $parent = json_encode($parent);
-                                $Userparent->where(array('mobile' => $user_info['mobile']))->save(array('parent' => $parent));
+                                $Userparent->where(array('mobile' => $user_info['account']))->save(array('parent' => $parent));
                             } else {
                                 $rs1 = $Userparent->where(array('openid'=>$openid))->find();
                                 if($rs1){
@@ -90,7 +90,7 @@ class ApiPshopAction extends CommonAction{
                                         $parent[$shop_id] = $puid;
                                         $parent = json_encode($parent);
                                         $data = array(
-                                            'mobile' => $user_info['mobile'],
+                                            'mobile' => $user_info['account'],
                                             'parent'=>$parent
                                         );
                                         $Userparent->add($data);
@@ -107,7 +107,7 @@ class ApiPshopAction extends CommonAction{
                                             }
                                         }
                                         $parent = json_encode($parent);
-                                        $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent,'mobile'=>$user_info['mobile']));
+                                        $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent,'mobile'=>$user_info['account']));
                                     }
 
                                 }else{
@@ -133,7 +133,7 @@ class ApiPshopAction extends CommonAction{
                             if($uid['uid'] != $puid){//不是自己分享给自己的
                                 //$rs = $Userparent->where(array('openid'=>$openid))->find();
                                 $con_user_info = D('Users')->find($uid['uid']);
-                                $rs = $Userparent->where(array('mobile'=>$con_user_info?$con_user_info['mobile']:'-1'))->find();
+                                $rs = $Userparent->where(array('mobile'=>$con_user_info?$con_user_info['account']:'-1'))->find();
                                 if($rs){
                                     $parent_old = json_decode($rs['parent']);
                                     foreach ($parent_old as $k=>$v){
@@ -154,7 +154,7 @@ class ApiPshopAction extends CommonAction{
                                     $data = array(
                                         'openid'=>$openid,
                                         'parent'=>$parent,
-                                        'mobile'=>$con_user_info?$con_user_info['mobile']:null
+                                        'mobile'=>$con_user_info?$con_user_info['account']:null
                                     );
                                     $Userparent->add($data);
                                 }

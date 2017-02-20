@@ -273,7 +273,7 @@ class PaymentModel extends CommonModel {
 							$users = D('Users');
 							//第一层
 							$parent = array();
-							$userparent = $Userparent->where(array('mobile'=>$user['mobile']))->find();
+							$userparent = $Userparent->where(array('mobile'=>$user['account']))->find();
 							$parent_o = json_decode($userparent['parent']);
 
 							$fx=D('shop')->where(array('shop_id'=>$v['shop_id']))->find();
@@ -298,7 +298,7 @@ class PaymentModel extends CommonModel {
 								$parent2 = array();
 								$user_fx_2 = $Users->where(array('user_id'=>$uid1))->find();
 								//$openid = D('Connect')->getFieldByUid($uid1,'open_id');
-								$userparent = $Userparent->where(array('mobile'=>$user_fx_2?$user_fx_2['mobile']:'-1'))->find();
+								$userparent = $Userparent->where(array('mobile'=>$user_fx_2?$user_fx_2['account']:'-1'))->find();
 								$parent_o = json_decode($userparent['parent']);
 								foreach($parent_o as $k=>$val){
 									$parent2[$k] = $val;
@@ -313,7 +313,7 @@ class PaymentModel extends CommonModel {
 									$parent3 = array();
 									//$openid = D('Connect')->getFieldByUid($uid2,'open_id');
 									$user_fx_3 = $Users->where(array('user_id'=>$uid2))->find();
-									$userparent = $Userparent->where(array('mobile'=>$user_fx_3?$user_fx_3['mobile']:'-1'))->find();
+									$userparent = $Userparent->where(array('mobile'=>$user_fx_3?$user_fx_3['account']:'-1'))->find();
 									//$userparent = $Userparent->where(array('openid'=>$openid))->find();
 									$parent_o = json_decode($userparent['parent']);
 									foreach($parent_o as $k=>$val){

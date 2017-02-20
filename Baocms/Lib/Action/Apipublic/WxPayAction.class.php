@@ -352,25 +352,25 @@ class WxPayAction extends CommonAction{
                         'type'=>'weixin',
                         'open_id'=>$openid,
                         'uid'=>$user_info['user_id'],
-                        'mobile'=>$user_info['mobile']
+                        'mobile'=>$user_info['account']
                     );
                     if(!$uid){
                         D('Connect')->add($data);
                     }else{
-                        D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['mobile']));
+                        D('Connect')->where(array('open_id'=>$openid))->save(array('uid'=>$user_info['user_id'],'mobile'=>$user_info['account']));
                     }
                     //这里处理 为登陆前的数据
                     $rs1 = $Userparent->where(array('openid'=>$openid))->find();
-                    $rs2 = $Userparent->where(array('mobile' => $user_info['mobile']))->find();
+                    $rs2 = $Userparent->where(array('mobile' => $user_info['account']))->find();
                     if(!$rs2){
                         if($rs1){
                             if(!$rs1['mobile']){
-                                $Userparent->where(array('openid'=>$openid))->save(array('mobile'=>$user_info['mobile']));
+                                $Userparent->where(array('openid'=>$openid))->save(array('mobile'=>$user_info['account']));
                             }
                         }else{
                             $Userparent->add(
                                 array(
-                                    'mobile' => $user_info['mobile'],
+                                    'mobile' => $user_info['account'],
                                     'openid'=>$openid,
                                     'parent'=>json_encode(array())
                                 )
