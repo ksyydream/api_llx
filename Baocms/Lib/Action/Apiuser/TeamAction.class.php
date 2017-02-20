@@ -73,7 +73,7 @@ class TeamAction extends CommonAction{
     public function get_low_users($users,$shop_id){
         $Userparent = D('Userparent');
         //$sql = "SELECT a.*,b.uid FROM `bao_user_parent` a left join `bao_connect` b on a.openid = b.open_id";
-        $sql = "SELECT a.*,b.user_id FROM `bao_user_parent` a left join `bao_users` b on a.mobile = b.mobile";
+        $sql = "SELECT a.*,b.user_id FROM `bao_user_parent` a left join `bao_users` b on a.mobile = b.account";
         $data = $Userparent->query($sql);
         $data_n = array();
         foreach($data as $k=>$v){
