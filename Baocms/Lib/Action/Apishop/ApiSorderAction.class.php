@@ -58,7 +58,7 @@ class ApiSorderAction extends CommonAction{
             $this->ajaxReturn($rs,'JSON');
         }
         $Users = D('Users');
-        $user = $Users->where(array('mobile' => $mobile))->find();
+        $user = $Users->where(array('account' => $mobile))->find();
         if(!$user){
             $rs=array(
                 'success'=>false,
