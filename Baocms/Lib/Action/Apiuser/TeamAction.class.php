@@ -62,9 +62,9 @@ class TeamAction extends CommonAction{
         if($shop_id){
             $fx=D('shop')->where(array('shop_id'=>$v['shop_id']))->find();
             if($fx){
-                $fx1=$fx['fx_1']/100;
-                $fx2=$fx['fx_2']/100;
-                $fx3=$fx['fx_3']/100;
+                $fx1=$fx['fx_1'];
+                $fx2=$fx['fx_2'];
+                $fx3=$fx['fx_3'];
             }
         }
         $rs = array(
