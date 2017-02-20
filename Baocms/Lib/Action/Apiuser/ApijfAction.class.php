@@ -63,7 +63,7 @@ class ApijfAction extends CommonAction {
             $gold = $this->member['gold'];
         }
 
-        $total = $detail['price'] * $pty;
+        $total = $detail['mall_price'] * $pty;
         $need_pay = $total;
         $integral = $this->member['integral'];
         if($total <= $integral){
