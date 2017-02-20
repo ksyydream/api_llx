@@ -114,7 +114,7 @@ class ApiPshopAction extends CommonAction{
                                     $parent[$shop_id] = $puid;
                                     $parent = json_encode($parent);
                                     $data = array(
-                                        'mobile' => $user_info['mobile'],
+                                        'mobile' => $user_info['account'],
                                         'openid'=>$openid,
                                         'parent'=>$parent
                                     );
