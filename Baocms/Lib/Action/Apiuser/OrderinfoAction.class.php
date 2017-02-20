@@ -578,7 +578,7 @@ class OrderinfoAction extends CommonAction{
         if($user_id!=0 and $shop_id!=0){
             if ($user = D('Users')->find($user_id)) {
                 $Userparent = D('Userparent');
-                $userparent = $Userparent->where(array('mobile'=>$user['mobile']))->find();
+                $userparent = $Userparent->where(array('mobile'=>$user['account']))->find();
                 $parent_o = json_decode($userparent['parent']);
 
                 foreach($parent_o as $k=>$val){
@@ -588,7 +588,7 @@ class OrderinfoAction extends CommonAction{
                 if(isset($parent[$shop_id])){
                     $uid1 = $parent[$shop_id];
                     if($parent_user = D('Users')->find($uid1)){
-                        return $parent_user['mobile'];
+                        return $parent_user['account'];
                     }
                 }
             }
@@ -601,7 +601,7 @@ class OrderinfoAction extends CommonAction{
         if($parent_user = D('Users')->where("mobile={$parent_mobile}")->find()){
             if($user_id!=$parent_user['user_id']){
                 if ($user_info = D('Users')->find($user_id)) {
-                    $rs = $Userparent->where(array('mobile' => $user_info['mobile']))->find();
+                    $rs = $Userparent->where(array('mobile' => $user_info['account']))->find();
                     if ($rs) {
                         $parent_old = json_decode($rs['parent']);
                         foreach ($parent_old as $k => $v) {
@@ -615,12 +615,12 @@ class OrderinfoAction extends CommonAction{
                             }
                         }
                         $parent = json_encode($parent);
-                        $Userparent->where(array('mobile' => $user_info['mobile']))->save(array('parent' => $parent));
+                        $Userparent->where(array('mobile' => $user_info['account']))->save(array('parent' => $parent));
                     } else {
                         $parent[$shop_id] = $parent_user['user_id'];
                         $parent = json_encode($parent);
                         $data = array(
-                            'mobile' => $user_info['mobile'],
+                            'mobile' => $user_info['account'],
                             'parent'=>$parent
                         );
                         $Userparent->add($data);
