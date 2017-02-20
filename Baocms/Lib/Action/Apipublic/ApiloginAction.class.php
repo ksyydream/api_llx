@@ -345,6 +345,7 @@ class ApiloginAction extends CommonAction{
             $rs = array(
                 'success' => true,
                 'data' =>$obj->data,
+                'state'=>$obj->state,
                 'error_msg'=>''
             );
             $this->ajaxReturn($rs,'JSON');
