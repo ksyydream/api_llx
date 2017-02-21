@@ -226,6 +226,106 @@ class ShopModel extends CommonModel {
         //return $this->getLastSql();
     }
 
+    public function getshopsAPP3($area_code,$page,$lng=0,$lat=0,$order,$shop_name = ''){
+        $cate_id = $_POST['cate_id']?$_POST['cate_id']:0;
+        $map = array('bao_shop.closed'=>0,'bao_shop.audit'=>1);
+        if($cate_id!=0){
+            $this->cate_ids[] = $cate_id;
+            $this->get_all_cateid($cate_id);
+            $map['bao_shop.cate_id']=array('in',implode(',',$this->cate_ids));
+        }
+        // die(var_dump($map['bao_shop.cate_id']));
+        // $map['bao_shop.area_code'] = $area_code;
+        $map['bao_shop.shop_name'] = array('like',"%{$shop_name}%");
+        if($order==2){
+            $start_p = ($page-1)*10;
+            $end_p = $page*10;
+            if($cate_id!=0){
+                $cate_id_str = implode(',',$this->cate_ids);
+                $inner_sql = "select a.shop_id,
+        a.shop_name,
+		a.yhk1,
+        a.yhk2,
+        a.score,
+        a.shop_class,
+IFNULL(sum(b.sold_num),0) AS allsold_num
+FROM bao_shop a left JOIN bao_goods b on b.shop_id = a.shop_id
+WHERE a.closed = 0 and a.audit=1 and a.cate_id in ({$cate_id_str}) and a.shop_name LIKE '%{$shop_name}%'
+GROUP BY a.shop_id";
+            }else{
+                $inner_sql = "select a.shop_id,
+        a.shop_name,
+		a.yhk1,
+        a.yhk2,
+        a.score,
+        a.shop_class,
+IFNULL(sum(b.sold_num),0) AS allsold_num
+FROM bao_shop a left JOIN bao_goods b on b.shop_id = a.shop_id
+WHERE a.closed = 0 and a.audit=1 and a.shop_name LIKE '%{$shop_name}%'
+GROUP BY a.shop_id";
+            }
+
+            $sql = "select a.fd_id,
+       a.fd_name,
+       a.logo,
+       a.tel,
+       a.addr,
+ROUND(lat_lng_distance('{$lat}', '{$lng}', a.lat, a.lng), 2) AS juli,
+new.*FROM
+({$inner_sql}) new
+INNER JOIN bao_shop_fd a on a.shop_id = new.shop_id
+WHERE a.closed = 0
+ORDER BY new.allsold_num DESC,a.fd_id ASC
+LIMIT {$start_p},{$end_p}";
+            $data =  $this->query($sql);
+            //die(var_dump($this->getLastSql()));
+            return $data;
+            //return $this->getLastSql();
+        }else{
+            $this->field("bao_shop.shop_id,
+        bao_shop.shop_name,
+        bao_shop_fd.fd_id,
+        bao_shop_fd.fd_name,
+        bao_shop_fd.logo,
+        bao_shop_fd.tel,
+        bao_shop_fd.addr,
+        bao_shop.yhk1,
+        bao_shop.yhk2,
+        bao_shop.score,
+        bao_shop.shop_class,
+        ROUND(lat_lng_distance('{$lat}', '{$lng}', bao_shop_fd.lat, bao_shop_fd.lng), 2) AS juli")
+                ->where($map)
+                ->where("bao_shop_fd.closed=0 and bao_shop_fd.lat is not null and bao_shop_fd.lng is not null AND bao_shop_fd.lat <>'' and bao_shop_fd.lng <>''")
+                ->join('bao_shop_fd on bao_shop_fd.shop_id = bao_shop.shop_id','INNER')
+                //->group('bao_shop.shop_id')
+                ->page("{$page},10");
+            switch($order){
+                case 1:
+                    $this->order('juli asc');
+                    break;
+                case 3:
+                    $this->order('score desc');
+                    break;
+                default:
+                    $this->order('juli asc');
+                    break;
+            }
+            $data=$this->select();
+            foreach($data as $key=>$val){
+               $row= $this->field("IFNULL(sum(bao_goods.sold_num),0) AS allsold_num")
+                    ->join('bao_goods on bao_goods.shop_id = bao_shop.shop_id','LEFT')
+                    ->where("bao_shop.shop_id={$val['shop_id']}")
+                    ->group('bao_shop.shop_id')
+                    ->find();
+                $data[$key]['allsold_num']=$row?$row['allsold_num']:0;
+            }
+            /*var_dump($this->getLastSql());*/
+            return $data;
+            //return $this->getLastSql();
+        }
+
+    }
+
     private function get_all_cateid($cate_id){
         //$this->cate_ids[]=$cate_id;
         $Shopcate = D('Shopcate');
