@@ -115,6 +115,7 @@ class ApiloginAction extends CommonAction{
             'password'=>md5(trim($this->_param('password'))),
             'account' => trim($this->_param('mobile')),
             'mobile' => trim($this->_param('mobile')),
+            'face' => 'xiaoxiong.png',
             'nickname' => $this->_param('nickname')?$this->_param('nickname'):$this->_param('mobile'),
             'sex' => $this->_param('sex')?$this->_param('sex'):null,
         );
