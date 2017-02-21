@@ -187,7 +187,7 @@ class ShopModel extends CommonModel {
             $map['bao_shop.cate_id']=array('in',implode(',',$this->cate_ids));
         }
        // die(var_dump($map['bao_shop.cate_id']));
-       // $map['bao_shop.area_code'] = $area_code;
+        $map['bao_shop.area_code'] = $area_code;
         $map['bao_shop.shop_name'] = array('like',"%{$shop_name}%");
         $this->field("bao_shop.shop_id,
         bao_shop.shop_name,
