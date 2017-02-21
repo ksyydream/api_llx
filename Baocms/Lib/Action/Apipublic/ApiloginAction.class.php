@@ -7,11 +7,42 @@
  */
 class ApiloginAction extends CommonAction{
     public function test_token(){
+        if(!$mobile = $this->_post('mobile')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'电话号码不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if (!isMobile($mobile)) {
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'此电话不符合要求!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $Users = D('Users');
+        $user = $Users->where(array('account' => $mobile))->find();
+        if(!$user){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'此用户不存在!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        die(var_dump($user));
+
+
+
+
+
+
         $dataall = $this->_param();
         /*$open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($dataall,true));
         fclose($open);*/
         $token= $this->get_token();
+
         die(getSiteUrl().U('/Apipublic/ApiPshop/shopdetail',array('shop_id'=>1,'puid'=>2),''));
         $rs = array(
             'success' => $token==-1?false:true,
