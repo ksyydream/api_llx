@@ -173,7 +173,7 @@ class ApiSorderAction extends CommonAction{
         }
 
 
-        $user = $Users->where(array('mobile' => $data['mobile']))->find();
+        $user = $Users->where(array('account' => $data['mobile']))->find();
         //这里验证赠品
         $zp_limit = json_decode($user['zp']);
         $key = (string)$this->shop_id;
@@ -270,7 +270,7 @@ class ApiSorderAction extends CommonAction{
         if ($pay['shop_id'] != $this->shop_id ) {
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'您没有权限访问！'));
         }
-        $member = D('Users')->where(array('mobile'=>$pay['mobile']))->find();
+        $member = D('Users')->where(array('account'=>$pay['mobile']))->find();
         if($pay['integral'] > 0){
             D('Users')->addIntegral($member['user_id'],$pay['integral'],'优惠买单订单取消,退回秀币');
         }
@@ -307,7 +307,7 @@ class ApiSorderAction extends CommonAction{
                 $zp_list[]= $zp_arr;
             }
         }
-        $member = D('Users')->where(array('mobile'=>$detail['mobile']))->find();
+        $member = D('Users')->where(array('account'=>$detail['mobile']))->find();
         $rs=array(
             'success'=>true,
             'detail'=>$detail,
@@ -333,7 +333,7 @@ class ApiSorderAction extends CommonAction{
         if($rs['status'] != 1){
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'请勿重复支付!'));
         }
-        $member = D('Users')->where(array('mobile'=>$rs['mobile']))->find();
+        $member = D('Users')->where(array('account'=>$rs['mobile']))->find();
 //        if($rs['mobile'] != $member['mobile']){
 //            $this->fengmiMsg('权限不足');
 //        }
@@ -350,7 +350,7 @@ class ApiSorderAction extends CommonAction{
 
 //        if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
         $zp = (array)json_decode($rs['zp']);
-        $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+        $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
         $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME,'is_offline'=>2));
         if($integral>0){
             $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
@@ -367,7 +367,7 @@ class ApiSorderAction extends CommonAction{
         $Pay = D('Pay');
         $Yhk_log = D('Yhklog');
         $Zengpin_log = D('Zengpinlog');
-        $user = $Users->where(array('mobile' => $mobile))->find();
+        $user = $Users->where(array('account' => $mobile))->find();
 
 
         if ($yhk) {//优惠卡规则
@@ -417,7 +417,7 @@ class ApiSorderAction extends CommonAction{
                 'type' => -1
             );
             $Yhk_log->add($data);
-            $Users->where(array('mobile' => $mobile))->save(array('yhk' => json_encode($yhk_limit)));
+            $Users->where(array('account' => $mobile))->save(array('yhk' => json_encode($yhk_limit)));
         }
 
         if ($zp) {
@@ -450,7 +450,7 @@ class ApiSorderAction extends CommonAction{
                 foreach($data as $k=>$v){
                     $Zengpin_log->add($v);
                 }
-                $Users->where(array('mobile' => $mobile))->save(array('zp' => json_encode($zp_limit)));
+                $Users->where(array('account' => $mobile))->save(array('zp' => json_encode($zp_limit)));
             } else {
                 $rs=array(
                     'success'=>false,

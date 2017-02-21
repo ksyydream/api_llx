@@ -1043,7 +1043,7 @@ class PaymentModel extends CommonModel {
 		$Pay = D('Pay');
 		$Yhk_log = D('Yhklog');
 		$Zengpin_log = D('Zengpinlog');
-		$user = $Users->where(array('mobile' => $mobile))->find();
+		$user = $Users->where(array('account' => $mobile))->find();
 
 		if ($yhk > 0) {//优惠卡规则
 			$yhk_limit_old = (array)json_decode($user['yhk']);

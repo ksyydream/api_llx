@@ -16,7 +16,7 @@ class PayAction extends CommonAction
         $Pay = D('Pay');
         $Shop = D('Shop');
         $member = $this->member;
-        $map = array('mobile' => $member['mobile']);
+        $map = array('mobile' => $member['account']);
         $count = $Pay->where($map)->count();
         $maxpage=ceil($count/20);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
@@ -91,7 +91,7 @@ class PayAction extends CommonAction
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'请勿重复支付!'));
         }
         $member = $this->member;
-        if($rs['mobile'] != $member['mobile']){
+        if($rs['mobile'] != $member['account']){
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'权限不足!'));
         }
 
@@ -104,7 +104,7 @@ class PayAction extends CommonAction
 
         if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
             $zp = (array)json_decode($rs['zp']);
-            $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+            $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
             $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME));
             $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
             $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
@@ -118,7 +118,7 @@ class PayAction extends CommonAction
 
         if($gold == ($rs['total'] - $rs['yhk'])*100 - $integral){//全部用秀币抵扣,不涉及支付
             $zp = (array)json_decode($rs['zp']);
-            $this->compute_yhk($member['mobile'],$rs['yhk'],$zp,$rs['shop_id']);
+            $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
             $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>$gold,'pay_time'=>NOW_TIME));
             if($integral > 0){
                 $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
@@ -164,7 +164,7 @@ class PayAction extends CommonAction
         $Pay = D('Pay');
         $Yhk_log = D('Yhklog');
         $Zengpin_log = D('Zengpinlog');
-        $user = $Users->where(array('mobile' => $mobile))->find();
+        $user = $Users->where(array('account' => $mobile))->find();
 
         if ($yhk > 0) {//优惠卡规则
             $yhk_limit_old = (array)json_decode($user['yhk']);
@@ -213,7 +213,7 @@ class PayAction extends CommonAction
                 'type' => -1
             );
             $Yhk_log->add($data);
-            $Users->where(array('mobile' => $mobile))->save(array('yhk' => json_encode($yhk_limit)));
+            $Users->where(array('account' => $mobile))->save(array('yhk' => json_encode($yhk_limit)));
         }
 
         if ($zp) {
@@ -246,7 +246,7 @@ class PayAction extends CommonAction
                 foreach($data as $k=>$v){
                     $Zengpin_log->add($v);
                 }
-                $Users->where(array('mobile' => $mobile))->save(array('zp' => json_encode($zp_limit)));
+                $Users->where(array('account' => $mobile))->save(array('zp' => json_encode($zp_limit)));
             } else {
                 $rs=array(
                     'success'=>false,
