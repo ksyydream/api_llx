@@ -235,7 +235,7 @@ class ShopModel extends CommonModel {
             $map['bao_shop.cate_id']=array('in',implode(',',$this->cate_ids));
         }
         // die(var_dump($map['bao_shop.cate_id']));
-        // $map['bao_shop.area_code'] = $area_code;
+        $map['bao_shop.area_code'] = $area_code;
         $map['bao_shop.shop_name'] = array('like',"%{$shop_name}%");
         if($order==2){
             $start_p = ($page-1)*10;
@@ -250,7 +250,7 @@ class ShopModel extends CommonModel {
         a.shop_class,
 IFNULL(sum(b.sold_num),0) AS allsold_num
 FROM bao_shop a left JOIN bao_goods b on b.shop_id = a.shop_id
-WHERE a.closed = 0 and a.audit=1 and a.cate_id in ({$cate_id_str}) and a.shop_name LIKE '%{$shop_name}%'
+WHERE a.closed = 0 and a.audit=1 and a.area_code = {$area_code} AND a.cate_id in ({$cate_id_str}) and a.shop_name LIKE '%{$shop_name}%'
 GROUP BY a.shop_id";
             }else{
                 $inner_sql = "select a.shop_id,
@@ -261,7 +261,7 @@ GROUP BY a.shop_id";
         a.shop_class,
 IFNULL(sum(b.sold_num),0) AS allsold_num
 FROM bao_shop a left JOIN bao_goods b on b.shop_id = a.shop_id
-WHERE a.closed = 0 and a.audit=1 and a.shop_name LIKE '%{$shop_name}%'
+WHERE a.closed = 0 and a.audit=1 and a.area_code = {$area_code} and a.shop_name LIKE '%{$shop_name}%'
 GROUP BY a.shop_id";
             }
 
