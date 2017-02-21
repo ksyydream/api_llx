@@ -145,7 +145,7 @@ class ApiSorderAction extends CommonAction{
             $data['zp'] = json_encode($zp);
         }
 
-        $user_count = $Users->where(array('mobile' => $data['mobile']))->count();
+        $user_count = $Users->where(array('account' => $data['mobile']))->count();
        // die($this->ajaxReturn($Users->getLastSql(),'JSON'));
         if ($user_count == 0) {
             $rs=array(
