@@ -100,9 +100,9 @@ class ScAction extends CommonAction {
             'goods_id'=>$goods_id,
             'uid'=>$this->app_uid
         );
-        $row =  D('Scf')->where($data)->find();
+        $row =  D('Scg')->where($data)->find();
         if($row){
-            $rs = array('success' => false, 'error_msg'=>'该分店已收藏!');
+            $rs = array('success' => false, 'error_msg'=>'该商品已收藏!');
             die(json_encode($rs));
         }else{
             D('Scg')->add($data);
