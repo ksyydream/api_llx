@@ -6,10 +6,26 @@
  * Time: 上午11:15
  */
 class ApiPshopAction extends CommonAction{
-    public function shopdetail($sid=null,$puid=0){
+    public function shopdetail($sid=null,$puid=0,$fid=null){
         try{
 
-            $shop_id = $sid ? $sid : $this->_post('shop_id');
+
+            $fd_id = $fid ? $fid : $this->_post('fd_id');
+            if (!$fd_info = D('Shopfd')->find($fd_id)) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'没有该商家!'
+                );
+                die(json_encode($rs));
+            }
+            if ($fd_info['closed']) {
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'该分店已经被删除!'
+                );
+                die(json_encode($rs));
+            }
+            $shop_id = $fd_info['shop_id'];
             if (!$detail = D('Shop')->find($shop_id)) {
                 $rs = array(
                     'success' => false,
@@ -24,8 +40,9 @@ class ApiPshopAction extends CommonAction{
                 );
                 die(json_encode($rs));
             }
+
             $area = D('Narea');
-            $info = $area->where('code = '.$detail['area_code'])->find();
+            $info = $area->where('code = '.$fd_info['area_code'])->find();
             if($info){
                 $area_name = $info['name'];
             }else{
@@ -194,7 +211,16 @@ class ApiPshopAction extends CommonAction{
 
             $this->assign('pic',$pic = D('Shoppic')->where(array('shop_id' => $shop_id))->order(array('pic_id' => 'desc'))->count());
             $shopyouhui = D('Shopyouhui')->where(array('shop_id'=>$shop_id,'is_open'=>1))->find();*/
-
+            $detail['fd_name']=$fd_info['fd_name'];
+            $detail['fd_id']=$fd_info['fd_id'];
+            $detail['tel']=$fd_info['tel'];
+            $detail['addr']=$fd_info['addr'];
+            $detail['logo']=$fd_info['logo'];
+            $detail['photo']=$fd_info['photo'];
+            $detail['contact']=$fd_info['contact'];
+            $ex=array();
+            $ex['details']=$fd_info['detail'];
+            $ex['business_time']=$fd_info['business_time'];
             $rs = array(
                 'success' => true,
                 'totalnum'=>$count,

@@ -166,7 +166,6 @@ class ApiPmallAction extends CommonAction{
     }
 
     public function getshops(){
-
         try{
             $Shop = D('Shop');
             $lng = (float)$this->_param('lng');
@@ -198,7 +197,8 @@ class ApiPmallAction extends CommonAction{
             $order = $this->_param('order')?$this->_param('order'):1;
             $shop_name = $this->_post('shop_name','trim')?$this->_post('shop_name','trim'):'';
             //$list = $Shop->getshopsAPP($city_id,$cate_id,$area_id,$page,$lng,$lat,$order);
-            $list = $Shop->getshopsAPP2($area_code,$page,$lng,$lat,$order,$shop_name);
+            //$list = $Shop->getshopsAPP2($area_code,$page,$lng,$lat,$order,$shop_name);
+            $list = $Shop->getshopsAPP3($area_code,$page,$lng,$lat,$order,$shop_name);
             //$list = $Shop->getshopsJL();(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*({$lat}-lat)/360),2)+COS(PI()*{$lng}/180)* COS(lat * PI()/180)*POW(SIN(PI()*({$lng}-lng)/360),2)))) as juli
             $rs = array(
                 'success' => true,

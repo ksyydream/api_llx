@@ -258,4 +258,207 @@ class ApiSmallAction extends CommonAction{
         }
         $this->ajaxReturn(array('success'=>false,'error_msg'=>'删除失败！'));
     }
+
+    /*//新增分店后的 修改
+    public function fd_list(){
+        $page = $this->_post('page','trim')?$this->_post('page','trim'):1;
+        $map = array('shop_id' => $this->shop_id,'closed'=>1);
+        $list = D('Shopjd')->field('*')->where($map)->order(array('fd_id' => 'asc'))->page($page . ',20')->select();
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    //图片列表
+    public function photo(){
+        if(!$this->_post('fd_id','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'标题不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $Shopfdpic = D('Shopfdpic');
+        $map = array('fd_id' =>  $this->_post('fd_id','trim'));
+        $list = $Shopfdpic->field('*')->where($map)->order(array('pic_id'=>'asc'))->select();
+        //die(var_dump($Shoppic->getLastSql()));
+        $rs = array(
+            'success'=>true,
+            'fd_pics'=>$list,
+            'error_msg'=>''
+        );
+
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function photo_delete(){
+        $pic_id = (int)$this->_post('pic_id');
+        $obj = D('Shopfdpic');
+        $detail = $obj->find($pic_id);
+        if($detail){
+            $fd_info = D('Shopjd')->find($detail['fd_id']);
+            if($fd_info==$this->shop_id){
+                $obj->delete($pic_id);
+                $rs = array(
+                    'success' => true,
+                    'error_msg' =>''
+                );
+                $this->ajaxReturn($rs,'JSON');
+            }
+        }
+        $this->ajaxReturn(array('success'=>false,'error_msg'=>'删除失败！'));
+    }
+
+    public function add_shop_pic(){
+        if(!$this->_post('title','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'标题不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('photo','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'图片地址不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!(int)$this->_post('orderby')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'顺序不能为空,且需要正整数!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        //$obj = D('Shoppic');
+        $obj = D('Shopfdpic');
+        $data = array(
+            'shop_id'=>$this->shop_id,
+            'title'=>htmlspecialchars($this->_post('title','trim'))
+        );
+        $data['photo'] = $this->_post('photo');
+        $data['orderby'] = (int)$this->_post('orderby');
+        $data['create_time'] = NOW_TIME;
+        $data['create_ip']  = get_client_ip();
+        if ($obj->add($data)) {
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'保存失败!'
+            );
+        }
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function save_about(){
+        if(!$this->_post('fd_id','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'分店编号不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if (!$fd_info = D('Shopfd')->find($this->_post('fd_id','trim'))) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有该商家!'
+            );
+            die(json_encode($rs));
+        }
+        if (!$fd_info['shop_id'] !=$this->shop_id) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'改分店不属于此用户!'
+            );
+            die(json_encode($rs));
+        }
+        if(!$this->_post('addr','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺地址不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('contact','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺联系人不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('business_time','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'商铺营业时间不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if(!$this->_post('tel','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'联系电话不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $data = array(
+            'addr'=>$this->_post('addr','trim,htmlspecialchars',''),
+            'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
+            'business_time'=>$this->_post('business_time','trim,htmlspecialchars',''),
+            'tel'=>$this->_post('tel','trim,htmlspecialchars',''),
+            'fd_id'=>$this->_post('fd_id','trim'),
+        );
+        if(D('Shopfd')->save($data)){
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'保存失败!'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+
+    }
+
+    public function fd_info(){
+        if(!$this->_post('fd_id','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'分店编号不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if (!$fd_info = D('Shopfd')->find($this->_post('fd_id','trim'))) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有该商家!'
+            );
+            die(json_encode($rs));
+        }
+        if (!$fd_info['shop_id'] !=$this->shop_id) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'改分店不属于此用户!'
+            );
+            die(json_encode($rs));
+        }
+        $rs = array(
+            'success'=>true,
+            'fd_info'=>$fd_info,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }*/
+
 }
