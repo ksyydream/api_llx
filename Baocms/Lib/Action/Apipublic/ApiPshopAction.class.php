@@ -226,6 +226,9 @@ class ApiPshopAction extends CommonAction{
                 $ex=array();
                 $ex['details']=$fd_info['detail'];
                 $ex['business_time']=$fd_info['business_time'];
+            }else{
+                $detail['fd_name']='';
+                $detail['fd_id']=-1;
             }
 
             $rs = array(
