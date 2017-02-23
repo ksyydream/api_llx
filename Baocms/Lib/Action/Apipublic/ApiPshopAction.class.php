@@ -46,7 +46,13 @@ class ApiPshopAction extends CommonAction{
             }
 
             $area = D('Narea');
-            $info = $area->where('code = '.isset($fd_info)?$fd_info['area_code']:$detail['area_code'])->find();
+            if(isset($fd_info)){
+                $area_code_ = $fd_info['area_code'];
+            }else{
+                $area_code_ = $detail['area_code'];
+            }
+
+            $info = $area->where('code = '.$area_code_)->find();
             if($info){
                 $area_name = $info['name'];
             }else{
