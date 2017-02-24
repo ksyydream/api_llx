@@ -121,7 +121,7 @@ class ApiSorderAction extends CommonAction{
             'remark'=>htmlspecialchars($this->_post('remark')),
             'status'=>1,
             'yhk'=>0,
-            'total'=>(int)$this->_post('total'),
+            'total'=>round($this->_post('total'),2),
             'create_time'=>NOW_TIME
         );
         $desc = $this->_post('desc');
