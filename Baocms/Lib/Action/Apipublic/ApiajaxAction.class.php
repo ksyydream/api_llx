@@ -16,4 +16,14 @@ class ApiajaxAction extends CommonAction{
         );
         die(json_encode($rs));
     }
+
+    public function change_yy(){
+        $shop_list =D('Shop')->select();
+        foreach($shop_list as $item){
+            D('Shopfd')->where("shop_id={$item['shop_id']}")->save(array(
+                'logo'=>$item['logo'],
+                'photo'=>$item['photo']
+            ));
+        }
+    }
 }
