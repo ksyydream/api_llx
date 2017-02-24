@@ -11,22 +11,46 @@ class ApiPshopAction extends CommonAction{
 
 
             if(!$sid){
-                $fd_id = $fid ? $fid : $this->_post('fd_id');
-                if (!$fd_info = D('Shopfd')->find($fd_id)) {
-                    $rs = array(
-                        'success' => false,
-                        'error_msg'=>'没有该商家!'
-                    );
-                    die(json_encode($rs));
+                if($this->_post('shop_id')){
+                    $shop_id = $this->_post('shop_id');
+                    $fd_id = $fid ? $fid : $this->_post('fd_id');
+                    if($fd_id){
+                        if (!$fd_info = D('Shopfd')->find($fd_id)) {
+                            $rs = array(
+                                'success' => false,
+                                'error_msg'=>'没有该商家!'
+                            );
+                            die(json_encode($rs));
+                        }
+                        if ($fd_info['closed']) {
+                            $rs = array(
+                                'success' => false,
+                                'error_msg'=>'该分店已经被删除!'
+                            );
+                            die(json_encode($rs));
+                        }
+                        $shop_id = $fd_info['shop_id'];
+                    }
+
+                }else{
+                    $fd_id = $fid ? $fid : $this->_post('fd_id');
+                    if (!$fd_info = D('Shopfd')->find($fd_id)) {
+                        $rs = array(
+                            'success' => false,
+                            'error_msg'=>'没有该商家!'
+                        );
+                        die(json_encode($rs));
+                    }
+                    if ($fd_info['closed']) {
+                        $rs = array(
+                            'success' => false,
+                            'error_msg'=>'该分店已经被删除!'
+                        );
+                        die(json_encode($rs));
+                    }
+                    $shop_id = $fd_info['shop_id'];
                 }
-                if ($fd_info['closed']) {
-                    $rs = array(
-                        'success' => false,
-                        'error_msg'=>'该分店已经被删除!'
-                    );
-                    die(json_encode($rs));
-                }
-                $shop_id = $fd_info['shop_id'];
+
             }else{
                 $shop_id = $sid;
             }
