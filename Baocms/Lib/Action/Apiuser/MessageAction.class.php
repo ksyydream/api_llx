@@ -79,7 +79,6 @@ class MessageAction extends CommonAction {
             $this->ajaxReturn($rs,'JSON');
         }
         if (!D('Msgread')->where(array('user_id' => $this->app_uid,'type'=>'msg','msg_id'=>$msg_id))->find()) {
-            echo D('Msgread')->getLastSql();
             D('Msgread')->add(array('user_id' => $this->app_uid,'msg_id' => $msg_id,'type'=>'msg','create_time' => NOW_TIME,'create_ip' => get_client_ip()));
         }
         $rs=array(
