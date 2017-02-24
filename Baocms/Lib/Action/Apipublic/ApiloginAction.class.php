@@ -393,12 +393,38 @@ class ApiloginAction extends CommonAction{
     }
 
     public function get_app_info(){
-        $app_type = (int)$this->_post('app_type');
+
+        $info = D('Appinfo')->order('version_num desc')->find();
+        if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
+            //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+            $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
+        }else{
+            $info['dx']=0;
+        }
+        if($info){
+            $rs = array(
+                'success' => true,
+                'info' =>$info,
+                'error_msg'=>''
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }else{
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'获取失败'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+
+
+
+
+        /*$app_type = (int)$this->_post('app_type');
         if(!$app_type){
             $rs = array('success' => false, 'error_msg'=>'请选择安卓还是IOS!');
             $this->ajaxReturn($rs,'JSON');
         }
-        $info = D('Appinfo')->order('version_num desc')->find();
+        $info = D('Appinfo')->where("type={$app_type}")->order('version_num desc')->find();
         if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
             //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
             $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
@@ -422,7 +448,7 @@ class ApiloginAction extends CommonAction{
                 'error_msg'=>'获取失败'
             );
             $this->ajaxReturn($rs,'JSON');
-        }
+        }*/
 
     }
 
