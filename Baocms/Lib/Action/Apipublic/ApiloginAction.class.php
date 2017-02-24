@@ -394,7 +394,7 @@ class ApiloginAction extends CommonAction{
 
     public function get_app_info(){
 
-        $info = D('Appinfo')->order('version_num desc')->find();
+        /*$info = D('Appinfo')->order('version_num desc')->find();
         if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
             //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
             $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
@@ -414,12 +414,12 @@ class ApiloginAction extends CommonAction{
                 'error_msg'=>'获取失败'
             );
             $this->ajaxReturn($rs,'JSON');
-        }
+        }*/
 
 
 
 
-        /*$app_type = (int)$this->_post('app_type');
+        $app_type = (int)$this->_post('app_type');
         if(!$app_type){
             $rs = array('success' => false, 'error_msg'=>'请选择安卓还是IOS!');
             $this->ajaxReturn($rs,'JSON');
@@ -448,7 +448,7 @@ class ApiloginAction extends CommonAction{
                 'error_msg'=>'获取失败'
             );
             $this->ajaxReturn($rs,'JSON');
-        }*/
+        }
 
     }
 
