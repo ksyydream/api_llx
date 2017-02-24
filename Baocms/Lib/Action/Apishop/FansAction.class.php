@@ -48,6 +48,7 @@ class FansAction extends CommonAction
                 //print_r($users);
                 $list[$k]['username']=$users['nickname'];
                 $list[$k]['mobile']=$users['mobile'];
+                $list[$k]['face']=$users['face'];
             }
         }
 
