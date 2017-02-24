@@ -17,11 +17,9 @@ class MessageAction extends CommonAction {
         $maxpage=ceil($count/6);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
         $msgs = $Msg->where($map)->order(array('msg_id' => 'desc'))->page($page.',6')->select();
-        $test=$Msg->getLastSql();
         $rs=array(
             'success'=>true,
             'msg'=>$msgs,
-            'test'=>$test,
             'type'=>$Msg->getType(),
             'page'=>$page,
             'maxpage'=>(int)$maxpage,
