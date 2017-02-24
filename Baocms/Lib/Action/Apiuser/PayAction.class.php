@@ -81,6 +81,10 @@ class PayAction extends CommonAction
         $id = $this->_post('id');
         $integral = $this->_post('integral');
         $gold = (int)($this->_post('gold')*100) ;
+         $open=fopen('/var/wx.txt',"a" );
+        fwrite($open,var_export($this->_post('gold'),true));
+        fwrite($open,var_export($gold,true));
+        fclose($open);
         $Pay = D('Pay');
         $Users = D('Users');
         $rs = $Pay->where(array('id'=>$id))->find();
