@@ -351,7 +351,10 @@ class ApiSorderAction extends CommonAction{
 //        if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
         $zp = (array)json_decode($rs['zp']);
         $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
-        $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME,'is_offline'=>2));
+        if($rs['use_gold']> 0){
+            $Users->addGold($member['user_id'],$rs['use_gold'],'优惠买单线下支付,退回线上使用余额');
+        }
+        $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>0,'pay_time'=>NOW_TIME,'is_offline'=>2));
         if($integral>0){
             $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
             $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
