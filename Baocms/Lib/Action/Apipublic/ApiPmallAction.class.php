@@ -174,6 +174,9 @@ class ApiPmallAction extends CommonAction{
                 $lat = 31.2383718228;
                 $lng = 121.3301816158;
             }
+            $lat_lng = gcjTObd($lat,$lng);
+            $lat = $lat_lng['lat'];
+            $lng = $lat_lng['lng'];
             $area_code = $this->_post('area_code');
             $area_name = '';
             if(!$area_code){

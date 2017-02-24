@@ -109,4 +109,38 @@ class CommonAction extends Action{
         }
         return $openid;
     }
+
+    /*//火星坐标(GCJ02坐标，高德，谷歌，腾讯坐标)到百度坐标BD-09
+    public function gcjTObd($lat,$lng){
+        $x_pi = 3.14159265358979324*3000.0/180.0;
+        $pi = 3.14159265358979324;
+        $a = 6378245.0;
+        $ee = 0.00669342162296594323;
+        $x = $lng;
+        $y = $lat;
+        $z = sqrt($x * $x + $y * $y) + 0.00002 * sin($y * $x_pi);
+        $theta = atan2($y, $x) + 0.000003 * cos($x * $x_pi);
+        $to=array();
+        $to['lng'] = $z * cos($theta) + 0.0065;
+        $to['lat'] = $z * sin($theta) + 0.006;
+
+        return $to;
+    }
+
+    //百度坐标BD-09到火星坐标GCJ02(高德，谷歌，腾讯坐标)
+    public function bdTOgcj($lat,$lng){
+        $x_pi = 3.14159265358979324*3000.0/180.0;
+        $pi = 3.14159265358979324;
+        $a = 6378245.0;
+        $ee = 0.00669342162296594323;
+        $x = $lng - 0.0065;
+        $y = $lat - 0.006;
+        $z = sqrt($x * $x + $y * $y) - 0.00002 * sin($y * $x_pi);
+        $theta = atan2($y, $x) - 0.000003 * cos($x * $x_pi);
+        $to=array();
+        $to['lng'] = $z * cos($theta);
+        $to['lat'] = $z * sin($theta);
+        return $to;
+    }*/
+
 }

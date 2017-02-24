@@ -229,6 +229,8 @@ class ApiPshopAction extends CommonAction{
                 $detail['logo']=$fd_info['logo'];
                 $detail['photo']=$fd_info['photo'];
                 $detail['contact']=$fd_info['contact'];
+                $detail['lat']=$fd_info['lat'];
+                $detail['lng']=$fd_info['lng'];
                 $ex=array();
                 $ex['details']=$fd_info['detail'];
                 $ex['business_time']=$fd_info['business_time'];
@@ -236,11 +238,19 @@ class ApiPshopAction extends CommonAction{
                 $detail['fd_name']='';
                 $detail['fd_id']=-1;
             }
-
+            $tx_lat = $detail['lat'];
+            $tx_lng = $detail['lng'];
+            if($detail['lat'] and $detail['lng']){
+                $tx_jw = bdTOgcj($detail['lat'],$detail['lng']);
+                $tx_lat = $tx_jw['lat'];
+                $tx_lng = $tx_jw['lng'];
+            }
             $rs = array(
                 'success' => true,
                 'totalnum'=>$count,
                 'detail'=>$detail,
+                'tx_lat'=>$tx_lat,
+                'tx_lng'=>$tx_lng,
                 'shop_audit'=> D('Audit')->where('shop_id =' . ($shop_id))->find(),
                 'ex' => $ex,
                 'area_name'=>$area_name,
