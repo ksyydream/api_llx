@@ -88,7 +88,8 @@ class ApiloginAction extends CommonAction{
 
         $yzm = rand(100000,999999);
         $text = "欢迎注册拉拉秀生态平台,您的短信验证码为:".$yzm;
-        file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+//        file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+        file_get_contents("http://api.smsbao.com/sms?u=ml6666&p=c4ba944ae255386e8323a6b0a2a30dc5&m={$mobile}&c=【拉拉秀】{$text}");
         $rs = array(
             'success'=>true,
             'yzm'=>$yzm,
@@ -188,7 +189,8 @@ class ApiloginAction extends CommonAction{
         if ($user = D('Users')->getUserByAccount($mobile)) {
                 $yzm = rand(100000,999999);
                 $text = "欢迎登陆拉拉秀生态平台,您的短信验证码为:".$yzm;
-                file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+//                file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+            file_get_contents("http://api.smsbao.com/sms?u=ml6666&p=c4ba944ae255386e8323a6b0a2a30dc5&m={$mobile}&c=【拉拉秀】{$text}");
                 $token = set_token_uid($user['user_id']);
                 $rs = array(
                     'success'=>true,
@@ -218,7 +220,8 @@ class ApiloginAction extends CommonAction{
         if ($user = D('Users')->getUserByAccount($mobile)) {
             $yzm = rand(100000,999999);
             $text = "拉拉秀生态平台密码修改,您的短信验证码为:".$yzm;
-            file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+//            file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+            file_get_contents("http://api.smsbao.com/sms?u=ml6666&p=c4ba944ae255386e8323a6b0a2a30dc5&m={$mobile}&c=【拉拉秀】{$text}");
             $rs = array(
                 'success'=>true,
                 'yzm'=>$yzm,
