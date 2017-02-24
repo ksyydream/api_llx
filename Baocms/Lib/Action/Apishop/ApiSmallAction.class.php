@@ -259,7 +259,7 @@ class ApiSmallAction extends CommonAction{
         $this->ajaxReturn(array('success'=>false,'error_msg'=>'删除失败！'));
     }
 
-    /*//新增分店后的 修改
+//新增分店后的 修改
     public function fd_list(){
         $page = $this->_post('page','trim')?$this->_post('page','trim'):1;
         $map = array('shop_id' => $this->shop_id,'closed'=>1);
@@ -271,6 +271,61 @@ class ApiSmallAction extends CommonAction{
         );
         $this->ajaxReturn($rs,'JSON');
     }
+
+    public function fd_info(){
+        if(!$this->_post('fd_id','trim')){
+            $rs=array(
+                'success'=>false,
+                'error_msg'=>'分店编号不能为空'
+            );
+            $this->ajaxReturn($rs,'JSON');
+        }
+        if (!$fd_info = D('Shopfd')->find($this->_post('fd_id','trim'))) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'没有该商家!'
+            );
+            die(json_encode($rs));
+        }
+        if (!$fd_info['shop_id'] !=$this->shop_id) {
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'改分店不属于此用户!'
+            );
+            die(json_encode($rs));
+        }
+        $area = D('Narea');
+        $area_info = $area->where('code = '.$fd_info['area_code'])->find();
+        if($area_info){
+            $area_name = $area_info['name'];
+        }else{
+            $area_name = '';
+        }
+        $city = D('Ncity');
+        $city_info = $city->where('code = '.$fd_info['city_code'])->find();
+        if($city_info){
+            $city_name = $city_info['name'];
+        }else{
+            $city_name = '';
+        }
+        $province = D('Nprovince');
+        $province_info = $province->where('code = '.$fd_info['province_code'])->find();
+        if($province_info){
+            $province_name = $province_info['name'];
+        }else{
+            $province_name = '';
+        }
+        $rs = array(
+            'success'=>true,
+            'fd_info'=>$fd_info,
+            'province_name'=>$province_name,
+            'city_name'=>$city_name,
+            'area_name'=>$area_name,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+    /*
 
     //图片列表
     public function photo(){
@@ -431,34 +486,6 @@ class ApiSmallAction extends CommonAction{
 
     }
 
-    public function fd_info(){
-        if(!$this->_post('fd_id','trim')){
-            $rs=array(
-                'success'=>false,
-                'error_msg'=>'分店编号不能为空'
-            );
-            $this->ajaxReturn($rs,'JSON');
-        }
-        if (!$fd_info = D('Shopfd')->find($this->_post('fd_id','trim'))) {
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'没有该商家!'
-            );
-            die(json_encode($rs));
-        }
-        if (!$fd_info['shop_id'] !=$this->shop_id) {
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'改分店不属于此用户!'
-            );
-            die(json_encode($rs));
-        }
-        $rs = array(
-            'success'=>true,
-            'fd_info'=>$fd_info,
-            'error_msg'=>''
-        );
-        $this->ajaxReturn($rs,'JSON');
-    }*/
+    */
 
 }
