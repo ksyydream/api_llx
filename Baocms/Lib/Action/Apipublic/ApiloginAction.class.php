@@ -425,16 +425,21 @@ class ApiloginAction extends CommonAction{
             $this->ajaxReturn($rs,'JSON');
         }
         $info = D('Appinfo')->where("type={$app_type}")->order('version_num desc')->find();
-        if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
-            //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
-            $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
+        if($app_type==1){
+            if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
+                //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+                $info['dx']=filesize(BASE_PATH.'/attachs/'.$info['path']);
+            }else{
+                $rs = array(
+                    'success' => false,
+                    'error_msg'=>'数据库保存的新版本,安装包丢失'
+                );
+                $this->ajaxReturn($rs,'JSON');
+            }
         }else{
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'数据库保存的新版本,安装包丢失'
-            );
-            $this->ajaxReturn($rs,'JSON');
+            $info['dx']=0;
         }
+
         if($info){
             $rs = array(
                 'success' => true,
