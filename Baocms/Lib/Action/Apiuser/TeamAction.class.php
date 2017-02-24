@@ -20,11 +20,10 @@ class TeamAction extends CommonAction{
         $map_shop['shop_id'] = array('in',$shop_ids);
         $shops = D('Shop')->field('shop_id,shop_name')->where($map_shop)->select();
 
-
         if(!$shop_id){
         $rs = array(
             'success'=>true,
-            'shop'=>$shops,
+            'shop'=>$shops?$shops:array(),
             'team1_info'=>array(),
             'team2_info'=>array(),
             'team3_info'=>array(),
