@@ -79,7 +79,8 @@ class PayAction extends CommonAction
     public function check_pay(){
 
         $id = $this->_post('id');
-        $integral = $this->_post('integral');
+        //$integral = $this->_post('integral');
+        $integral = 0;
         $gold = (int)($this->_post('gold')*100) ;
          $open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export($this->_post('gold'),true));
@@ -99,14 +100,14 @@ class PayAction extends CommonAction
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'权限不足!'));
         }
 
-        if($integral < 0 || $member['integral'] < $integral || $integral > ($rs['total'] - $rs['yhk'])*100){
+        /*if($integral < 0 || $member['integral'] < $integral || $integral > ($rs['total'] - $rs['yhk'])*100){
             $this->ajaxReturn(array('success'=>false,'error_msg'=>'秀币输入错误!'));
-        }
+        }*/
 
         $Shop = D('Shop');
         $shop = $Shop->where(array('shop_id'=>$rs['shop_id']))->find();
 
-        if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
+        /*if($integral == ($rs['total'] - $rs['yhk'])*100){//全部用秀币抵扣,不涉及支付
             $zp = (array)json_decode($rs['zp']);
             $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
             $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'pay_time'=>NOW_TIME));
@@ -114,25 +115,44 @@ class PayAction extends CommonAction
             $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
             $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
             exit();
-        }
+        }*/
+        if($rs['use_gold'] > 0){
+            if($rs['use_gold'] >= ($rs['total'] - $rs['yhk'])*100 - $integral){//全部用秀币抵扣,不涉及支付
+                if($rs['use_gold'] >= ($rs['total'] - $rs['yhk'])*100 - $integral){
+                    $Users->addGold($member['user_id'],(($rs['total'] - $rs['yhk'])*100 - $integral)-$rs['use_gold'],'优惠买单使用余额');
+                }
+                $use_gold_ = ($rs['total'] - $rs['yhk'])*100 - $integral;
+                $zp = (array)json_decode($rs['zp']);
+                $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
+                $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>$use_gold_,'pay_time'=>NOW_TIME));
 
-        if($gold < 0 || $member['gold'] < $gold || $gold > ($rs['total'] - $rs['yhk'])*100 - $integral ){
-            $this->ajaxReturn(array('success'=>false,'error_msg'=>'余额输入错误!'));
-        }
-
-        if($gold == ($rs['total'] - $rs['yhk'])*100 - $integral){//全部用秀币抵扣,不涉及支付
-            $zp = (array)json_decode($rs['zp']);
-            $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
-            $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>$gold,'pay_time'=>NOW_TIME));
-            if($integral > 0){
-                $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
-                $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+                $Users->addGold($shop['user_id'],$use_gold_,'客户优惠买单获得余额');
+                $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+                exit();
             }
-            $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
-            $Users->addGold($shop['user_id'],$gold,'客户优惠买单获得余额');
-            $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
-            exit();
+            $gold = $rs['use_gold'];
+        }else{
+            if($gold < 0 || $member['gold'] < $gold || $gold > ($rs['total'] - $rs['yhk'])*100 - $integral ){
+                $this->ajaxReturn(array('success'=>false,'error_msg'=>'余额输入错误!'));
+            }
+
+            if($gold == ($rs['total'] - $rs['yhk'])*100 - $integral){//全部用秀币抵扣,不涉及支付
+                $zp = (array)json_decode($rs['zp']);
+                $this->compute_yhk($member['account'],$rs['yhk'],$zp,$rs['shop_id']);
+                $Pay->where(array('id'=>$id))->save(array('status'=>2,'integral'=>$integral,'use_gold'=>$gold,'pay_time'=>NOW_TIME));
+                if($integral > 0){
+                    $Users->addIntegral($member['user_id'],-$integral,'优惠买单使用秀币');
+                    $Users->addIntegral($shop['user_id'],$integral,'客户优惠买单获得秀币');
+                }
+                $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
+                $Users->addGold($shop['user_id'],$gold,'客户优惠买单获得余额');
+                $this->ajaxReturn(array('success'=>true,'error_msg'=>'','flag'=>1));
+                exit();
+            }
         }
+
+
+
         $logs = D('Paymentlogs')->getLogsByOrderId('breaks', $id);
         if (empty($logs)) {
             $logs = array(
