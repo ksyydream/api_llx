@@ -112,7 +112,7 @@ class TeamAction extends CommonAction{
         $map['user_id']  = array('in',$users);
         $data = D('Users')->field('face,account AS mobile,nickname')->where($map)->select();
 
-        return $data;
+        return $data?$data:array();
     }
 
 }
