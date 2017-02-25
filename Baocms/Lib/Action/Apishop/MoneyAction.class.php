@@ -165,10 +165,10 @@ class MoneyAction extends CommonAction{
                 $rs['error_msg']='开户姓名不能为空';
                 $this->ajaxReturn($rs,'JSON');
             }
-            if (empty($yzm)) {
+           /* if (empty($yzm)) {
                 $rs['error_msg']='请输入短信验证码';
                 $this->ajaxReturn($rs,'JSON');
-            }
+            }*/
 
             /*if ($users['mobile'] != $s_mobile) {
                 $rs['error_msg']='手机号码和收取验证码的手机号不一致！';
