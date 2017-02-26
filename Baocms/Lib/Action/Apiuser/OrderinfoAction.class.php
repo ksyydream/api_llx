@@ -252,8 +252,8 @@ class OrderinfoAction extends CommonAction{
                 //计算分数
                 if($shop_info){
                     $old_score_shop = $shop_info['score']?$shop_info['score']:35;
-                    $new_score_shop = (int)(($old_score_shop * $shop_info['score_num'] + $score)/($shop_info['score_num']+1));
-                    $new_score_shop = (int)$new_score_shop;
+                    $new_score_shop = (($old_score_shop * $shop_info['score_num'] + $score*10)/($shop_info['score_num']+1));
+                    $new_score_shop = round($new_score_shop);
                     if($new_score_shop < 10){
                         $new_score_shop = 10;
                     }
