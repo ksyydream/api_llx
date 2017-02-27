@@ -444,24 +444,25 @@ class OrderinfoAction extends CommonAction{
         $need_pay = D('Order')->useGold($this->app_uid, array($order_id));
         //die(var_dump($need_pay));
         //更新支付结果
-        if (empty($logs)) {
-            $logs = array(
-                'type' => 'goods',
-                'user_id' => $this->app_uid,
-                'order_id' => $order_id,
-                'code' => '',
-                'need_pay' => $need_pay,
-                'create_time' => NOW_TIME,
-                'create_ip' => get_client_ip(),
-                'is_paid' => 0
-            );
-            //单个付款走的这里，为什么没写入数据库$need_pay
-            $logs['log_id'] = D('Paymentlogs')->add($logs);
+        $logs = array(
+            'type' => 'goods',
+            'user_id' => $this->app_uid,
+            'order_id' => $order_id,
+            'code' => '',
+            'need_pay' => $need_pay,
+            'create_time' => NOW_TIME,
+            'create_ip' => get_client_ip(),
+            'is_paid' => 0
+        );
+        //单个付款走的这里，为什么没写入数据库$need_pay
+        $logs['log_id'] = D('Paymentlogs')->add($logs);
+        /*if (empty($logs)) {
+
         } else {
             $logs['need_pay'] = $need_pay;
             $logs['code'] = '';
             D('Paymentlogs')->save($logs);
-        }
+        }*/
         D('Order')->where("order_id={$order_id}")->save(array('need_pay' => $need_pay));
         $order_new = D('Order')->find($order_id);
         if($order_new['need_pay'] == 0){

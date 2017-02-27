@@ -159,24 +159,25 @@ class PayAction extends CommonAction
 
 
 
-        $logs = D('Paymentlogs')->getLogsByOrderId('breaks', $id);
-        if (empty($logs)) {
-            $logs = array(
-                'user_id'=>$member['user_id'],
-                'type'=>'breaks',
-                'order_id'=>$id,
-                'code'=>'weixin',
-                'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral - $gold,
-                'create_time'=>NOW_TIME,
-                'create_ip'=>get_client_ip(),
-                'is_paid'=>0
-            );
-            $logs['log_id'] = D('Paymentlogs')->add($logs);
+        //$logs = D('Paymentlogs')->getLogsByOrderId('breaks', $id);
+        $logs = array(
+            'user_id'=>$member['user_id'],
+            'type'=>'breaks',
+            'order_id'=>$id,
+            'code'=>'weixin',
+            'need_pay'=>($rs['total'] - $rs['yhk'])*100 - $integral - $gold,
+            'create_time'=>NOW_TIME,
+            'create_ip'=>get_client_ip(),
+            'is_paid'=>0
+        );
+        $logs['log_id'] = D('Paymentlogs')->add($logs);
+        /*if (empty($logs)) {
+
         }else{
             $logs['need_pay'] = ($rs['total'] - $rs['yhk'])*100 - $integral - $gold;
             $logs['code'] = '';
             D('Paymentlogs')->save($logs);
-        }
+        }*/
         if($rs['use_gold'] == 0){
             if($gold > 0){
                 $Users->addGold($member['user_id'],-$gold,'优惠买单使用余额');
