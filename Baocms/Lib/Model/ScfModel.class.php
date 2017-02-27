@@ -19,7 +19,7 @@ class ScfModel extends CommonModel{
             'b.closed'=>0,
             'c.closed'=>0
             );
-        $items = $this->alias('a')->field("a.scf_id,b.*,c.score")
+        $items = $this->alias('a')->field("a.scf_id,b.*,c.score,c.shop_name")
             ->join('bao_shop_fd b on b.fd_id = a.fd_id','LEFT')
             ->join('bao_shop c on c.shop_id = b.shop_id','LEFT')
             ->where($map)
