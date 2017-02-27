@@ -202,6 +202,9 @@ class ApijfAction extends CommonAction {
             case 4:
                 $map['a.status'] = 4;
                 break;
+            case -1:
+                $map['a.status'] = array('IN',array(2,3,4));
+                break;
             default:
                 break;
         }
