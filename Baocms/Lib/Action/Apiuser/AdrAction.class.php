@@ -61,7 +61,7 @@ class AdrAction extends CommonAction {
                 $this->ajaxReturn(array('success'=>false,'error_msg'=>'不要操作别人的地址'));
             }
             if(D('Useraddr')->delete($addr_id)){
-                $this->ajaxReturn(array('success'=>'success','error_msg'=>'恭喜您删除成功'));
+                $this->ajaxReturn(array('success'=>true,'error_msg'=>'恭喜您删除成功'));
             }
         }
 
