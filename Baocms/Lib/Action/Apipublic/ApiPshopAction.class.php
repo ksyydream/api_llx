@@ -310,6 +310,7 @@ class ApiPshopAction extends CommonAction{
         @$post_data->action_info->scene->scene_str = $uid.'/'.$shop_id;
         $ticket_data = json_decode($this->post($url, $post_data));
          $open=fopen('/var/wx.txt',"a" );
+        fwrite($open,var_export($url,true));
        fwrite($open,var_export($ticket_data,true));
        fclose($open);
         $ticket = $ticket_data->ticket;
