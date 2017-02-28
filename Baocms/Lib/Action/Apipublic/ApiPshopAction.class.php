@@ -99,9 +99,12 @@ class ApiPshopAction extends CommonAction{
                     //$appsecret = $this -> _CONFIG['weixin']["appsecret"];
                     $appid = C('zs_wx_appid');
                     $appsecret = C('zs_wx_appsecret');
-                    $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
-                    $rs = json_decode($rs,true);
-                    $access_token = $rs['access_token'];
+                    import("@/Net.Jssdk");
+                    $jssdk = new JSSDK("$appid", "$appsecret");
+                    $access_token = $jssdk->getAccessToken();
+                   /* $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
+                    $rs = json_decode($rs,true);*/
+                    //$access_token = $rs['access_token'];
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
                     if($rs['subscribe'] != 1){
