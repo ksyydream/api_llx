@@ -105,6 +105,11 @@ class ApiPshopAction extends CommonAction{
                    /* $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$appsecret}");
                     $rs = json_decode($rs,true);*/
                     //$access_token = $rs['access_token'];
+                    $open=fopen('/var/wx.txt',"a" );
+                    fwrite($open,var_export($access_token,true));
+                    fwrite($open,var_export($openid,true));
+                    fwrite($open,var_export("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN",true));
+                    fclose($open);
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
                     if($rs['subscribe'] != 1){
