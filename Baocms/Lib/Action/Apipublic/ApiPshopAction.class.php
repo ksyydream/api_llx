@@ -112,6 +112,11 @@ class ApiPshopAction extends CommonAction{
                     fclose($open);
                     $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
                     $rs = json_decode($rs,true);
+                    if(isset($rs['errcode']) and $rs['errcode'] == 40001) {
+                        $access_token = $jssdk->new_AccessToken();
+                        $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN");
+                        $rs = json_decode($rs,true);
+                    }
                     if($rs['subscribe'] != 1){
                         $img_url = $this->get_or_create_ticket($puid,$shop_id);
                         //die($img_url);
