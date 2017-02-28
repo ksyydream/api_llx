@@ -84,6 +84,9 @@ class Jssdk {
         fclose($fp);
       }
     } else {
+      $open=fopen('/var/wx.txt',"a" );
+      fwrite($open,var_export($data,true));
+      fclose($open);
       $access_token = $data->access_token;
     }
     return $access_token;
