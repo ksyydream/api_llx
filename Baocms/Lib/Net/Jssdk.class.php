@@ -76,9 +76,9 @@ class Jssdk {
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
       $res = json_decode($this->httpGet($url));
       $access_token = $res->access_token;
-      $open=fopen('/var/wx.txt',"a" );
+     /* $open=fopen('/var/wx.txt',"a" );
       fwrite($open,var_export($access_token,true));
-      fclose($open);
+      fclose($open);*/
       if ($access_token) {
         $data->expire_time = time() + 7000;
         $data->access_token = $access_token;
@@ -87,9 +87,9 @@ class Jssdk {
         fclose($fp);
       }
     } else {
-      $open=fopen('/var/wx.txt',"a" );
+     /* $open=fopen('/var/wx.txt',"a" );
       fwrite($open,var_export($data,true));
-      fclose($open);
+      fclose($open);*/
       $access_token = $data->access_token;
     }
     return $access_token;
