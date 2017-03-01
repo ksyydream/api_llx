@@ -81,4 +81,15 @@ class ApiajaxAction extends CommonAction{
             Http::download(BASE_PATH.'/attachs/'.$info['path'],$info['path']);
         }
     }
+
+    public function get_url(){
+        $app_type = (int)$this->_post('app_type')?(int)$this->_post('app_type'):1;
+        $info = D('Appinfo')->where("type={$app_type}")->order('version_num desc')->find();
+        $rs=array(
+            'url'=>$info['app_url'],
+            'success' => true,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
+    }
 }
