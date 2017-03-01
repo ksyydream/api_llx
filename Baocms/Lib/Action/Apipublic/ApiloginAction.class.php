@@ -121,6 +121,9 @@ class ApiloginAction extends CommonAction{
             'sex' => $this->_param('sex')?$this->_param('sex'):null,
         );
         $data['face'] = $this->uploadimg('face');
+        if($data['face']==''){
+            $data['face']='xiaoxiong.png';
+        }
         if($user_id = D('Users')->add($data)){
             $token = set_token_uid($user_id);
             $rs = array(
