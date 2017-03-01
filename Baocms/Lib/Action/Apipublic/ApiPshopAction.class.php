@@ -206,21 +206,43 @@ class ApiPshopAction extends CommonAction{
                                     if(!isset($parent[$shop_id])){
                                         $parent[$shop_id] = $puid;
                                     }else{
-                                        if($parent[$shop_id]==$user_info['user_id']){
-                                            $parent[$shop_id] = $puid;
+                                        if($con_user_info){
+                                            if($parent[$shop_id]==$con_user_info['user_id']){
+                                                $parent[$shop_id] = $puid;
+                                            }
                                         }
                                     }
                                     $parent = json_encode($parent);
                                     $Userparent->where(array('mobile'=>$rs['mobile']))->save(array('parent'=>$parent));
                                 }else{
-                                    $parent[$shop_id] = $puid;
-                                    $parent = json_encode($parent);
-                                    $data = array(
-                                        'openid'=>$openid,
-                                        'parent'=>$parent,
-                                        'mobile'=>$con_user_info?$con_user_info['account']:null
-                                    );
-                                    $Userparent->add($data);
+                                    //在保存userparent 表openid时,要确保openid的唯一 所以需要验证
+                                    $rs1 = $Userparent->where(array('openid'=>$openid))->find();
+                                    if($rs1){
+                                            $parent_old = json_decode($rs1['parent']);
+                                            foreach ($parent_old as $k=>$v){
+                                                $parent[$k] = $v;
+                                            }
+                                            if(!isset($parent[$shop_id])){
+                                                $parent[$shop_id] = $puid;
+                                            }else{
+                                                if($con_user_info){
+                                                    if($parent[$shop_id]==$con_user_info['user_id']){
+                                                        $parent[$shop_id] = $puid;
+                                                    }
+                                                }
+                                            }
+                                            $parent = json_encode($parent);
+                                            $Userparent->where(array('openid'=>$openid))->save(array('parent'=>$parent,'mobile'=>$con_user_info['account']));
+                                    }else{
+                                        $parent[$shop_id] = $puid;
+                                        $parent = json_encode($parent);
+                                        $data = array(
+                                            'mobile' => $con_user_info?$con_user_info['account']:null,
+                                            'openid'=>$openid,
+                                            'parent'=>$parent
+                                        );
+                                        $Userparent->add($data);
+                                    }
                                 }
                                /* $open=fopen('/var/wx.txt',"a" );
                                 fwrite($open,var_export($dataall,true));
