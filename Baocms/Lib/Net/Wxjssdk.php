@@ -53,9 +53,9 @@ class Wxjssdk {
             //测试
 
             $res = json_decode($this->wxhttpGet($url));
-            $open=fopen('/var/wx.txt',"a" );
+           /* $open=fopen('/var/wx.txt',"a" );
        fwrite($open,var_export($res,true));
-       fclose($open);
+       fclose($open);*/
             $access_token = $res->access_token;
             if ($access_token) {
                 $data->expire_time = time() + 7000;
