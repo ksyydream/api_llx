@@ -73,4 +73,12 @@ class ApiajaxAction extends CommonAction{
         }
         echo $openid;
     }
+
+    public function down_Android(){
+        $info = D('Appinfo')->where("type=1")->order('version_num desc')->find();
+        if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
+            import('ORG.Net.Http');
+            Http::download(BASE_PATH.'/attachs/'.$info['path'],'拉拉秀安卓安装包');
+        }
+    }
 }
