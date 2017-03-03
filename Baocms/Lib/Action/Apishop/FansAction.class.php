@@ -13,7 +13,7 @@ class FansAction extends CommonAction
         $fans = D('Scf');
         //实例化fans模型
         $map = array(
-            'b.shop_id' => $this->_post('shop_id', 'htmlspecialchars')
+            'b.shop_id' => $this->shop_id
         );
         //查询条件
         if ($keyword = $this->_post('keyword', 'htmlspecialchars')) {
