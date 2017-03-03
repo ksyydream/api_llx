@@ -27,7 +27,7 @@ class FansAction extends CommonAction
         // 查询满足要求的总记录数
         $maxpage=ceil($count/6);
         $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
-        $list = $fans->alias('a')->group('a.uid')->field('a.*,b.shop_id,c.user_id,c.nickname,c.mobile,c.face')
+        $list = $fans->alias('a')->group('a.uid')->field('a.*,b.shop_id,c.user_id,c.nickname username,c.account mobile,c.face')
             ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
             ->join('bao_users c on c.user_id = a.uid','LEFT')
             ->where($map)
