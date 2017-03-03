@@ -314,7 +314,7 @@ class ApijfAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'该订单不可操作!');
             die(json_encode($rs));
         }
-        $order_goods = D('Jfordergoods')->where(array('jforder'=>$order_id))->select();
+        $order_goods = D('Jfordergoods')->where(array('jforder_id'=>$order_id))->select();
         foreach($order_goods as $item){
             if (!($detail = D('Llxgoods')->find($item['goods_id']))) {
                 $rs = array('success' => false, 'error_msg'=>'该商品不存在,不可再购买');
