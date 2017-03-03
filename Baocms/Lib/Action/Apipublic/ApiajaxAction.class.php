@@ -92,4 +92,71 @@ class ApiajaxAction extends CommonAction{
         );
         die(json_encode($rs));
     }
+
+    public function test()
+    {
+        $fans = D('Scf');
+        //实例化fans模型
+        $map = array(
+            'b.shop_id' => $this->_post('shop_id', 'htmlspecialchars')
+        );
+        //查询条件
+        if ($keyword = $this->_post('keyword', 'htmlspecialchars')) {
+            /*$maps['nickname|mobile'] = array('like','%'.trim($keyword).'%');
+            $Users = D('Users');
+            $user = $Users->where($maps)->select();
+            foreach ($user as $k => $val) {
+                if ($val['user_id']) {
+                    $user_ids[$val['user_id']] = $val['user_id'];
+                }
+            }
+            if (!empty($user)) {
+                $map['user_id'] = array('in',$user_ids);
+            }else{
+                $rs = array(
+                    'success' =>true,
+                    'keyword'=> $keyword,
+                    'list'=>'',
+                    'error_msg'=>''
+                );
+                die(json_encode($rs));
+            }*/
+            $map['c.nickname|c.mobile'] = array('like','%'.trim($keyword).'%');
+        }
+        //$count = $fans->where($map)->count();
+        $count = $fans->alias('a')->group('a.uid')->field('a.*')
+            ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
+            ->join('bao_users c on c.user_id = a.uid','LEFT')
+            ->where($map)->count();
+        // 查询满足要求的总记录数
+        $maxpage=ceil($count/6);
+        $page = $this->_param('page', 'htmlspecialchars')?$this->_param('page', 'htmlspecialchars'):1;
+        $list = $fans->alias('a')->group('a.uid')->field('a.*,c.nickname,c.mobile,c.face')
+            ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
+            ->join('bao_users c on c.user_id = a.uid','LEFT')
+            ->where($map)
+            ->order(array('favorites_id' => 'desc'))
+            ->page($page.',6')
+            ->select();
+        /* $user_ids = array();
+         foreach ($list as $k => $val) {
+             if ($val['uid']) {
+                 $users=D('Users')->where(array('user_id'=>$val['uid']))->find();
+                 //print_r($users);
+                 $list[$k]['username']=$users['nickname'];
+                 $list[$k]['mobile']=$users['mobile'];
+                 $list[$k]['face']=$users['face'];
+             }
+         }*/
+
+        $rs = array(
+            'success' =>true,
+            'keyword'=> $keyword,
+            'list'=> $list,
+            'page'=> $page,
+            'maxpage'=>$maxpage,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
+    }
 }
