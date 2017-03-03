@@ -116,7 +116,7 @@ class ApiajaxAction extends CommonAction{
             ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
             ->join('bao_users c on c.user_id = a.uid','LEFT')
             ->where($map)
-            ->order(array('a.id' => 'desc'))
+            ->order(array('a.scf_id' => 'desc'))
             ->page($page.',6')
             ->select();
         die(var_dump($fans->getLastSql()));
