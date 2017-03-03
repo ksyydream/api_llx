@@ -102,28 +102,9 @@ class ApiajaxAction extends CommonAction{
         );
         //查询条件
         if ($keyword = $this->_post('keyword', 'htmlspecialchars')) {
-            /*$maps['nickname|mobile'] = array('like','%'.trim($keyword).'%');
-            $Users = D('Users');
-            $user = $Users->where($maps)->select();
-            foreach ($user as $k => $val) {
-                if ($val['user_id']) {
-                    $user_ids[$val['user_id']] = $val['user_id'];
-                }
-            }
-            if (!empty($user)) {
-                $map['user_id'] = array('in',$user_ids);
-            }else{
-                $rs = array(
-                    'success' =>true,
-                    'keyword'=> $keyword,
-                    'list'=>'',
-                    'error_msg'=>''
-                );
-                die(json_encode($rs));
-            }*/
             $map['c.nickname|c.mobile'] = array('like','%'.trim($keyword).'%');
         }
-        //$count = $fans->where($map)->count();
+
         $count = $fans->alias('a')->group('a.uid')->field('a.*')
             ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
             ->join('bao_users c on c.user_id = a.uid','LEFT')
@@ -135,19 +116,9 @@ class ApiajaxAction extends CommonAction{
             ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
             ->join('bao_users c on c.user_id = a.uid','LEFT')
             ->where($map)
-            ->order(array('favorites_id' => 'desc'))
+            ->order(array('a.id' => 'desc'))
             ->page($page.',6')
             ->select();
-        /* $user_ids = array();
-         foreach ($list as $k => $val) {
-             if ($val['uid']) {
-                 $users=D('Users')->where(array('user_id'=>$val['uid']))->find();
-                 //print_r($users);
-                 $list[$k]['username']=$users['nickname'];
-                 $list[$k]['mobile']=$users['mobile'];
-                 $list[$k]['face']=$users['face'];
-             }
-         }*/
 
         $rs = array(
             'success' =>true,
