@@ -119,7 +119,7 @@ class ApiajaxAction extends CommonAction{
             ->order(array('a.scf_id' => 'desc'))
             ->page($page.',6')
             ->select();
-        die(var_dump($fans->getLastSql()));
+        //die(var_dump($fans->getLastSql()));
         $rs = array(
             'success' =>true,
             'keyword'=> $keyword,
