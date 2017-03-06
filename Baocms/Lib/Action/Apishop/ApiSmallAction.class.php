@@ -94,12 +94,19 @@ class ApiSmallAction extends CommonAction{
 
         //商家员工数量
         $counts['shopworker'] = (int) D('Shopworker')->where(array('shop_id' => $this->shop_id,'closed' => 0))->count();//总商家预约数量
+        $shop_audit = D('Audit')->where('shop_id =' . ($this->shop_id))->find();
+        if(!$shop_audit){
+            $shop_audit=array(
+                'photo'=>'',
+                'pic'=>''
+            );
+        }
         $rs = array(
             'success'=>true,
             'shop_info'=>$this->shop,
             'user_info'=>$this->member,
             'shop_detail'=>D('Shopdetails')->find($this->shop_id),
-            'shop_audit'=> D('Audit')->where('shop_id =' . ($this->shop_id))->find(),
+            'shop_audit'=> $shop_audit,
             'shop_cate_name'=>'',
             'error_msg'=>''
         );
