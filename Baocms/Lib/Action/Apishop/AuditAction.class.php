@@ -67,14 +67,13 @@ class AuditAction extends CommonAction {
             $shop_audit = D('Audit')->where('shop_id =' . ($this->shop_id))->find();
             if(!$shop_audit){
                 $shop_audit=array(
-                    'name'=>null,
-                    'photo'=>null,
-                    'pic'=>null,
-                    'audit_id'=>null,
+                    'name'=>'',
+                    'photo'=>'',
+                    'pic'=>'',
                     'shop_id'=>$this->shop_id,
-                    'zhucehao'=>null,
-                    'addr'=>null,
-                    'end_date'=>null,
+                    'zhucehao'=>'',
+                    'addr'=>'',
+                    'end_date'=>'',
                     'zuzhidaima'=>''
                 );
             }

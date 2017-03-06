@@ -97,8 +97,14 @@ class ApiSmallAction extends CommonAction{
         $shop_audit = D('Audit')->where('shop_id =' . ($this->shop_id))->find();
         if(!$shop_audit){
             $shop_audit=array(
+                'name'=>'',
                 'photo'=>'',
-                'pic'=>''
+                'pic'=>'',
+                'shop_id'=>$this->shop_id,
+                'zhucehao'=>'',
+                'addr'=>'',
+                'end_date'=>'',
+                'zuzhidaima'=>''
             );
         }
         $rs = array(
