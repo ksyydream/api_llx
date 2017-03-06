@@ -95,6 +95,7 @@ class ApiajaxAction extends CommonAction{
 
     public function test()
     {
+        die(var_dump(NOW_TIME));
         $fans = D('Scf');
         //实例化fans模型
         $map = array(
