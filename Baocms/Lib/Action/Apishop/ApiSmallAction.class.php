@@ -95,6 +95,8 @@ class ApiSmallAction extends CommonAction{
         //商家员工数量
         $counts['shopworker'] = (int) D('Shopworker')->where(array('shop_id' => $this->shop_id,'closed' => 0))->count();//总商家预约数量
         $shop_audit = D('Audit')->where('shop_id =' . ($this->shop_id))->find();
+        $map = array('closed' => 0, 'shop_id' => $this->shop_id, 'show_date' => array('ELT', TODAY));
+        $count = D('Goodsdianping')->where($map)->count();
         if(!$shop_audit){
             $shop_audit=array(
                 'name'=>'',
@@ -109,6 +111,7 @@ class ApiSmallAction extends CommonAction{
         }
         $rs = array(
             'success'=>true,
+            'dp_count'=>$count,
             'shop_info'=>$this->shop,
             'user_info'=>$this->member,
             'shop_detail'=>D('Shopdetails')->find($this->shop_id),
