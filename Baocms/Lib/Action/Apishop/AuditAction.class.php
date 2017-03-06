@@ -65,6 +65,19 @@ class AuditAction extends CommonAction {
             $this->ajaxReturn($rs,'JSON');
         } else {
             $shop_audit = D('Audit')->where('shop_id =' . ($this->shop_id))->find();
+            if(!$shop_audit){
+                $shop_audit=array(
+                    'name'=>null,
+                    'photo'=>null,
+                    'pic'=>null,
+                    'audit_id'=>null,
+                    'shop_id'=>$this->shop_id,
+                    'zhucehao'=>null,
+                    'addr'=>null,
+                    'end_date'=>null,
+                    'zuzhidaima'=>''
+                );
+            }
             $rs=array(
                 'success'=>true,
                 'shop_audit'=>$shop_audit,
