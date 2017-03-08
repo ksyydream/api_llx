@@ -160,6 +160,7 @@ class ApiSmallAction extends CommonAction{
             'contact'=>$this->_post('contact','trim,htmlspecialchars',''),
             'business_time'=>$this->_post('business_time','trim,htmlspecialchars',''),
             'tel'=>$this->_post('tel','trim,htmlspecialchars',''),
+            'modify_time'=>date('Y-m-d H:i:s'),
             'shop_id'=>$this->shop_id,
         );
         $ex = array(
@@ -174,6 +175,7 @@ class ApiSmallAction extends CommonAction{
             );
             $this->ajaxReturn($rs,'JSON');
         }else{
+
             $rs=array(
                 'success'=>false,
                 'error_msg'=>'保存失败!'
