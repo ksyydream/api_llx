@@ -58,7 +58,9 @@ class AlipayNotify {
 			default :
 				$isSgin = false;
 		}
-		
+		$open=fopen('/var/wx.txt',"a" );
+		fwrite($open,var_export($isSgin,true));
+		fclose($open);
 		return $isSgin;
 	}
 
@@ -83,9 +85,6 @@ class AlipayNotify {
 		}
 		$veryfy_url = $veryfy_url."partner=" . $partner . "&notify_id=" . $notify_id;
 		$responseTxt = getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
-		$open=fopen('/var/wx.txt',"a" );
-		fwrite($open,var_export($responseTxt,true));
-		fclose($open);
 		return $responseTxt;
 	}
 }
