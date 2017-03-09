@@ -18,7 +18,7 @@ class AliPayAction extends CommonAction{
             'alipay_public_key'=>C('alipay_public_key'),
             'service'=>C('service'),
             'sign_type'=>C('sign_type'),
-            '_input_charset'=>C('input_charset'),
+            'input_charset'=>C('input_charset'),
             'cacert'=>C('cacert')
         );
     }
@@ -49,7 +49,7 @@ class AliPayAction extends CommonAction{
             'notify_url'=>'http://'.$this->_server('HTTP_HOST').'/Apipublic/AliPay/appnotify',
             'service'=>$this->alipay_config['service'],
             'payment_type'=>1,
-            '_input_charset'=>$this->alipay_config['_input_charset'],
+            '_input_charset'=>$this->alipay_config['input_charset'],
             'it_b_pay'=>'30m',
         );
         $data=createLinkstring($pay_data);
