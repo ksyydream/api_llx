@@ -41,7 +41,7 @@ class AliPayAction extends CommonAction{
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_core.function.php");
         $pay_data = array(
             'partner'=>C('partner'),
-            'seller_id'=>C('private_key'),
+            'seller_id'=>C('partner'),
             'out_trade_no'=> $logs['log_id'],
             'subject'=>'拉拉秀',
             'body'=>"拉拉秀线上商城——支付宝支付",
