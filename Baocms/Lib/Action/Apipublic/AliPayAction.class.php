@@ -10,6 +10,7 @@ class AliPayAction extends CommonAction{
     private $alipay_config=array();
 
     protected function _initialize(){
+        parent::_initialize();
         $this->alipay_config=array(
             'partner'=>C('private_key'),
             'transport'=>C('transport'),
@@ -22,8 +23,6 @@ class AliPayAction extends CommonAction{
         );
     }
     public function app_pay(){
-
-        die(json_encode($this -> app_uid));
         $log_id = (int)$this->_post('log_id');
 
         $logs = D('Paymentlogs') -> find($log_id);
