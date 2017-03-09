@@ -71,6 +71,65 @@ class AliPayAction extends CommonAction{
         //然后 设计回调函数,
     }
 
+    public function appnotify(){
+        require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_notify.class.php");
+        require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_rsa.function.php");
+        require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_core.function.php");
+        $alipayNotify = new AlipayNotify($this->alipay_config);
+        if($alipayNotify->getResponse($_POST['notify_id']))//判断成功之后使用getResponse方法判断是否是支付宝发来的异步通知。
+        {
+            if($alipayNotify->getSignVeryfy($_POST, $_POST['sign'])) {//使用支付宝公钥验签
+
+                //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+                //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
+                //商户订单号
+                $out_trade_no = $_POST['out_trade_no'];
+
+                //支付宝交易号
+                $trade_no = $_POST['trade_no'];
+
+                //交易状态
+                $trade_status = $_POST['trade_status'];
+
+                if($_POST['trade_status'] == 'TRADE_FINISHED') {
+                    //判断该笔订单是否在商户网站中已经做过处理
+                    //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                    //如果有做过处理，不执行商户的业务程序
+                    //注意：
+                    //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+                    //请务必判断请求时的out_trade_no、total_fee、seller_id与通知时获取的out_trade_no、total_fee、seller_id为一致的
+                    if(D('Payment')->logsPaid($out_trade_no)){
+
+                    }else{
+
+                    }
+                }
+                else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+                    //判断该笔订单是否在商户网站中已经做过处理
+                    //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                    //如果有做过处理，不执行商户的业务程序
+                    //注意：
+                    //付款完成后，支付宝系统发送该交易状态通知
+                    //请务必判断请求时的out_trade_no、total_fee、seller_id与通知时获取的out_trade_no、total_fee、seller_id为一致的
+                    if(D('Payment')->logsPaid($out_trade_no)){
+
+                    }else{
+
+                    }
+                }
+                //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
+                echo "success";		//请不要修改或删除
+            }
+            else //验证签名失败
+            {
+                echo "sign fail";
+            }
+        }
+        else //验证是否来自支付宝的通知失败
+        {
+            echo "response fail";
+        }
+    }
 
     public function getOrder($prepayId){
         $data["appid"] = $this->wx_appid;
