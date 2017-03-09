@@ -81,6 +81,9 @@ class AliPayAction extends CommonAction{
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_notify.class.php");
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_rsa.function.php");
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_core.function.php");
+         $open=fopen('/var/wx.txt',"a" );
+       fwrite($open,var_export($_POST,true));
+       fclose($open);
         $alipayNotify = new AlipayNotify($this->alipay_config);
         if($alipayNotify->getResponse($_POST['notify_id']))//判断成功之后使用getResponse方法判断是否是支付宝发来的异步通知。
         {
