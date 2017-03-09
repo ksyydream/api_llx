@@ -23,7 +23,6 @@ class AliPayAction extends CommonAction{
         );
     }
     public function app_pay(){
-        die(var_dump($this -> app_uid));
         $log_id = (int)$this->_post('log_id');
 
         $logs = D('Paymentlogs') -> find($log_id);
