@@ -12,7 +12,7 @@ class AliPayAction extends CommonAction{
     protected function _initialize(){
         parent::_initialize();
         $this->alipay_config=array(
-            'partner'=>C('private_key'),
+            'partner'=>C('partner'),
             'transport'=>C('transport'),
             'private_key'=>C('private_key'),
             'alipay_public_key'=>C('alipay_public_key'),
@@ -40,7 +40,7 @@ class AliPayAction extends CommonAction{
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_rsa.function.php");
         require_once(APP_PATH . "Lib/Payment/alipay_app/alipay_core.function.php");
         $pay_data = array(
-            'partner'=>C('private_key'),
+            'partner'=>C('partner'),
             'seller_id'=>C('private_key'),
             'out_trade_no'=> $logs['log_id'],
             'subject'=>'拉拉秀',
