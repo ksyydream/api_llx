@@ -64,8 +64,14 @@ class AliPayAction extends CommonAction{
         $data = $data.'&sign='.'"'.$rsa_sign.'"'.'&sign_type='.'"'.C('sign_type').'"';
 
         //返回给客户端,建议在客户端使用私钥对应的公钥做一次验签，保证不是他人传输。
-        echo $data;
+        //echo $data;
 
+        $rs = array(
+            'success' => true,
+            'data' => $data,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
 
         //先测试能不能使用APP 支付申请到预支付编号
         //然后 设计回调函数,
