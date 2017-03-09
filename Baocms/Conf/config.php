@@ -50,6 +50,7 @@ $configs =  array(
 
 );
 require  BASE_PATH.'/'.APP_NAME.'/Conf/pay_wx.php';
+require  BASE_PATH.'/'.APP_NAME.'/Conf/pay_ali.php';
 return array_merge($configs,$dbconfigs);
 
 ?>
