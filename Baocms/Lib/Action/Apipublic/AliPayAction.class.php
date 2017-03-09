@@ -18,7 +18,7 @@ class AliPayAction extends CommonAction{
             'alipay_public_key'=>C('alipay_public_key'),
             'service'=>C('service'),
             'sign_type'=>C('sign_type'),
-            'input_charset'=>C('input_charset'),
+            '_input_charset'=>C('input_charset'),
             'cacert'=>C('cacert')
         );
     }
