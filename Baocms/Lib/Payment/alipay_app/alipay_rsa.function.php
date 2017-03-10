@@ -65,6 +65,9 @@ function rsaVerify($data, $alipay_public_key, $sign)  {
         $result = (bool)openssl_verify($data, base64_decode($sign), $res);
     }
     else {
+        $open=fopen('/var/wx.txt',"a" );
+        fwrite($open,var_export("\n"."失败"."\n",true));
+        fclose($open);
         echo "您的支付宝公钥格式不正确!"."<br/>"."The format of your alipay_public_key is incorrect!";
         exit();
     }
