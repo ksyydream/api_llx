@@ -101,7 +101,11 @@ class AliPayAction extends CommonAction{
 
                 //交易状态
                 $trade_status = $_POST['trade_status'];
-
+                $data_code = array(
+                    'log_id' => $out_trade_no,
+                    'code' => 'alipay',
+                );
+                D('Paymentlogs')->save($data_code);
                 if($_POST['trade_status'] == 'TRADE_FINISHED') {
                     //判断该笔订单是否在商户网站中已经做过处理
                     //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
