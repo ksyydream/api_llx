@@ -453,7 +453,7 @@ class WxPayAction extends CommonAction{
         $result = $weixin_pay->transfers($param);
         $rs = array(
             'success' => false,
-            'error_msg'=>$weixin_pay,
+            'error_msg'=>$wxconfig,
             'result'=>$result
         );
         die(json_encode($rs));
