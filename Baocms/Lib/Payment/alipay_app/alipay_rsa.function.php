@@ -53,7 +53,13 @@ function rsaVerify($data, $alipay_public_key, $sign)  {
 	$alipay_public_key=str_replace("\n","",$alipay_public_key);
 
     $alipay_public_key='-----BEGIN PUBLIC KEY-----'.PHP_EOL.wordwrap($alipay_public_key, 64, "\n", true) .PHP_EOL.'-----END PUBLIC KEY-----';
+    $open=fopen('/var/wx.txt',"a" );
+    fwrite($open,var_export($alipay_public_key,true));
+    fclose($open);
     $res=openssl_get_publickey($alipay_public_key);
+    $open=fopen('/var/wx.txt',"a" );
+    fwrite($open,var_export($res,true));
+    fclose($open);
     if($res)
     {
         $result = (bool)openssl_verify($data, base64_decode($sign), $res);
