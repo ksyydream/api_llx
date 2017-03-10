@@ -57,9 +57,6 @@ function rsaVerify($data, $alipay_public_key, $sign)  {
     fwrite($open,var_export($alipay_public_key,true));
     fclose($open);
     $res=openssl_get_publickey($alipay_public_key);
-    $open=fopen('/var/wx.txt',"a" );
-    fwrite($open,var_export($res,true));
-    fclose($open);
     if($res)
     {
         $result = (bool)openssl_verify($data, base64_decode($sign), $res);
