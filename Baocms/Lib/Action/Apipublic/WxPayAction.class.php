@@ -437,7 +437,7 @@ class WxPayAction extends CommonAction{
         $wxconfig=array(
             //'appid'=> $this->wx_appid,
             'appid'=> C('zs_wx_appid'),
-            'mch_id'=> C('mch_id'),
+            'mch_id'=> C('zs_wx_mch_id'),
             'apikey'=> C('zs_wx_apikey'),
             'appsecret'=> C('zs_wx_appsecret'),
             'sslcertPath'=> C('sslcertPath'),
