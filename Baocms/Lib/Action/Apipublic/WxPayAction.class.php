@@ -413,4 +413,48 @@ class WxPayAction extends CommonAction{
 
         die(json_encode($rs));
     }
+
+    public function aj_transfers(){
+        if(!is_weixin()){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'必须微信端登陆!'
+            );
+            die(json_encode($rs));
+        }
+
+        $openid = $this->_post('openid');
+        if($openid==''){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'openid 获取失败!'
+            );
+            die(json_encode($rs));
+        }
+
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
+        $wxconfig=array(
+            //'appid'=> $this->wx_appid,
+            'appid'=> C('zs_wx_appid'),
+            'mch_id'=> C('zs_wx_mch_id'),
+            'apikey'=> C('zs_wx_apikey'),
+            'appsecret'=> C('zs_wx_appsecret'),
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $param['desc'] = "拉拉秀金额提现";
+        $param['partner_trade_no'] = 1;
+        $param['amount'] = 1;
+        $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
+        $param["re_user_name"] = '杨洋';
+        $param["openid"] = $openid;
+        $result = $weixin_pay->transfers($param);
+        $rs = array(
+            'success' => false,
+            'error_msg'=>'微信预支付ID 获取失败!',
+            'result'=>$result
+        );
+        die(json_encode($rs));
+    }
 }

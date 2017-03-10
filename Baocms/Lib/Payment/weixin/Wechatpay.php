@@ -10,6 +10,7 @@ class Wechatpay {
     const URL_REPORT = 'https://api.mch.weixin.qq.com/payitil/report';
     const URL_SHORTURL = 'https://api.mch.weixin.qq.com/tools/shorturl';
     const URL_MICROPAY = 'https://api.mch.weixin.qq.com/pay/micropay';
+    const URL_TRANSFERS = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';//新增企业付款接口
     /**
      * 错误信息
      */
@@ -337,6 +338,26 @@ class Wechatpay {
         }
         $xml = $this->array2xml($data);
         print $xml;
+    }
+
+    /**
+     * 企业付款
+     */
+    public function transfers($params) {
+        $data = array();
+        $data["mch_appid"] = $this->_config["appid"];
+        $data["mch_id"] = $this->_config["mch_id"];
+        $data["device_info"] = (isset($params['device_info'])&&trim($params['device_info'])!='')?$params['device_info']:null;
+        $data["nonce_str"] = $this->get_nonce_string();
+        $data["amount"] = $params['amount'];
+        $data["partner_trade_no"] = $params['partner_trade_no'];
+        $data["openid"] = $params['openid'];
+        $data["check_name"] = 'FORCE_CHECK';
+        $data["re_user_name"] =  $params['re_user_name'];
+        $data["desc"]    = $params["desc"];
+        $data["spbill_create_ip"] = $params['spbill_create_ip'];
+        $result = $this->post(self::URL_TRANSFERS, $data,true);
+        return $result;
     }
 }
 
