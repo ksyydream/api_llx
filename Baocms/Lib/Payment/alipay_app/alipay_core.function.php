@@ -28,6 +28,20 @@ function createLinkstring($para) {
 	return $arg;
 }
 
+function createLinkstring2($para) {
+	$arg  = "";
+	while (list ($key, $val) = each ($para)) {
+		$arg.=$key."=".$val."&";
+	}
+	//去掉最后一个&字符
+	$arg = substr($arg,0,count($arg)-2);
+
+	//如果存在转义字符，那么去掉转义
+	if(get_magic_quotes_gpc()){$arg = stripslashes($arg);}
+
+	return $arg;
+}
+
 
 /**
  * 对数组排序

@@ -53,18 +53,18 @@ function rsaVerify($data, $alipay_public_key, $sign)  {
 	$alipay_public_key=str_replace("\n","",$alipay_public_key);
 
     $alipay_public_key='-----BEGIN PUBLIC KEY-----'.PHP_EOL.wordwrap($alipay_public_key, 64, "\n", true) .PHP_EOL.'-----END PUBLIC KEY-----';
-    $open=fopen('/var/wx.txt',"a" );
+    /*$open=fopen('/var/wx.txt',"a" );
     fwrite($open,var_export($alipay_public_key,true));
-    fclose($open);
+    fclose($open);*/
     $res=openssl_get_publickey($alipay_public_key);
     if($res)
     {
         $result = (bool)openssl_verify($data, base64_decode($sign), $res);
     }
     else {
-        $open=fopen('/var/wx.txt',"a" );
+        /*$open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export("\n"."失败"."\n",true));
-        fclose($open);
+        fclose($open);*/
         echo "您的支付宝公钥格式不正确!"."<br/>"."The format of your alipay_public_key is incorrect!";
         exit();
     }
