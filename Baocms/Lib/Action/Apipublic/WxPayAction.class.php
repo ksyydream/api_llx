@@ -453,7 +453,7 @@ class WxPayAction extends CommonAction{
         $result = $weixin_pay->transfers($param);
         $rs = array(
             'success' => false,
-            'error_msg'=>'微信预支付ID 获取失败!',
+            'error_msg'=>$weixin_pay,
             'result'=>$result
         );
         die(json_encode($rs));
