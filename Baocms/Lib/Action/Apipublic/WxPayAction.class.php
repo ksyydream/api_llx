@@ -469,4 +469,30 @@ class WxPayAction extends CommonAction{
         }
 
     }
+
+    public function get_code(){
+        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
+        $wxconfig=array(
+            //'appid'=> $this->wx_appid,
+            'appid'=> C('zs_wx_appid'),
+            'mch_id'=> C('zs_wx_mch_id'),
+            'apikey'=> C('zs_wx_apikey'),
+            'appsecret'=> C('zs_wx_appsecret'),
+            'sslcertPath'=> C('sslcertPath'),
+            'sslkeyPath'=> C('sslkeyPath'),
+        );
+        $weixin_pay = new Wechatpay($wxconfig);
+        $result = $weixin_pay->getCodeUrl(
+            '测试充值',
+            28229,
+            1000,
+            'http://'.$this->_server('HTTP_HOST').'/Apipublic/WxPay/appnotify',
+            28229
+        );
+        $rs = array(
+            'success' => true,
+            'result'=>$result
+        );
+        die(json_encode($rs));
+    }
 }
