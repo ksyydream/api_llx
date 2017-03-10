@@ -451,11 +451,22 @@ class WxPayAction extends CommonAction{
         $param["re_user_name"] = '杨洋';
         $param["openid"] = $openid;
         $result = $weixin_pay->transfers($param);
-        $rs = array(
-            'success' => false,
-            'error_msg'=>$wxconfig,
-            'result'=>$result
-        );
-        die(json_encode($rs));
+        $obj=json_decode($result);
+        if($obj->result_code=='FAIL'){
+            $rs = array(
+                'success' => false,
+                'error_msg'=>$wxconfig,
+                'result'=>$result
+            );
+            die(json_encode($rs));
+        }else{
+            $rs = array(
+                'success' => true,
+                'error_msg'=>$wxconfig,
+                'result'=>$result
+            );
+            die(json_encode($rs));
+        }
+
     }
 }
