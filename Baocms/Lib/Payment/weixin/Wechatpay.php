@@ -346,7 +346,7 @@ class Wechatpay {
     public function transfers($params) {
         $data = array();
         $data["mch_appid"] = $this->_config["appid"];
-        $data["mch_id"] = $this->_config["mch_id"];
+        $data["mchid"] = $this->_config["mch_id"];
         $data["device_info"] = (isset($params['device_info'])&&trim($params['device_info'])!='')?$params['device_info']:null;
         $data["nonce_str"] = $this->get_nonce_string();
         $data["amount"] = $params['amount'];
