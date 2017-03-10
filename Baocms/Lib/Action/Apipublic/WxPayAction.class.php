@@ -415,13 +415,13 @@ class WxPayAction extends CommonAction{
     }
 
     public function aj_transfers(){
-        if(!is_weixin()){
+        /*if(!is_weixin()){
             $rs = array(
                 'success' => false,
                 'error_msg'=>'必须微信端登陆!'
             );
             die(json_encode($rs));
-        }
+        }*/
 
         $openid = $this->_post('openid');
         if($openid==''){
