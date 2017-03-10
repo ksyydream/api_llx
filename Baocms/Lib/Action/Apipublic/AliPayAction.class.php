@@ -65,7 +65,9 @@ class AliPayAction extends CommonAction{
 
         //返回给客户端,建议在客户端使用私钥对应的公钥做一次验签，保证不是他人传输。
         //echo $data;
-
+        $open=fopen('/var/wx.txt',"a" );
+        fwrite($open,var_export($data,true));
+        fclose($open);
         $rs = array(
             'success' => true,
             'data' => $data,
