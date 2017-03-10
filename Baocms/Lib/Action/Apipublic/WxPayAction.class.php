@@ -424,6 +424,7 @@ class WxPayAction extends CommonAction{
         }*/
 
         $openid = $this->_post('openid');
+        $openid='onj8pwi48rDctxtbwMwfZXmVVhSo';
         if($openid==''){
             $rs = array(
                 'success' => false,
@@ -444,7 +445,7 @@ class WxPayAction extends CommonAction{
         );
         $weixin_pay = new Wechatpay($wxconfig);
         $param['desc'] = "拉拉秀金额提现";
-        $param['partner_trade_no'] = 1;
+        $param['partner_trade_no'] = 2;
         $param['amount'] = 1;
         $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
         $param["re_user_name"] = '杨洋';
