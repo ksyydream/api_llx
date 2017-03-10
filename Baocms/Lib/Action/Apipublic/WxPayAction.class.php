@@ -455,14 +455,14 @@ class WxPayAction extends CommonAction{
         if($obj->result_code=='FAIL'){
             $rs = array(
                 'success' => false,
-                'error_msg'=>$wxconfig,
+                'error_msg'=>$obj->result_code,
                 'result'=>$result
             );
             die(json_encode($rs));
         }else{
             $rs = array(
                 'success' => true,
-                'error_msg'=>$wxconfig,
+                'error_msg'=>$obj->result_code,
                 'result'=>$result
             );
             die(json_encode($rs));
