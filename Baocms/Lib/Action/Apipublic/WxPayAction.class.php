@@ -497,14 +497,14 @@ class WxPayAction extends CommonAction{
             $rs = array(
                 'success' => false,
                 'error_msg'=>$obj->result_code,
-                'result'=>$result
+                'result'=>$obj
             );
             die(json_encode($rs));
         }else{
             $rs = array(
                 'success' => true,
                 'error_msg'=>$obj->result_code,
-                'result'=>$result
+                'result'=>$obj
             );
             die(json_encode($rs));
         }
