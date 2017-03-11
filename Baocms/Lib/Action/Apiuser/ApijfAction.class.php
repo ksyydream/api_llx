@@ -13,7 +13,9 @@ class ApijfAction extends CommonAction {
         $addr = (int)$this->_post('addr_id');
         $remark = $this->_post('remark');
         $gold = $this->_post('gold')?$this->_post('gold'):0; //用户使用的余额;
-        $gold = (int)($gold * 100);
+        $gold = (float)$gold;
+        $gold = round($gold * 100);
+        $gold = (int)$gold;
         //进行验证信息
         if (empty($goods_id)) {
             $rs = array('success' => false, 'error_msg'=>'请选择商品!');

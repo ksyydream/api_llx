@@ -133,8 +133,8 @@ class MoneyAction extends CommonAction{
                 'success'=>false,
                 'error_msg'=>''
             );
-            $gold = (int)($_POST['gold'] * 100);
-
+            $gold = round(((float)$_POST['gold']) * 100);
+            $gold=(int)$gold;
             if (!$data['bank_name'] = htmlspecialchars($_POST['bank_name'])) {
                 $rs['error_msg']='开户行不能为空';
                 $this->ajaxReturn($rs,'JSON');

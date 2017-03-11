@@ -414,6 +414,11 @@ class WxPayAction extends CommonAction{
         die(json_encode($rs));
     }
 
+    /*
+     * @ openid 微信openid
+     * @ amount 提醒金额
+     * @ re_user_name 体现微信号 认证的真实姓名
+     */
     public function aj_transfers(){
         /*if(!is_weixin()){
             $rs = array(
@@ -423,16 +428,52 @@ class WxPayAction extends CommonAction{
             die(json_encode($rs));
         }*/
 
-        $openid = $this->_post('openid');
-        $openid='onj8pwi48rDctxtbwMwfZXmVVhSo';
-        if($openid==''){
-            $rs = array(
-                'success' => false,
-                'error_msg'=>'openid 获取失败!'
-            );
+        $re_user_name = $this->_post('re_user_name');
+        if($re_user_name==''){
+            $rs = array('success' => false, 'error_msg'=>'微信认证真实姓名不能为空!');
             die(json_encode($rs));
         }
-
+        $openid = $this->_post('openid');
+        //$openid='onj8pwi48rDctxtbwMwfZXmVVhSo';
+        if($openid==''){
+            $rs = array('success' => false, 'error_msg'=>'openid 获取失败!');
+            die(json_encode($rs));
+        }
+        $con_openid = D('Connect')->where(array('uid'=>$this->app_uid))->find();
+        if(!$con_openid){
+            $rs = array('success' => false, 'error_msg'=>'该用户未绑定微信!');
+            die(json_encode($rs));
+        }
+        if($con_openid['openid']!=$openid){
+            $rs = array('success' => false, 'error_msg'=>'提醒微信和绑定微信不一致!');
+            die(json_encode($rs));
+        }
+        $user_info = D('Users')->where(array('user_id'=>$this->app_uid))->find();
+        if(!$user_info){
+            $rs = array('success' => false, 'error_msg'=>'用户不存在!');
+            die(json_encode($rs));
+        }
+        if($user_info['closed']!=0){
+            $rs = array('success' => false, 'error_msg'=>'用户已被关闭!');
+            die(json_encode($rs));
+        }
+        $rlgold=$user_info['gold'];
+        $cash_money = $this->_CONFIG['cash']['user'];
+        $amount = (float)$this->_post('amount');
+        $amount = round($amount * 100);
+        $amount=(int)$amount;
+        if ($amount <= 0) {
+            $rs = array('success' => false, 'error_msg'=>'提现金额不合法!');
+            die(json_encode($rs));
+        }
+        /*if ($amount < $cash_money * 100) {
+            $rs = array('success' => false, 'error_msg'=>'提现金额小于最低提现额度!');
+            die(json_encode($rs));
+        }*/
+        if ($amount > $rlgold || $rlgold == 0) {
+            $rs = array('success' => false, 'error_msg'=>'资金不足，无法提现!');
+            die(json_encode($rs));
+        }
         require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             //'appid'=> $this->wx_appid,
@@ -445,10 +486,10 @@ class WxPayAction extends CommonAction{
         );
         $weixin_pay = new Wechatpay($wxconfig);
         $param['desc'] = "拉拉秀金额提现";
-        $param['partner_trade_no'] = 2;
-        $param['amount'] = 100;
+        $param['partner_trade_no'] = 3;
+        $param['amount'] = $amount;
         $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
-        $param["re_user_name"] = '杨洋';
+        $param["re_user_name"] = $re_user_name;
         $param["openid"] = $openid;
         $result = $weixin_pay->transfers($param);
         $obj=json_decode($result);
@@ -471,7 +512,7 @@ class WxPayAction extends CommonAction{
     }
 
     public function get_code(){
-        require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
+        /*require_cache( APP_PATH . 'Lib/Payment/weixin/Wechatpay.php' );//
         $wxconfig=array(
             //'appid'=> $this->wx_appid,
             'appid'=> C('zs_wx_appid'),
@@ -493,6 +534,6 @@ class WxPayAction extends CommonAction{
             'success' => true,
             'result'=>$result
         );
-        die(json_encode($rs));
+        die(json_encode($rs));*/
     }
 }
