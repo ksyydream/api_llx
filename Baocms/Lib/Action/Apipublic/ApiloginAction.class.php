@@ -431,7 +431,7 @@ class ApiloginAction extends CommonAction{
             $rs = array('success' => false, 'error_msg'=>'请选择安卓还是IOS!');
             $this->ajaxReturn($rs,'JSON');
         }
-        $info = D('Appinfo')->where("type={$app_type}")->order('version_num desc')->find();
+        $info = D('Appinfo')->where("type={$app_type} and flag=1")->order('version_num desc')->find();
         if($app_type==1){
             if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
                 //$img_list[]=array('path'=>'statics/images/carousel1.jpg');

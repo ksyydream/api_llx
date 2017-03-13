@@ -75,7 +75,7 @@ class ApiajaxAction extends CommonAction{
     }
 
     public function down_Android(){
-        $info = D('Appinfo')->where("type=1")->order('version_num desc')->find();
+        $info = D('Appinfo')->where("type=1 and flag=1")->order('version_num desc')->find();
         if(file_exists(BASE_PATH.'/attachs/'.$info['path'])){
             import('ORG.Net.Http');
             Http::download(BASE_PATH.'/attachs/'.$info['path'],$info['path']);
@@ -84,7 +84,7 @@ class ApiajaxAction extends CommonAction{
 
     public function get_url(){
         $app_type = (int)$this->_post('app_type')?(int)$this->_post('app_type'):1;
-        $info = D('Appinfo')->where("type={$app_type}")->order('version_num desc')->find();
+        $info = D('Appinfo')->where("type={$app_type} and flag=1")->order('version_num desc')->find();
         $rs=array(
             'url'=>$info['app_url'],
             'success' => true,
