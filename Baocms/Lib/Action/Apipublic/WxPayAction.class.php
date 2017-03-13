@@ -445,7 +445,7 @@ class WxPayAction extends CommonAction{
             die(json_encode($rs));
         }
         if($con_openid['openid']!=$openid){
-            $rs = array('success' => false, 'error_msg'=>'提醒微信和绑定微信不一致!');
+            $rs = array('success' => false, 'error_msg'=>'提现微信和绑定微信不一致!'.$con_openid['openid'].'/'.$openid);
             die(json_encode($rs));
         }
         $user_info = D('Users')->where(array('user_id'=>$this->app_uid))->find();
