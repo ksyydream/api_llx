@@ -498,9 +498,19 @@ class WxPayAction extends CommonAction{
             'sslcertPath'=> C('sslcertPath'),
             'sslkeyPath'=> C('sslkeyPath'),
         );
+        $data = array(
+            'uid'=>$this->app_uid,
+            'openid'=>$openid,
+            'amount'=>$amount,
+            're_user_name'=>$re_user_name,
+            'create_time'=>date('Y-m-d H:i:s'),
+            'status'=>1,
+            'err_msg'=>''
+        );
+        $wxtx_id = D('Wxtx')->add($data);
         $weixin_pay = new Wechatpay($wxconfig);
         $param['desc'] = "拉拉秀金额提现";
-        $param['partner_trade_no'] = 'test1';
+        $param['partner_trade_no'] = "wxtx_{$wxtx_id}";
         $param['amount'] = $amount;
         $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
         $param["re_user_name"] = $re_user_name;
@@ -509,6 +519,8 @@ class WxPayAction extends CommonAction{
         //$obj=json_decode($result);
         //die(json_encode($result['result_code']));
         if($result['result_code']=='SUCCESS'){
+            D('Wxtx')->save(array('id'=>$wxtx_id,'status'=>2));
+            D('Users')->addGold($this->app_uid, -$amount, '微信提现,扣除余额');
             $rs = array(
                 'success' => true,
                 'error_msg'=>'',
@@ -516,6 +528,7 @@ class WxPayAction extends CommonAction{
             );
             die(json_encode($rs));
         }else{
+            D('Wxtx')->save(array('id'=>$wxtx_id,'status'=>-1,'err_msg'=>isset($result['err_code_des'])?$result['err_code_des']:'失败'));
             $rs = array(
                 'success' => false,
                 'error_msg'=>$result['err_code_des'],
