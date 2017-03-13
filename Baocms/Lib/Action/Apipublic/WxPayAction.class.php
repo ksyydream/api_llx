@@ -501,18 +501,18 @@ class WxPayAction extends CommonAction{
         $result = $weixin_pay->transfers($param);
         //$obj=json_decode($result);
         die(json_encode($result['result_code']));
-        if($obj->result_code=='SUCCESS'){
+        if($result['result_code']=='SUCCESS'){
             $rs = array(
                 'success' => true,
-                'error_msg'=>$obj->result_code,
-                'result'=>$obj
+                'error_msg'=>'',
+                'result'=>$result
             );
             die(json_encode($rs));
         }else{
             $rs = array(
                 'success' => false,
-                'error_msg'=>$obj->result_code,
-                'result'=>$obj
+                'error_msg'=>$result['result_code'],
+                'result'=>$result
             );
             die(json_encode($rs));
         }
