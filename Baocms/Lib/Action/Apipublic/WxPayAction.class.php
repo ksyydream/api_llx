@@ -500,7 +500,7 @@ class WxPayAction extends CommonAction{
         $param["openid"] = $openid;
         $result = $weixin_pay->transfers($param);
         //$obj=json_decode($result);
-        die(json_encode($result['result_code']));
+        //die(json_encode($result['result_code']));
         if($result['result_code']=='SUCCESS'){
             $rs = array(
                 'success' => true,
