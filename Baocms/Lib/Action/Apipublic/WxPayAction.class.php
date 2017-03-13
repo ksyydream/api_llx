@@ -511,7 +511,7 @@ class WxPayAction extends CommonAction{
         }else{
             $rs = array(
                 'success' => false,
-                'error_msg'=>$result['result_code'],
+                'error_msg'=>$result['err_code_des'],
                 'result'=>$result
             );
             die(json_encode($rs));
