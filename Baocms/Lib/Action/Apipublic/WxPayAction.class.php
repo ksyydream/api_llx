@@ -354,6 +354,9 @@ class WxPayAction extends CommonAction{
                         'uid'=>$user_info['user_id'],
                         'mobile'=>$user_info['account']
                     );
+                    //处理原来的设置
+                    D('Connect')->where(array('uid'=>$user_info['user_id']))->delete();
+                    D('Connect')->where(array('mobile'=>$user_info['account']))->delete();
                     if(!$uid){
                         D('Connect')->add($data);
                     }else{
