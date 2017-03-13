@@ -510,7 +510,7 @@ class WxPayAction extends CommonAction{
         $wxtx_id = D('Wxtx')->add($data);
         $weixin_pay = new Wechatpay($wxconfig);
         $param['desc'] = "拉拉秀金额提现";
-        $param['partner_trade_no'] = "wxtx_{$wxtx_id}";
+        $param['partner_trade_no'] = "wxtx{$wxtx_id}";
         $param['amount'] = $amount;
         $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
         $param["re_user_name"] = $re_user_name;
