@@ -8,6 +8,19 @@
 class WxPayAction extends CommonAction{
     protected $wx_appid;
     protected $wx_appsecret;
+    protected function _initialize(){
+        parent::_initialize();
+        if($this->app_uid == 0){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'token错误!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
+    }
     public function app_pay(){
 
         $pay_sys=$this->_post('pay_sys');
@@ -446,6 +459,16 @@ class WxPayAction extends CommonAction{
             $rs = array('success' => false, 'error_msg'=>'openid 获取失败!');
             die(json_encode($rs));
         }
+        $user_info = D('Users')->where(array('user_id'=>$this->app_uid))->find();
+        if(!$user_info){
+            $rs = array('success' => false, 'error_msg'=>'用户不存在!');
+            die(json_encode($rs));
+        }
+        if($user_info['closed']!=0){
+            $rs = array('success' => false, 'error_msg'=>'用户已被关闭!');
+            die(json_encode($rs));
+        }
+
         $con_openid = D('Connect')->where(array('uid'=>$this->app_uid))->find();
         if(!$con_openid){
             $rs = array('success' => false, 'error_msg'=>'该用户未绑定微信!');
@@ -462,15 +485,7 @@ class WxPayAction extends CommonAction{
                 );
             die(json_encode($rs));
         }
-        $user_info = D('Users')->where(array('user_id'=>$this->app_uid))->find();
-        if(!$user_info){
-            $rs = array('success' => false, 'error_msg'=>'用户不存在!');
-            die(json_encode($rs));
-        }
-        if($user_info['closed']!=0){
-            $rs = array('success' => false, 'error_msg'=>'用户已被关闭!');
-            die(json_encode($rs));
-        }
+
         $rlgold=$user_info['gold'];
         $cash_money = $this->_CONFIG['cash']['user'];
         $amount = (float)$this->_post('amount');
