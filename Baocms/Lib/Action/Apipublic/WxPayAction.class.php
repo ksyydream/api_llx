@@ -10,7 +10,7 @@ class WxPayAction extends CommonAction{
     protected $wx_appsecret;
     protected function _initialize(){
         parent::_initialize();
-        if($this->app_uid == 0){
+       /* if($this->app_uid == 0){
             if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
                 header('HTTP/1.1 401 Unauthorized');
             $rs = array(
@@ -19,7 +19,7 @@ class WxPayAction extends CommonAction{
             );
             header('status: 401');
             die(json_encode($rs));
-        }
+        }*/
     }
     public function app_pay(){
 
