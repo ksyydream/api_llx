@@ -131,4 +131,24 @@ class XiuAction extends CommonAction {
         );
         $this->ajaxReturn($rs,'JSON');
     }
+
+    public function xiu_like(){
+        $id = (int)$this->_post('id');
+        if(!$id){
+            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
+            die(json_encode($rs));
+        }
+        $xiulike = D('Xiuuserlike');
+        $map = array('master_id'=>$id,'uid'=>$this->app_uid);
+        $row = $xiulike->where($map)->find();
+        if($row){
+            $rs = array('success' => false, 'error_msg'=>'已点赞!');
+            die(json_encode($rs));
+        }
+        $map['create_time']=date('Y-m-d H:i:s');
+        $xiulike->add($map);
+        D('Xiuuser')->where(array('id'=>$id))->setInc('zan_count',1);
+        $rs = array('success' => true, 'error_msg' =>'');
+        $this->ajaxReturn($rs,'JSON');
+    }
 }
