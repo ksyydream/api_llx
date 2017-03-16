@@ -92,7 +92,7 @@ class XiuAction extends CommonAction {
             $files=$xiuuserf->where(array('matser_id' => $val['id']))
                 ->order(array('id' => 'asc'))
                 ->select();
-            die(var_dump($xiuuserf->getLastSql()));
+            die(var_dump(array('matser_id' => $val['id'])));
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
