@@ -87,10 +87,11 @@ class XiuAction extends CommonAction {
             ->order(array('id' => 'desc'))
             ->page($page.",10")
             ->select();
-        die(var_dump($xiumodel->getLastSql()));
         foreach ($list as $k => $val) {
             $xiuuserf = D('Xiuuserfile');
-            $files=$xiuuserf->where(array('matser_id' => $val['id']))->select();
+            $files=$xiuuserf->where(array('matser_id' => $val['id']))
+                ->order(array('id' => 'asc'))
+                ->select();
             die(var_dump($xiuuserf->getLastSql()));
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
