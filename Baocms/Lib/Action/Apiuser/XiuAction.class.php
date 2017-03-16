@@ -89,6 +89,7 @@ class XiuAction extends CommonAction {
             ->select();
         foreach ($list as $k => $val) {
             $files=D('Xiuuserfile')->where(array('matser_id' => $val['id']))->select();
+            die(var_dump($files));
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
