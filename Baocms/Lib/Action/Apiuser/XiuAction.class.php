@@ -63,6 +63,7 @@ class XiuAction extends CommonAction {
                     );
                     $file_path = pathinfo(BASE_PATH.'/attachs/'.$file);
                     $f_extension = isset($file_path['extension'])?$file_path['extension']:'';
+                    $f_extension = strtolower($f_extension);
                     if($f_extension=='mp4' or $f_extension=='avi' or $f_extension=='3gp' or $f_extension=='wmv'){
                         $path_data['flag']=2;
                     }else{
