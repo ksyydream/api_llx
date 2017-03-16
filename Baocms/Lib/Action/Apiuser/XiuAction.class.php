@@ -88,8 +88,9 @@ class XiuAction extends CommonAction {
             ->page($page.",10")
             ->select();
         foreach ($list as $k => $val) {
-            $files=D('Xiuuserfile')->where(array('matser_id' => $val['id']))->select();
-            die(var_dump(D('Xiuuserfile')->getLastSql()));
+            $xiuuserf = D('Xiuuserfile');
+            $files=$xiuuserf->where(array('matser_id' => $val['id']))->select();
+            die(var_dump($xiuuserf->getLastSql()));
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
