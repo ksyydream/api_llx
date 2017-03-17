@@ -8,7 +8,7 @@
 class XiupublicAction extends CommonAction {
 
     public function xiu_list_all(){
-        $xiumodel = D('Xiuuser');
+        /*$xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
         $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.flag'=>1,'a.closed'=>0))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
@@ -26,8 +26,9 @@ class XiupublicAction extends CommonAction {
                     $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
                 }
             }
-        }
-
+        }*/
+        $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
+        $list = $this->get_xiu_list($order);
         $rs = array(
             'success'=>true,
             'list'=>$list,
@@ -37,7 +38,7 @@ class XiupublicAction extends CommonAction {
     }
 
     public function xiushop_list_all(){
-        $xiumodel = D('Xiuuser');
+        /*$xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
         $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where(array('a.flag'=>2,'a.closed'=>0))
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
@@ -55,8 +56,10 @@ class XiupublicAction extends CommonAction {
                     $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
                 }
             }
-        }
+        }*/
 
+        $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
+        $list = $this->get_xiushop_list($order);
         $rs = array(
             'success'=>true,
             'list'=>$list,
@@ -140,7 +143,7 @@ class XiupublicAction extends CommonAction {
     }
 
     public function xiu_list4one(){
-        $xiumodel = D('Xiuuser');
+       /* $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
 
         $uid = (int)$this->_post('uid');
@@ -164,7 +167,14 @@ class XiupublicAction extends CommonAction {
                     $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
                 }
             }
+        }*/
+        $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
+        $uid = (int)$this->_post('uid');
+        if(!$uid){
+            $rs = array('success' => false, 'error_msg'=>'用户编号不能为空!');
+            die(json_encode($rs));
         }
+        $list = $this->get_xiu_list($order,$uid);
 
         $rs = array(
             'success'=>true,
@@ -175,7 +185,7 @@ class XiupublicAction extends CommonAction {
     }
 
     public function xiushop_list4one(){
-        $xiumodel = D('Xiuuser');
+        /*$xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
         $shop_id = (int)$this->_post('shop_id');
         if(!$shop_id){
@@ -198,8 +208,14 @@ class XiupublicAction extends CommonAction {
                     $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
                 }
             }
+        }*/
+        $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
+        $shop_id = (int)$this->_post('shop_id');
+        if(!$shop_id){
+            $rs = array('success' => false, 'error_msg'=>'商户编号不能为空!');
+            die(json_encode($rs));
         }
-
+        $list = $this->get_xiu_list($order,$shop_id);
         $rs = array(
             'success'=>true,
             'list'=>$list,

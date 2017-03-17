@@ -126,7 +126,7 @@ class XiuuserAction extends CommonAction {
     }
 
     public function xiu_list_self(){
-        $xiumodel = D('Xiuuser');
+        /*$xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
         $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.uid'=>$this->app_uid,'a.flag'=>1,'a.closed'=>0))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
@@ -141,7 +141,9 @@ class XiuuserAction extends CommonAction {
                     $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
                 }
             }
-        }
+        }*/
+        $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
+        $list = $this->get_xiu_list($order,$this->app_uid);
         $rs = array(
             'success'=>true,
             'list'=>$list,

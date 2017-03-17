@@ -79,4 +79,104 @@ class CommonAction extends Action{
         }
         return $data['face'];
     }
+
+    protected function get_xiu_list($order=1,$user=null){
+        $xiumodel = D('Xiuuser');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $map = array('a.flag'=>1,'a.closed'=>0);
+        if($user){
+            $map['a.uid']=$user;
+        }
+        switch($order){
+            case 1:
+                $order_arr = array('a.id' => 'desc');
+                break;
+            case 2:
+                $order_arr = array('a.zan_count' => 'desc');
+                break;
+            case 3:
+                $order_arr = array('a.hf_count' => 'desc');
+                break;
+            case 4:
+                $order_arr = array('a.liwu_count' => 'desc');
+                break;
+            default:
+                $order_arr = array('a.id' => 'desc');
+                break;
+        }
+        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where($map)
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->order($order_arr)
+            ->page($page.",10")
+            ->select();
+        foreach ($list as $k => $val) {
+            $xiuuserf = D('Xiuuserfile');
+            $files=$xiuuserf->where(array('master_id' => $val['id']))
+                ->order(array('id' => 'asc'))
+                ->select();
+            $list[$k]['files']=array();
+            foreach ($files as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
+                }
+            }
+        }
+
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    protected function get_xiushop_list($order=1,$shop_id=null){
+        $xiumodel = D('Xiuuser');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $map = array('a.flag'=>2,'a.closed'=>0);
+        if($shop_id){
+            $map['a.shop_id']=$shop_id;
+        }
+        switch($order){
+            case 1:
+                $order_arr = array('a.id' => 'desc');
+                break;
+            case 2:
+                $order_arr = array('a.zan_count' => 'desc');
+                break;
+            case 3:
+                $order_arr = array('a.hf_count' => 'desc');
+                break;
+            case 4:
+                $order_arr = array('a.liwu_count' => 'desc');
+                break;
+            default:
+                $order_arr = array('a.id' => 'desc');
+                break;
+        }
+        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where($map)
+            ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
+            ->order($order_arr)
+            ->page($page.",10")
+            ->select();
+        foreach ($list as $k => $val) {
+            $xiuuserf = D('Xiuuserfile');
+            $files=$xiuuserf->where(array('master_id' => $val['id']))
+                ->order(array('id' => 'asc'))
+                ->select();
+            $list[$k]['files']=array();
+            foreach ($files as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
+                }
+            }
+        }
+
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
 }
