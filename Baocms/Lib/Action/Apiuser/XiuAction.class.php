@@ -160,7 +160,7 @@ class XiuAction extends CommonAction {
         }
         $xiulikemodel = D('Xiuuserlike');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiulikemodel->alias('a')->field('a.*,b.nickname')->where(array('a.master_id'=>$id))
+        $list = $xiulikemodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
             ->page($page.",10")
