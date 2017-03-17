@@ -142,7 +142,7 @@ class CommonAction extends Action{
             $reslut_arr = $scfmodel->alias('a')->field('a.*,b.shop_id')
                 ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
                 ->where(array('a.uid'=>$this->app_uid))
-                ->group('a.shop_id')
+                ->group('b.shop_id')
                 ->select();
             die(var_dump($scfmodel->getLastSql()));
             foreach($reslut_arr as $value){
