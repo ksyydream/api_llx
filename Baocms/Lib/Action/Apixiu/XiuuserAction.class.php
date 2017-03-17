@@ -128,8 +128,9 @@ class XiuuserAction extends CommonAction {
     public function xiu_list_self(){
         $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiumodel->where(array('uid'=>$this->app_uid,'flag'=>1))
-            ->order(array('id' => 'desc'))
+        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.uid'=>$this->app_uid,'a.flag'=>1))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->order(array('a.id' => 'desc'))
             ->page($page.",10")
             ->select();
         foreach ($list as $k => $val) {
@@ -219,6 +220,7 @@ class XiuuserAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'秀币余额不足!');
             die(json_encode($rs));
         }
+
 
 
         //增加秀一秀的礼物数量
