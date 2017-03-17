@@ -192,7 +192,7 @@ class XiuAction extends CommonAction {
             'create_time'=>date('Y-m-d H:i:s')
         );
         $xiuhf->add($data);
-
+        D('Xiuuser')->where(array('id'=>$id))->setInc('hf_count',1);
         $rs = array('success' => true, 'error_msg' =>'');
         $this->ajaxReturn($rs,'JSON');
     }
