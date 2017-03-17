@@ -76,4 +76,29 @@ class XiushopAction extends XiuuserAction {
         $this->ajaxReturn($rs,'JSON');
 
     }
+
+    public function xiushop_list_self(){
+        $xiumodel = D('Xiuuser');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where(array('a.uid'=>$this->app_uid,'a.flag'=>2))
+            ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
+            ->order(array('a.id' => 'desc'))
+            ->page($page.",10")
+            ->select();
+        foreach ($list as $k => $val) {
+            $files=D('Xiuuserfile')->where(array('master_id' => $val['id']))->select();
+            $list[$k]['files']=array();
+            foreach ($files as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
+                    $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
+                }
+            }
+        }
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
 }

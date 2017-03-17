@@ -107,6 +107,27 @@ class XiupublicAction extends CommonAction {
         $this->ajaxReturn($rs,'JSON');
     }
 
+    public function xiu_liwu_list(){
+        $id = (int)$this->_post('id');
+        if(!$id){
+            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
+            die(json_encode($rs));
+        }
+        $xiuliwumodel = D('Xiuliwu');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $list = $xiuliwumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->order(array('a.id' => 'asc'))
+            ->page($page.",20")
+            ->select();
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
     public function liwu_list(){
         $presentmodel = D('Present');
         $list = $presentmodel->where(array('status'=>1))->select();
