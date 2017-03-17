@@ -163,7 +163,52 @@ class XiuAction extends CommonAction {
         $list = $xiulikemodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
-            ->page($page.",10")
+            ->page($page.",20")
+            ->select();
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function xiu_hf(){
+        $id = (int)$this->_post('id');
+        if(!$id){
+            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
+            die(json_encode($rs));
+        }
+        $remark = $this->_post('remark','trim,htmlspecialchars','');
+        if(!$remark){
+            $rs = array('success' => false, 'error_msg' =>'评论内容,不能为空!');
+            $this->ajaxReturn($rs,'JSON');
+        }
+        $xiuhf = D('Xiuuserhf');
+        $data = array(
+            'master_id'=>$id,
+            'remark'=>$remark,
+            'uid'=>$this->app_uid,
+            'create_time'=>date('Y-m-d H:i:s')
+        );
+        $xiuhf->add($data);
+
+        $rs = array('success' => true, 'error_msg' =>'');
+        $this->ajaxReturn($rs,'JSON');
+    }
+
+    public function xiu_hf_list(){
+        $id = (int)$this->_post('id');
+        if(!$id){
+            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
+            die(json_encode($rs));
+        }
+        $xiuhfmodel = D('Xiuuserhf');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $list = $xiuhfmodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->order(array('a.id' => 'asc'))
+            ->page($page.",20")
             ->select();
         $rs = array(
             'success'=>true,
