@@ -23,7 +23,7 @@ class XiupublicAction extends CommonAction {
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
-                    $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
                 }
             }
         }

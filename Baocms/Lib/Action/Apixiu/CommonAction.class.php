@@ -10,7 +10,7 @@ class CommonAction extends Action{
     protected $token;
     protected $_CONFIG = array();
     protected $member = array();
-
+    protected $url_path = 'http://be.51loveshow.com/attachs/';
     protected function _initialize(){
         define('__HOST__', 'http://' . $_SERVER['HTTP_HOST']);
         $this->_CONFIG = d( "Setting" )->fetchAll( );
