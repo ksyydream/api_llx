@@ -471,6 +471,9 @@ class WxPayAction extends CommonAction{
 
         $con_openid = D('Connect')->where(array('uid'=>$this->app_uid))->find();
         if(!$con_openid){
+             $open=fopen('/var/wx.txt',"a" );
+        fwrite($open,var_export(D('Connect')->getLastSql(),true));
+        fclose($open);
             $rs = array('success' => false, 'error_msg'=>'该用户未绑定微信!');
             die(json_encode($rs));
         }
