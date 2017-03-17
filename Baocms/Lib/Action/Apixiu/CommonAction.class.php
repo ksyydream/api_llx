@@ -144,7 +144,7 @@ class CommonAction extends Action{
                 ->where(array('a.uid'=>$this->app_uid))
                 ->group('b.shop_id')
                 ->select();
-            die(var_dump($scfmodel->getLastSql()));
+            //die(var_dump($scfmodel->getLastSql()));
             foreach($reslut_arr as $value){
                 $shop_ids[]=$value['shop_id'];
             }
