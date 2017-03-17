@@ -221,11 +221,18 @@ class XiuuserAction extends CommonAction {
             die(json_encode($rs));
         }
 
-
+        D('Users')->addIntegral($this->app_uid,0 - $liwu['price'],"购买礼物[{$liwu['name']}],使用秀币");
+        if($liwu['price'] < $liwu['get_price']){
+            D('Users')->addIntegral($xiu['uid'],$liwu['price'],"收到礼物[{$liwu['name']}],得到秀币");
+        }else{
+            D('Users')->addIntegral($xiu['uid'],$liwu['get_price'],"收到礼物[{$liwu['name']}],得到秀币");
+        }
 
         //增加秀一秀的礼物数量
         D('Xiuuser')->where(array('id'=>$xiu_id))->setInc('liwu_count',1);
         //增加礼物的销量
         D('Present')->where(array('id'=>$liwu_id))->setInc('count',1);
+        $rs = array('success' => true, 'error_msg' =>'');
+        $this->ajaxReturn($rs,'JSON');
     }
 }
