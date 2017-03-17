@@ -10,8 +10,9 @@ class XiupublicAction extends CommonAction {
     public function xiu_list_all(){
         $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiumodel->where(array('flag'=>1))
-            ->order(array('id' => 'desc'))
+        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.flag'=>1))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->order(array('a.id' => 'desc'))
             ->page($page.",10")
             ->select();
         foreach ($list as $k => $val) {
