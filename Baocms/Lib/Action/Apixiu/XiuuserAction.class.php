@@ -244,4 +244,25 @@ class XiuuserAction extends CommonAction {
         $rs = array('success' => true, 'error_msg' =>'');
         $this->ajaxReturn($rs,'JSON');
     }
+
+    public function xiu_del(){
+        $id = (int)$this->_post('id');
+        if(!$id){
+            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
+            die(json_encode($rs));
+        }
+        $xiu = D('Xiuuser')->where(array('id'=>$id,'closed'=>0))->find();
+        if(!$xiu){
+            $rs = array('success' => false, 'error_msg'=>'个人秀不存在,或已关闭!');
+            die(json_encode($rs));
+        }
+        if($xiu['uid']!=$this->app_uid){
+            $rs = array('success' => false, 'error_msg'=>'不可操作他人秀一秀信息!');
+            die(json_encode($rs));
+        }
+        D('Xiuuser')->where(array('id'=>$id,'uid'=>$this->app_uid))->save(array('closed'=>1));
+
+        $rs = array('success' => true, 'error_msg' =>'');
+        $this->ajaxReturn($rs,'JSON');
+    }
 }
