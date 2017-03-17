@@ -214,5 +214,16 @@ class XiuuserAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'礼物不存在,或已关闭!');
             die(json_encode($rs));
         }
+
+        if($liwu['price'] > $this->member['integral']){
+            $rs = array('success' => false, 'error_msg'=>'秀币余额不足!');
+            die(json_encode($rs));
+        }
+
+
+        //增加秀一秀的礼物数量
+        D('Xiuuser')->where(array('id'=>$xiu_id))->setInc('liwu_count',1);
+        //增加礼物的销量
+        D('Present')->where(array('id'=>$liwu_id))->setInc('count',1);
     }
 }
