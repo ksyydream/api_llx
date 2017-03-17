@@ -136,6 +136,18 @@ class CommonAction extends Action{
         $map = array('a.flag'=>2,'a.closed'=>0);
         if($shop_id){
             $map['a.shop_id']=$shop_id;
+        }else{
+            $shop_ids = array();
+            $scfmodel = D('Scf');
+            $reslut_arr = $scfmodel->alias('a')->field('a.*,b.shop_id')
+                ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
+                ->where(array('a.uid'=>$this->app_uid))
+                ->group('a.shop_id')
+                ->select();
+            foreach($reslut_arr as $value){
+                $shop_ids[]=$value['shop_id'];
+            }
+            $map['a.shop_id']=array('in',implode(',',$shop_ids));
         }
         switch($order){
             case 1:
