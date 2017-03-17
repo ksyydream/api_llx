@@ -80,7 +80,7 @@ class XiushopAction extends XiuuserAction {
     public function xiushop_list_self(){
         $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where(array('a.uid'=>$this->app_uid,'a.flag'=>2))
+        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where(array('a.uid'=>$this->app_uid,'a.flag'=>2,'a.closed'=>0))
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
             ->order(array('a.id' => 'desc'))
             ->page($page.",10")
