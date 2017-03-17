@@ -146,7 +146,7 @@ class CommonAction extends Action{
     }
 
     //专门为 秀一秀 的模块准备
-    function upload2xiu($input_name = 'img_input',$folder = 'face'){
+    /*function upload2xiu($input_name = 'img_input',$folder = 'face'){
         import('ORG.Net.UploadFile');
         $data['face']='';
         $upload = new UploadFile(); //
@@ -175,5 +175,5 @@ class CommonAction extends Action{
             }
         }
         return $data['face'];
-    }
+    }*/
 }

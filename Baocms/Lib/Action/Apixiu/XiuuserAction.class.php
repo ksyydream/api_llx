@@ -4,11 +4,56 @@
  * User: Administrator
  * Date: 2016/12/20
  * Time: 11:03
- * 更改为独立的秀模块
  */
 class XiuAction extends CommonAction {
 
-   /* public function upload(){
+    protected function _initialize(){
+        parent::_initialize();
+        if($this->token == -1){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'用户未登陆!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
+        $this->app_uid = get_token_uid($this->token);
+        if($this->app_uid == 0){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'token错误!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
+        $this->member = D('Users')->find($this->app_uid);
+        if(!$this->member){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'用户不存在!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
+        if($this->member['closed']!=0){
+            if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+                header('HTTP/1.1 401 Unauthorized');
+            $rs = array(
+                'success' => false,
+                'error_msg'=>'用户已被关闭!'
+            );
+            header('status: 401');
+            die(json_encode($rs));
+        }
+    }
+
+    public function upload(){
         $img = $this->upload2xiu('file');
         if($img){
             $rs = array(
@@ -81,34 +126,6 @@ class XiuAction extends CommonAction {
 
     }
 
-    public function xiu_list_all(){
-        $xiumodel = D('Xiuuser');
-        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiumodel->where(array('flag'=>1))
-            ->order(array('id' => 'desc'))
-            ->page($page.",10")
-            ->select();
-        foreach ($list as $k => $val) {
-            $xiuuserf = D('Xiuuserfile');
-            $files=$xiuuserf->where(array('master_id' => $val['id']))
-                ->order(array('id' => 'asc'))
-                ->select();
-            $list[$k]['files']=array();
-            foreach ($files as $a => $v){
-                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
-                    $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
-                }
-            }
-        }
-
-        $rs = array(
-            'success'=>true,
-            'list'=>$list,
-            'error_msg'=>''
-        );
-        $this->ajaxReturn($rs,'JSON');
-    }
-
     public function xiu_list_self(){
         $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
@@ -153,27 +170,6 @@ class XiuAction extends CommonAction {
         $this->ajaxReturn($rs,'JSON');
     }
 
-    public function xiu_like_list(){
-        $id = (int)$this->_post('id');
-        if(!$id){
-            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
-            die(json_encode($rs));
-        }
-        $xiulikemodel = D('Xiuuserlike');
-        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiulikemodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
-            ->join('bao_users b on a.uid = b.user_id','LEFT')
-            ->order(array('a.id' => 'asc'))
-            ->page($page.",20")
-            ->select();
-        $rs = array(
-            'success'=>true,
-            'list'=>$list,
-            'error_msg'=>''
-        );
-        $this->ajaxReturn($rs,'JSON');
-    }
-
     public function xiu_hf(){
         $id = (int)$this->_post('id');
         if(!$id){
@@ -198,38 +194,6 @@ class XiuAction extends CommonAction {
         $this->ajaxReturn($rs,'JSON');
     }
 
-    public function xiu_hf_list(){
-        $id = (int)$this->_post('id');
-        if(!$id){
-            $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
-            die(json_encode($rs));
-        }
-        $xiuhfmodel = D('Xiuuserhf');
-        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiuhfmodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
-            ->join('bao_users b on a.uid = b.user_id','LEFT')
-            ->order(array('a.id' => 'asc'))
-            ->page($page.",20")
-            ->select();
-        $rs = array(
-            'success'=>true,
-            'list'=>$list,
-            'error_msg'=>''
-        );
-        $this->ajaxReturn($rs,'JSON');
-    }
-
-    public function liwu_list(){
-        $presentmodel = D('Present');
-        $list = $presentmodel->where(array('status'=>1))->select();
-        $rs = array(
-            'success' => true,
-            'list'=>$list,
-            'error_msg' => ''
-        );
-        die(json_encode($rs));
-    }
-
     public function buy_liwu(){
         $xiu_id = (int)$this->_post('xiu_id');
         if(!$xiu_id){
@@ -251,5 +215,5 @@ class XiuAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'礼物不存在,或已关闭!');
             die(json_encode($rs));
         }
-    }*/
+    }
 }
