@@ -128,7 +128,7 @@ class XiuuserAction extends CommonAction {
     public function xiu_list_self(){
         $xiumodel = D('Xiuuser');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.uid'=>$this->app_uid,'a.flag'=>1))
+        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.uid'=>$this->app_uid,'a.flag'=>1,'a.closed'=>0))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'desc'))
             ->page($page.",10")
@@ -200,7 +200,7 @@ class XiuuserAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
             die(json_encode($rs));
         }
-        $xiu = D('Xiuuser')->where(array('id'=>$xiu_id,'flag'=>1))->find();
+        $xiu = D('Xiuuser')->where(array('id'=>$xiu_id,'closed'=>0))->find();
         if(!$xiu){
             $rs = array('success' => false, 'error_msg'=>'个人秀不存在,或已关闭!');
             die(json_encode($rs));
@@ -220,14 +220,23 @@ class XiuuserAction extends CommonAction {
             $rs = array('success' => false, 'error_msg'=>'秀币余额不足!');
             die(json_encode($rs));
         }
+        $liwu_data = array(
+            'master_id'=>$xiu_id,
+            'uid'=>$this->app_uid,
+            'liwu_name'=>$liwu['name'],
+            'liwu_price'=>$liwu['price'],
+            'create_time'=>date('Y-m-d H:i:s')
+        );
 
         D('Users')->addIntegral($this->app_uid,0 - $liwu['price'],"购买礼物[{$liwu['name']}],使用秀币");
         if($liwu['price'] < $liwu['get_price']){
             D('Users')->addIntegral($xiu['uid'],$liwu['price'],"收到礼物[{$liwu['name']}],得到秀币");
+            $liwu_data['liwu_get_price']=$liwu['price'];
         }else{
             D('Users')->addIntegral($xiu['uid'],$liwu['get_price'],"收到礼物[{$liwu['name']}],得到秀币");
+            $liwu_data['liwu_get_price']=$liwu['get_price'];
         }
-
+        D('Xiuliwu')->add($liwu_data);
         //增加秀一秀的礼物数量
         D('Xiuuser')->where(array('id'=>$xiu_id))->setInc('liwu_count',1);
         //增加礼物的销量
