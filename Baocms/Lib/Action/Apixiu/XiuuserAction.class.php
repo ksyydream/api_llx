@@ -78,7 +78,6 @@ class XiuuserAction extends CommonAction {
         }
 
         $photos = $this->_post('xiu_files');
-        die(var_dump($photos));
         if($photos){
             if (!is_array($photos)){
                 $rs = array(
