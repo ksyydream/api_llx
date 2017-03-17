@@ -194,7 +194,7 @@ class XiuuserAction extends CommonAction {
         $this->ajaxReturn($rs,'JSON');
     }
 
-    public function buy_liwu(){
+    public function buy2user_liwu(){
         $xiu_id = (int)$this->_post('xiu_id');
         if(!$xiu_id){
             $rs = array('success' => false, 'error_msg'=>'秀一秀编号不能为空!');
