@@ -469,7 +469,7 @@ class WxPayAction extends CommonAction{
             die(json_encode($rs));
         }
 
-        $con_openid = D('Connect')->where(array('uid'=>$this->app_uid))->find();
+        /*$con_openid = D('Connect')->where(array('uid'=>$this->app_uid))->find();
         if(!$con_openid){
              $open=fopen('/var/wx.txt',"a" );
         fwrite($open,var_export(D('Connect')->getLastSql(),true));
@@ -487,7 +487,7 @@ class WxPayAction extends CommonAction{
                 'uid'=>$this->app_uid
                 );
             die(json_encode($rs));
-        }
+        }*/
 
         $rlgold=$user_info['gold'];
         $cash_money = $this->_CONFIG['cash']['user'];
