@@ -5,7 +5,7 @@
  * Date: 2016/12/20
  * Time: 11:03
  */
-class XiuAction extends CommonAction {
+class XiupubilcAction extends CommonAction {
 
     public function xiu_list_all(){
         $xiumodel = D('Xiuuser');

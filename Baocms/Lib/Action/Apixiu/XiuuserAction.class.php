@@ -5,7 +5,7 @@
  * Date: 2016/12/20
  * Time: 11:03
  */
-class XiuAction extends CommonAction {
+class XiuuserAction extends CommonAction {
 
     protected function _initialize(){
         parent::_initialize();
