@@ -296,4 +296,27 @@ class XiuuserAction extends CommonAction {
         );
         die(json_encode($rs));
     }
+
+    public function get_move_jpg(){
+        if (extension_loaded('ffmpeg')) {//判断ffmpeg是否载入
+
+
+                //$file = substr($file1,1);
+                $mov = new ffmpeg_movie('http:\/\/be.51loveshow.com\/attachs\/xiu\/2017\/03\/16\/58ca3a8183e85.MP4'); //视频的路径
+                $ff_frame = $mov->getFrame(20); //截取视频第2帧的图像
+                $gd_image = $ff_frame->toGDImage();
+                //return Yii::app()->params['front'] . "$file";
+                //截取地址
+
+                //图片保存路径
+                $img = BASE_PATH.'/attachs/yy123.jpg'; //要生成图片的绝对路径
+                imagejpeg($gd_image,$img); //创建jpg图像
+                imagedestroy($gd_image); //销毁一图像
+
+                // return $img;
+            return 'true';
+        }else{
+            return 'false';
+        }
+    }
 }
