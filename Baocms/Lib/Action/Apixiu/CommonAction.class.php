@@ -128,6 +128,11 @@ class CommonAction extends Action{
             }else{
                 $list[$k]['liked']=-1;
             }
+            if($val['uid']==$this->app_uid){
+                $list[$k]['self']=1;
+            }else{
+                $list[$k]['self']=-1;
+            }
         }
 
         $rs = array(
@@ -198,6 +203,11 @@ class CommonAction extends Action{
                 $list[$k]['liked']=1;
             }else{
                 $list[$k]['liked']=-1;
+            }
+            if($val['uid']==$this->app_uid){
+                $list[$k]['self']=1;
+            }else{
+                $list[$k]['self']=-1;
             }
         }
 
