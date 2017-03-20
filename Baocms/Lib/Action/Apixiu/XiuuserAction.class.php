@@ -267,4 +267,33 @@ class XiuuserAction extends CommonAction {
         $rs = array('success' => true, 'error_msg' =>'');
         $this->ajaxReturn($rs,'JSON');
     }
+
+    public function get_xf_list(){
+        $Goodsdianping = D('Goodsdianping');
+        $map = array('closed' => 0, 'user_id' => $this->app_uid);
+        $page = $this->_post('page', 'htmlspecialchars')?$this->_post('page', 'htmlspecialchars'):1;
+        $list = $Goodsdianping->field('*,FROM_UNIXTIME(create_time) AS cdate')->where($map)->order(array('create_time' => 'desc'))->page($page.',10')->select();
+        foreach ($list as $k => $val) {
+            $user_ids[$val['user_id']] = $val['user_id'];
+            $users= D('Users')->itemsByIds($user_ids);
+            $list[$k]['username']=$users[$val['user_id']]['nickname'];
+            $list[$k]['rank_id']=$users[$val['user_id']]['rank_id'];
+            $list[$k]['face']=$users[$val['user_id']]['face'];
+            $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
+            $list[$k]['pic']=array();
+            foreach ($pic as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['pic'])){
+                    //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+                    $list[$k]['pic'][]=$v['pic'];
+                }
+            }
+        }
+
+        $rs = array(
+            'success' => true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
+    }
 }
