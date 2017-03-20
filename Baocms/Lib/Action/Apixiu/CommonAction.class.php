@@ -120,6 +120,14 @@ class CommonAction extends Action{
                     $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
                 }
             }
+            $xiulike = D('Xiuuserlike');
+            $map2 = array('master_id'=>$val['id'],'uid'=>$this->app_uid);
+            $row = $xiulike->where($map2)->find();
+            if($row){
+                $list[$k]['liked']=1;
+            }else{
+                $list[$k]['liked']=-1;
+            }
         }
 
         $rs = array(
@@ -137,7 +145,7 @@ class CommonAction extends Action{
         if($shop_id){
             $map['a.shop_id']=$shop_id;
         }else{
-            $shop_ids = array();
+            /*$shop_ids = array();
             $scfmodel = D('Scf');
             $reslut_arr = $scfmodel->alias('a')->field('a.*,b.shop_id')
                 ->join('bao_shop_fd b on a.fd_id = b.fd_id','LEFT')
@@ -148,7 +156,7 @@ class CommonAction extends Action{
             foreach($reslut_arr as $value){
                 $shop_ids[]=$value['shop_id'];
             }
-            $map['a.shop_id']=array('in',implode(',',$shop_ids));
+            $map['a.shop_id']=array('in',implode(',',$shop_ids));*/
         }
         switch($order){
             case 1:
@@ -182,6 +190,14 @@ class CommonAction extends Action{
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
                     $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
                 }
+            }
+            $xiulike = D('Xiuuserlike');
+            $map2 = array('master_id'=>$val['id'],'uid'=>$this->app_uid);
+            $row = $xiulike->where($map2)->find();
+            if($row){
+                $list[$k]['liked']=1;
+            }else{
+                $list[$k]['liked']=-1;
             }
         }
 
