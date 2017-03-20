@@ -314,9 +314,11 @@ class XiuuserAction extends CommonAction {
                 imagedestroy($gd_image); //销毁一图像
 
                 // return $img;
-            return 'true';
+            $rs = array('success' => true, 'error_msg' =>'');
         }else{
-            return 'false';
+            $rs = array('success' => false, 'error_msg' =>'');
         }
+
+        $this->ajaxReturn($rs,'JSON');
     }
 }
