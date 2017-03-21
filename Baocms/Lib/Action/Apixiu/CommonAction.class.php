@@ -117,7 +117,7 @@ class CommonAction extends Action{
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
-                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'path_logo'=>$this->url_path.$v['path_logo'],'flag'=>$v['flag']);
                 }
             }
             $xiulike = D('Xiuuserlike');
@@ -193,7 +193,7 @@ class CommonAction extends Action{
             $list[$k]['files']=array();
             foreach ($files as $a => $v){
                 if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
-                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'flag'=>$v['flag']);
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'path_logo'=>$this->url_path.$v['path_logo'],'flag'=>$v['flag']);
                 }
             }
             $xiulike = D('Xiuuserlike');
