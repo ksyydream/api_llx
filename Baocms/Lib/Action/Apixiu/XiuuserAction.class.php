@@ -117,7 +117,7 @@ class XiuuserAction extends CommonAction {
                         $sp_logo = str_replace('.'.$f_extension_old,'',$file);
                         $sp_logo = $sp_logo."_logo.jpg";
                         $sp_path_logo = BASE_PATH.'/attachs/'.$sp_logo;
-                        @exec("/alidata/ffmpeg -ss 00:00:00 -i {$sp_path} -f mjpeg -y {$sp_path_logo}");
+                        @exec("ffmpeg -ss 00:00:00 -i {$sp_path} -f mjpeg -y {$sp_path_logo}");
                         if(file_exists(BASE_PATH.'/attachs/'.$sp_logo)){
                             $path_data['path_logo']=$sp_logo;
                         }else{
