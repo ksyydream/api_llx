@@ -76,7 +76,7 @@ class XiupublicAction extends CommonAction {
         }
         $xiulikemodel = D('Xiuuserlike');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiulikemodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
+        $list = $xiulikemodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
             ->page($page.",20")
@@ -97,7 +97,7 @@ class XiupublicAction extends CommonAction {
         }
         $xiuhfmodel = D('Xiuuserhf');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiuhfmodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
+        $list = $xiuhfmodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
             ->page($page.",20")
@@ -118,7 +118,7 @@ class XiupublicAction extends CommonAction {
         }
         $xiuliwumodel = D('Xiuliwu');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $list = $xiuliwumodel->alias('a')->field('a.*,b.nickname,b.face')->where(array('a.master_id'=>$id))
+        $list = $xiuliwumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
             ->page($page.",20")
