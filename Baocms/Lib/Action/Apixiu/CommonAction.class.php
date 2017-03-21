@@ -104,7 +104,7 @@ class CommonAction extends Action{
                 $order_arr = array('a.id' => 'desc');
                 break;
         }
-        $list = $xiumodel->alias('a')->field('a.*,b.nickname,b.face')->where($map)
+        $list = $xiumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where($map)
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order($order_arr)
             ->page($page.",10")
@@ -180,7 +180,7 @@ class CommonAction extends Action{
                 $order_arr = array('a.id' => 'desc');
                 break;
         }
-        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where($map)
+        $list = $xiumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.shop_name,b.logo')->where($map)
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
             ->order($order_arr)
             ->page($page.",10")

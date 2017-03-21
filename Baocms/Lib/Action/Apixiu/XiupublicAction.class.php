@@ -185,30 +185,6 @@ class XiupublicAction extends CommonAction {
     }
 
     public function xiushop_list4one(){
-        /*$xiumodel = D('Xiuuser');
-        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
-        $shop_id = (int)$this->_post('shop_id');
-        if(!$shop_id){
-            $rs = array('success' => false, 'error_msg'=>'商户编号不能为空!');
-            die(json_encode($rs));
-        }
-        $list = $xiumodel->alias('a')->field('a.*,b.shop_name,b.logo')->where(array('a.shop_id'=>$shop_id,'a.flag'=>2,'a.closed'=>0))
-            ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
-            ->order(array('a.id' => 'desc'))
-            ->page($page.",10")
-            ->select();
-        foreach ($list as $k => $val) {
-            $xiuuserf = D('Xiuuserfile');
-            $files=$xiuuserf->where(array('master_id' => $val['id']))
-                ->order(array('id' => 'asc'))
-                ->select();
-            $list[$k]['files']=array();
-            foreach ($files as $a => $v){
-                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
-                    $list[$k]['files'][]=array('path'=>$v['path'],'flag'=>$v['flag']);
-                }
-            }
-        }*/
         $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
         $shop_id = (int)$this->_post('shop_id');
         if(!$shop_id){
@@ -225,6 +201,7 @@ class XiupublicAction extends CommonAction {
     }
 
     public function bendi(){
+        echo rand(1,2);
 /*echo '123';
         //echo shell_exec("id -a");
         @exec("/Users/yangyang/ffmpeg -ss 00:00:00 -i /Users/yangyang/1.MP4 -f mjpeg -y /Users/yangyang/ajk_xiaoqu/yy2.jpg",$r);
