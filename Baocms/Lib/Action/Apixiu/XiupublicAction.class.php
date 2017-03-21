@@ -224,4 +224,13 @@ class XiupublicAction extends CommonAction {
         $this->ajaxReturn($rs,'JSON');
     }
 
+    public function bendi(){
+/*echo '123';
+        //echo shell_exec("id -a");
+        @exec("/Users/yangyang/ffmpeg -ss 00:00:00 -i /Users/yangyang/1.MP4 -f mjpeg -y /Users/yangyang/ajk_xiaoqu/yy2.jpg",$r);
+        var_dump($r);
+        @system("ffmpeg -ss 00:00:00 -i /Users/yangyang/1.MP4 -f mjpeg -y /Users/yangyang/ajk_xiaoqu/yy3.jpg");
+        @shell_exec("ffmpeg -ss 00:00:00 -i /Users/yangyang/1.MP4 -f mjpeg -y /Users/yangyang/ajk_xiaoqu/yy4.jpg");
+        echo 'yy';*/
+    }
 }
