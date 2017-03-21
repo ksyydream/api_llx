@@ -102,7 +102,7 @@ class XiuuserAction extends CommonAction {
 
         if($photos){
             foreach($photos as $file){
-                if(file_exists(BASE_PATH.'/attachs/'.$file)){
+                if(file_exists(BASE_PATH.'/attachs/'.$file) and $file){
                     $path_data = array(
                         'master_id'=>$master_id,
                         'path'=>$file
@@ -115,13 +115,13 @@ class XiuuserAction extends CommonAction {
                         $path_data['flag']=2;
                         $sp_path = BASE_PATH.'/attachs/'.$file;
                         $sp_logo = str_replace('.'.$f_extension_old,'',$file);
-                        $sp_logo = $sp_logo."_logo.jpg";
+                        $sp_logo = $sp_logo."_logo".date('YmdHis').".jpg";
                         $sp_path_logo = BASE_PATH.'/attachs/'.$sp_logo;
                         @exec("ffmpeg -ss 00:00:00 -i {$sp_path} -f mjpeg -y {$sp_path_logo}");
                         if(file_exists(BASE_PATH.'/attachs/'.$sp_logo)){
                             $path_data['path_logo']=$sp_logo;
                         }else{
-
+                            $path_data['path_logo']='xiaoxiong.jpg';
                         }
                     }else{
                         $path_data['flag']=1;
@@ -307,30 +307,5 @@ class XiuuserAction extends CommonAction {
             'error_msg'=>''
         );
         die(json_encode($rs));
-    }
-
-    public function get_move_jpg(){
-        if (extension_loaded('ffmpeg')) {//判断ffmpeg是否载入
-
-
-                //$file = substr($file1,1);
-                $mov = new ffmpeg_movie('http:\/\/be.51loveshow.com\/attachs\/xiu\/2017\/03\/16\/58ca3a8183e85.MP4'); //视频的路径
-                $ff_frame = $mov->getFrame(20); //截取视频第2帧的图像
-                $gd_image = $ff_frame->toGDImage();
-                //return Yii::app()->params['front'] . "$file";
-                //截取地址
-
-                //图片保存路径
-                $img = BASE_PATH.'/attachs/yy123.jpg'; //要生成图片的绝对路径
-                imagejpeg($gd_image,$img); //创建jpg图像
-                imagedestroy($gd_image); //销毁一图像
-
-                // return $img;
-            $rs = array('success' => true, 'error_msg' =>'');
-        }else{
-            $rs = array('success' => false, 'error_msg' =>'');
-        }
-
-        $this->ajaxReturn($rs,'JSON');
     }
 }
