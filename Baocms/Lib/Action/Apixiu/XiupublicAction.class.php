@@ -81,7 +81,7 @@ class XiupublicAction extends CommonAction {
         $count_liwu = D('Xiuliwu')->alias('a')->field('a.*,b.face')->where(array('a.master_id'=>$id))->join('bao_users b on a.uid = b.user_id','LEFT')->count();
         $list = $xiulikemodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
-            ->order(array('a.id' => 'asc'))
+            ->order(array('a.id' => 'desc'))
             ->page($page.",20")
             ->select();
         $rs = array(
@@ -108,7 +108,7 @@ class XiupublicAction extends CommonAction {
         $count_liwu = D('Xiuliwu')->alias('a')->field('a.*,b.face')->where(array('a.master_id'=>$id))->join('bao_users b on a.uid = b.user_id','LEFT')->count();
         $list = $xiuhfmodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
-            ->order(array('a.id' => 'asc'))
+            ->order(array('a.id' => 'desc'))
             ->page($page.",20")
             ->select();
         $rs = array(
@@ -135,7 +135,7 @@ class XiupublicAction extends CommonAction {
         $count_liwu = D('Xiuliwu')->alias('a')->field('a.*,b.face')->where(array('a.master_id'=>$id))->join('bao_users b on a.uid = b.user_id','LEFT')->count();
         $list = $xiuliwumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
-            ->order(array('a.id' => 'asc'))
+            ->order(array('a.id' => 'desc'))
             ->page($page.",20")
             ->select();
         $rs = array(
