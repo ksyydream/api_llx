@@ -76,6 +76,9 @@ class XiupublicAction extends CommonAction {
         }
         $xiulikemodel = D('Xiuuserlike');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $count = $xiulikemodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->count();
         $list = $xiulikemodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
@@ -84,6 +87,7 @@ class XiupublicAction extends CommonAction {
         $rs = array(
             'success'=>true,
             'list'=>$list,
+            'count'=>$count,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
@@ -97,6 +101,9 @@ class XiupublicAction extends CommonAction {
         }
         $xiuhfmodel = D('Xiuuserhf');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $count = $xiuhfmodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->count();
         $list = $xiuhfmodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
@@ -105,6 +112,7 @@ class XiupublicAction extends CommonAction {
         $rs = array(
             'success'=>true,
             'list'=>$list,
+            'count'=>$count,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
@@ -118,6 +126,9 @@ class XiupublicAction extends CommonAction {
         }
         $xiuliwumodel = D('Xiuliwu');
         $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $count = $xiuliwumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
+            ->join('bao_users b on a.uid = b.user_id','LEFT')
+            ->count();
         $list = $xiuliwumodel->alias('a')->field('a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.nickname,b.face')->where(array('a.master_id'=>$id))
             ->join('bao_users b on a.uid = b.user_id','LEFT')
             ->order(array('a.id' => 'asc'))
@@ -126,6 +137,7 @@ class XiupublicAction extends CommonAction {
         $rs = array(
             'success'=>true,
             'list'=>$list,
+            'count'=>$count,
             'error_msg'=>''
         );
         $this->ajaxReturn($rs,'JSON');
