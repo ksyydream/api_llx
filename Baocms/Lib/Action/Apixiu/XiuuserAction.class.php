@@ -291,6 +291,8 @@ class XiuuserAction extends CommonAction {
             $list[$k]['username']=$users[$val['user_id']]['nickname'];
             $list[$k]['rank_id']=$users[$val['user_id']]['rank_id'];
             $list[$k]['face']=$users[$val['user_id']]['face'];
+            $shop_info =D('Shop')->find(array("where" => array('shop_id' => $val['shop_id'])));
+            $list[$k]['shop_name']=$shop_info['shop_name'];
             $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
             $list[$k]['pic']=array();
             foreach ($pic as $a => $v){
