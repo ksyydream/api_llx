@@ -269,7 +269,7 @@ class OrderinfoAction extends CommonAction{
                 D( "Users" )->prestige( $this->app_uid, "dianping" );
 
 
-
+                D('Users')->addIntegral($this->app_uid,1000,'消费点评赠送1000秀币,订单号:'.$order_id);
                 $rs = array(
                     'success' => true,
                     'error_msg'=>'评价成功'
