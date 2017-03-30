@@ -498,10 +498,10 @@ class WxPayAction extends CommonAction{
             $rs = array('success' => false, 'error_msg'=>'提现金额不合法!');
             die(json_encode($rs));
         }
-        /*if ($amount < $cash_money * 100) {
+        if ($amount < $cash_money * 100) {
             $rs = array('success' => false, 'error_msg'=>'提现金额小于最低提现额度!');
             die(json_encode($rs));
-        }*/
+        }
         if ($amount > $rlgold || $rlgold == 0) {
             $rs = array('success' => false, 'error_msg'=>'资金不足，无法提现!');
             die(json_encode($rs));
