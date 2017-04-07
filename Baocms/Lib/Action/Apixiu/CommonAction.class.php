@@ -258,21 +258,15 @@ class CommonAction extends Action{
                 $order_arr = array('a.id' => 'desc');
                 break;
         }
-        $list = $xiumodel->alias('a')->field("
-        a.*,
-        UNIX_TIMESTAMP(a.create_time) linux_time,
-        b.shop_name,
-        c.fd_name, 
-        c.fd_id,
-        b.logo,
-        ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli")->where($map)
+        $list = $xiumodel->alias('a')->field("a.*,UNIX_TIMESTAMP(a.create_time) linux_time,b.shop_name,c.fd_name,c.fd_id,b.logo,ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli")
+            ->where($map)
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
             ->join('bao_shop_fd c on a.shop_id = c.shop_id','LEFT')
             ->where("c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>'' and DATE_FORMAT(FROM_UNIXTIME(a.create_time),'%Y-%m-%d') > '{$show_date}'")
             ->order($order_arr)
             ->page($page.",10")
             ->select();
-        die(var_dump($xiumodel->getLastSql()));
+        //die(var_dump($xiumodel->getLastSql()));
         foreach ($list as $k => $val) {
             $xiuuserf = D('Xiuuserfile');
             $files=$xiuuserf->where(array('master_id' => $val['id']))
