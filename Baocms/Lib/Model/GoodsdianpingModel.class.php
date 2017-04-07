@@ -29,9 +29,7 @@ class GoodsdianpingModel extends CommonModel{
 
     //新增函数,获取附近的消费点评,需要好评
     public function get_xf_list($page,$lat,$lng){
-        $map = array(
-            'DATE_FORMAT(cdate, \'%Y-%m-%d\')'=>array('GT',date('Y-m-d', strtotime('-15 days')))
-        );
+        $show_date = date('Y-m-d', strtotime('-30 days'));
         $list = $this->field("
 a.create_time,
 a.contents,
@@ -44,8 +42,7 @@ ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli
 ")
             ->alias('a')
             ->join('bao_shop_fd c on c.shop_id = a.shop_id','INNER')
-            ->where("a.closed=0 and c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>''")
-            ->where($map)
+            ->where("a.closed=0 and c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>'' and DATE_FORMAT(FROM_UNIXTIME(a.create_time),'%Y-%m-%d') > '{$show_date}'")
             ->group('a.order_id')
             ->order('juli asc')
             ->page("{$page},10")
