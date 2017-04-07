@@ -32,6 +32,7 @@ class GoodsdianpingModel extends CommonModel{
         $show_date = date('Y-m-d', strtotime('-30 days'));
         $list = $this->field("
 a.create_time,
+a.score,
 a.contents,
 a.user_id,
 a.shop_id,
