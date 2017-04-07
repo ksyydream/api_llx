@@ -218,4 +218,91 @@ class CommonAction extends Action{
         );
         $this->ajaxReturn($rs,'JSON');
     }
+
+    protected function get_xiushop_list_new($order=1,$shop_id=null){
+        $lng = (float)$this->_post('lng');
+        $lat = (float)$this->_post('lat');
+        if(!$lng || !$lat){
+            $lat = 31.2383718228;
+            $lng = 121.3301816158;
+        }
+        $lat_lng = gcjTObd($lat,$lng);
+        $lat = $lat_lng['lat'];
+        $lng = $lat_lng['lng'];
+        $show_date = date('Y-m-d', strtotime('-30 days'));
+        $xiumodel = D('Xiuuser');
+        $page = trim($this->_param('page')) ? trim($this->_param('page')) : 1;
+        $map = array('a.flag'=>2,'a.closed'=>0);
+        if($shop_id){
+            $map['a.shop_id']=$shop_id;
+        }else{
+
+        }
+        switch($order){
+            case 1:
+                $order_arr = array('a.id' => 'desc');
+                break;
+            case 2:
+                $order_arr = array('a.zan_count' => 'desc');
+                break;
+            case 3:
+                $order_arr = array('a.hf_count' => 'desc');
+                break;
+            case 4:
+                $order_arr = array('a.liwu_count' => 'desc');
+                break;
+            case 5:
+                $order_arr = array('juli' => 'asc');
+                break;
+            default:
+                $order_arr = array('a.id' => 'desc');
+                break;
+        }
+        $list = $xiumodel->alias('a')->field("
+        a.*,
+        UNIX_TIMESTAMP(a.create_time) linux_time,
+        b.shop_name,
+        c.fd_name, 
+        c.fd_id,
+        b.logo,
+        ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli")->where($map)
+            ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
+            ->join('bao_shop_fd c on a.shop_id = c.shop_id','LEFT')
+            ->where("c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>'' and DATE_FORMAT(FROM_UNIXTIME(a.create_time),'%Y-%m-%d') > '{$show_date}'")
+            ->order($order_arr)
+            ->page($page.",10")
+            ->select();
+        foreach ($list as $k => $val) {
+            $xiuuserf = D('Xiuuserfile');
+            $files=$xiuuserf->where(array('master_id' => $val['id']))
+                ->order(array('id' => 'asc'))
+                ->select();
+            $list[$k]['files']=array();
+            foreach ($files as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['path'])){
+                    $list[$k]['files'][]=array('path'=>$this->url_path.$v['path'],'path_logo'=>$this->url_path.$v['path_logo'],'flag'=>$v['flag']);
+                }
+            }
+            $xiulike = D('Xiuuserlike');
+            $map2 = array('master_id'=>$val['id'],'uid'=>$this->app_uid);
+            $row = $xiulike->where($map2)->find();
+            if($row){
+                $list[$k]['liked']=1;
+            }else{
+                $list[$k]['liked']=-1;
+            }
+            if($val['uid']==$this->app_uid){
+                $list[$k]['self']=1;
+            }else{
+                $list[$k]['self']=-1;
+            }
+        }
+
+        $rs = array(
+            'success'=>true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        $this->ajaxReturn($rs,'JSON');
+    }
 }
