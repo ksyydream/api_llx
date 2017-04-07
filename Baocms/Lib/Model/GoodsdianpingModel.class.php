@@ -50,6 +50,7 @@ ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli
             ->order('juli asc')
             ->page("{$page},10")
             ->select();
+        return $this->getLastSql();
         return $list;
     }
 }
