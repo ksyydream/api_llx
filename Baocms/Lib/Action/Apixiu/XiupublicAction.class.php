@@ -39,7 +39,7 @@ class XiupublicAction extends CommonAction {
 
     public function xiushop_list_all(){
         $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
-        $list = $this->get_xiushop_list_new($order);
+        $list = $this->get_xiushop_list($order);
         $rs = array(
             'success'=>true,
             'list'=>$list,
