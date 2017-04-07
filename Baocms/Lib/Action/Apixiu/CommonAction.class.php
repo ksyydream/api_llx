@@ -272,6 +272,7 @@ class CommonAction extends Action{
             ->order($order_arr)
             ->page($page.",10")
             ->select();
+        die(var_dump($xiumodel->getLastSql()));
         foreach ($list as $k => $val) {
             $xiuuserf = D('Xiuuserfile');
             $files=$xiuuserf->where(array('master_id' => $val['id']))
