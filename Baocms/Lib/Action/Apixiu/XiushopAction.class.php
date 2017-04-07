@@ -107,7 +107,7 @@ class XiushopAction extends XiuuserAction {
             }
         }*/
         $order = trim($this->_post('order')) ? trim($this->_post('order')) : 1;
-        $list = $this->get_xiu_list($order,$this->shop_id);
+        $list = $this->get_xiushop_list_new($order,$this->shop_id);
         $rs = array(
             'success'=>true,
             'list'=>$list,

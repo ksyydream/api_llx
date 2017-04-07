@@ -262,7 +262,7 @@ class CommonAction extends Action{
             ->where($map)
             ->join('bao_shop b on a.shop_id = b.shop_id','LEFT')
             ->join('bao_shop_fd c on a.shop_id = c.shop_id','LEFT')
-            ->where("c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>'' and DATE_FORMAT(FROM_UNIXTIME(a.create_time),'%Y-%m-%d') > '{$show_date}'")
+            ->where("c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>'' and DATE_FORMAT(a.create_time,'%Y-%m-%d') > '{$show_date}'")
             ->order($order_arr)
             ->page($page.",10")
             ->select();
