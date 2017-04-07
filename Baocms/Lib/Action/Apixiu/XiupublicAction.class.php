@@ -228,4 +228,45 @@ class XiupublicAction extends CommonAction {
         @shell_exec("ffmpeg -ss 00:00:00 -i /Users/yangyang/1.MP4 -f mjpeg -y /Users/yangyang/ajk_xiaoqu/yy4.jpg");
         echo 'yy';*/
     }
+
+    public function get_xf_list_new(){
+        $Goodsdianping = D('Goodsdianping');
+        $lng = (float)$this->_post('lng');
+        $lat = (float)$this->_post('lat');
+        $page = $this->_post('page', 'htmlspecialchars')?$this->_post('page', 'htmlspecialchars'):1;
+        if(!$lng || !$lat){
+            $lat = 31.2383718228;
+            $lng = 121.3301816158;
+        }
+        $lat_lng = gcjTObd($lat,$lng);
+        $lat = $lat_lng['lat'];
+        $lng = $lat_lng['lng'];
+        $list = $Goodsdianping->get_xf_list($page,$lat,$lng);
+        /*$map = array('closed' => 0, 'user_id' => $this->app_uid);
+        $list = $Goodsdianping->field('*,FROM_UNIXTIME(create_time) AS cdate')->where($map)->order(array('create_time' => 'desc'))->page($page.',10')->select();*/
+        foreach ($list as $k => $val) {
+            $user_ids[$val['user_id']] = $val['user_id'];
+            $users= D('Users')->itemsByIds($user_ids);
+            $list[$k]['username']=$users[$val['user_id']]['nickname'];
+            $list[$k]['rank_id']=$users[$val['user_id']]['rank_id'];
+            $list[$k]['face']=$users[$val['user_id']]['face'];
+            $shop_info =D('Shop')->find(array("where" => array('shop_id' => $val['shop_id'])));
+            $list[$k]['shop_name']=$shop_info['shop_name'];
+            $pic=D('Goodsdianpingpics')->where(array('order_id' => $val['order_id']))->select();
+            $list[$k]['pic']=array();
+            foreach ($pic as $a => $v){
+                if(file_exists(BASE_PATH.'/attachs/'.$v['pic'])){
+                    //$img_list[]=array('path'=>'statics/images/carousel1.jpg');
+                    $list[$k]['pic'][]=$v['pic'];
+                }
+            }
+        }
+
+        $rs = array(
+            'success' => true,
+            'list'=>$list,
+            'error_msg'=>''
+        );
+        die(json_encode($rs));
+    }
 }

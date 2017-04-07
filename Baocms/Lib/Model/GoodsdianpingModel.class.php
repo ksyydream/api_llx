@@ -26,5 +26,30 @@ class GoodsdianpingModel extends CommonModel{
         }
         return $items;
     }
-    
+
+    //新增函数,获取附近的消费点评,需要好评
+    public function get_xf_list($page,$lat,$lng){
+        $map = array(
+            'a.cdate'=>array('GT',date('Y-m-d', strtotime('-15 days')))
+        );
+        $list = $this->field("
+a.create_time,
+a.contents,
+a.user_id,
+a.shop_id,
+c.fd_name,
+c.fd_id,
+FROM_UNIXTIME(a.create_time) AS cdate,
+ROUND(lat_lng_distance('{$lat}', '{$lng}', c.lat, c.lng), 2) AS juli
+")
+            ->alias('a')
+            ->join('bao_shop_fd c on c.shop_id = a.shop_id','INNER')
+            ->where("a.closed=0 and c.lat is not null and c.lng is not null AND c.lat <>'' and c.lng <>''")
+            ->where($map)
+            ->group('a.order_id')
+            ->order('juli asc')
+            ->page("{$page},10")
+            ->select();
+        return $list;
+    }
 }
