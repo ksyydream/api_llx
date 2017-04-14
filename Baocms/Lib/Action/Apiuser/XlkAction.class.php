@@ -101,7 +101,7 @@ class XlkAction extends CommonAction {
             }
         }
         D('Users')->where(array('user_id'=>$this->app_uid))->save(array('zp'=>json_encode($zp)));
-
+        D('Xlkmaster')->add_used($xlk_matser['id']);
         //D('Xlktimes')->delete_times($this->app_uid);
         $rs = array('success'=>true, 'error_msg'=>'');
         $this->ajaxReturn($rs,'JSON');

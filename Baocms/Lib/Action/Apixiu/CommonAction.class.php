@@ -300,4 +300,32 @@ class CommonAction extends Action{
         );
         $this->ajaxReturn($rs,'JSON');
     }
+
+    public function get_xlh($length=24){
+        $time = time();
+        $id_len = strlen((string)$time);
+
+        $str = null;
+        $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        $max = strlen($strPol)-1;
+        for($i=0;$i<5;$i++){
+            $str.=$strPol[rand(0,$max)];//rand($min,$max)生成介于min和max两个数之间的一个随机整数
+        }
+        $str .= $time;
+        for($i=0;$i<$length-$id_len-5;$i++){
+            $str.=$strPol[rand(0,$max)];//rand($min,$max)生成介于min和max两个数之间的一个随机整数
+        }
+        $check = D("xiudetail")->where(array('xlh'=>$str))->find();
+        if(!$check){
+            return $str;
+        }else{
+            return $this->get_xlh();
+        }
+
+    }
+
+    public function get_xlk(){
+        //echo $this->get_xlh();
+    }
+
 }
